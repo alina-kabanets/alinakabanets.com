@@ -1,17 +1,32 @@
+import Image from "next/image";
 import { profile } from "@/content/profile";
+import portrait from "@/public/images/portrait.jpg";
 import { Container } from "./container";
 
 const button =
   "inline-flex h-11 items-center rounded-full border border-ink px-5 text-sm transition-colors hover:bg-ink hover:text-paper";
 
+// Follows the Liam Bennett reference: oversized name, a small portrait that
+// starts at the middle column and sits on the rule, text below the rule.
 export function Hero() {
   return (
-    <Container className="pt-10 md:pt-16">
-      <h1 className="text-[clamp(3.25rem,12.5vw,11.5rem)] leading-[0.88] font-medium tracking-[-0.05em]">
+    <Container className="pt-10 md:pt-14">
+      <h1 className="font-display text-[clamp(3.25rem,12.5vw,11.5rem)] leading-[0.88] tracking-[-0.05em]">
         {profile.name}
       </h1>
 
-      <div className="mt-16 grid grid-cols-12 gap-x-5 gap-y-8 md:mt-28">
+      <div className="mt-10 grid grid-cols-12 gap-x-5 md:mt-8">
+        <Image
+          src={portrait}
+          alt={`${profile.name}, a black-and-white self-portrait with motion blur`}
+          placeholder="blur"
+          priority
+          sizes="(min-width: 768px) 200px, 45vw"
+          className="col-span-6 col-start-7 w-full max-w-[200px] md:col-span-3 md:col-start-7"
+        />
+      </div>
+
+      <div className="grid grid-cols-12 gap-x-5 gap-y-8 border-t border-line pt-4 md:pt-5">
         <p className="col-span-12 text-sm md:col-span-6">
           {profile.role}
           <br />
@@ -19,11 +34,11 @@ export function Hero() {
         </p>
 
         <div className="col-span-12 md:col-span-6">
-          <p className="text-2xl leading-[1.15] tracking-[-0.02em] text-balance md:text-[2.5rem]">
+          <p className="text-2xl leading-[1.15] tracking-[-0.02em] text-balance md:text-[2.25rem]">
             {profile.tagline}
           </p>
 
-          <p className="mt-8 flex gap-2.5 text-sm">
+          <p className="mt-6 flex gap-2.5 text-sm">
             <span aria-hidden className="mt-[0.45em] size-2 shrink-0 rounded-full bg-ink" />
             <span>
               {profile.openTo} · {profile.location}, {profile.workMode}
@@ -32,7 +47,7 @@ export function Hero() {
             </span>
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             <a href="#work" className={`${button} bg-ink text-paper hover:bg-transparent hover:text-ink`}>
               See work
             </a>

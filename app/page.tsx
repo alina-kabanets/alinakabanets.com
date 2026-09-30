@@ -8,7 +8,6 @@ import { WorkBrowser } from "@/components/work-browser";
 import { about, photographs, principles, profile } from "@/content/profile";
 import { projects } from "@/content/projects";
 import { siteUrl } from "@/lib/site";
-import portrait from "@/public/images/portrait.jpg";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -62,33 +61,22 @@ export default function Home() {
       </Section>
 
       <Section id="about" label="About">
-        <Image
-          src={portrait}
-          alt={`${profile.name}, a black-and-white portrait with motion blur`}
-          placeholder="blur"
-          sizes="(min-width: 768px) 280px, 60vw"
-          className="w-3/5 max-w-[280px]"
-        />
-        <div className="mt-10 max-w-[38rem] space-y-5 text-base leading-relaxed md:text-lg">
+        <figure>
+          <ul className="grid grid-cols-5 gap-2">
+            {photographs.map((photo) => (
+              <li key={photo.src} className="relative aspect-square bg-tint">
+                <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 768px) 10vw, 20vw" className="object-cover" />
+              </li>
+            ))}
+          </ul>
+          <figcaption className="mt-3 text-sm text-muted">Self-portraits</figcaption>
+        </figure>
+
+        <div className="mt-12 max-w-[38rem] space-y-5 text-base leading-relaxed md:text-lg">
           {about.map((paragraph) => (
             <p key={paragraph.slice(0, 24)}>{paragraph}</p>
           ))}
         </div>
-
-        <figure className="mt-16">
-          <ul className="grid grid-cols-3 gap-2 md:gap-3">
-            {(photographs.length ? photographs : Array.from({ length: 6 }, () => null)).map((photo, index) => (
-              <li key={photo?.src ?? index} className="relative aspect-[4/5] bg-tint">
-                {photo && (
-                  <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 768px) 16vw, 33vw" className="object-cover" />
-                )}
-              </li>
-            ))}
-          </ul>
-          <figcaption className="mt-3 text-sm text-muted">
-            Photographs, 2014–2022{photographs.length ? "" : " — selection coming soon"}
-          </figcaption>
-        </figure>
       </Section>
 
       <Section id="contact" label="Contact">

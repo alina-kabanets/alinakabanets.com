@@ -3,7 +3,7 @@ import { profile } from "@/content/profile";
 
 export const ogSize = { width: 1200, height: 630 };
 
-// Shared link-preview card in the site's style: paper background, one
+// Shared link-preview card in the site's style: warm paper background, one
 // typeface, a thin rule and a small label row.
 export function renderOgImage({ eyebrow, title }: { eyebrow: string; title: string }) {
   return new ImageResponse(

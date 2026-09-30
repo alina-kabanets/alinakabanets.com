@@ -48,7 +48,7 @@ export default async function CaseStudy({ params }: PageProps<"/work/[slug]">) {
           {project.title}
         </h1>
 
-        <div className="mt-12 md:mt-20">
+        <div className={`mt-12 md:mt-20 ${project.demo || project.showcase ? "mx-auto max-w-[1100px]" : ""}`}>
           <ProjectCover project={project} priority />
         </div>
 
@@ -66,6 +66,23 @@ export default async function CaseStudy({ params }: PageProps<"/work/[slug]">) {
                 <dd className="mt-1">{detail}</dd>
               </div>
             ))}
+            {project.link && (
+              <div>
+                <dt className="text-muted">Live</dt>
+                <dd className="mt-1">
+                  <a
+                    href={project.link.href}
+                    target="_blank"
+                    rel="noopener"
+                    className="link"
+                    data-umami-event="live-site-click"
+                    data-umami-event-project={project.slug}
+                  >
+                    {project.link.label} <span aria-hidden>↗</span>
+                  </a>
+                </dd>
+              </div>
+            )}
           </dl>
           <div className="col-span-12 md:col-span-6">
             <h2 className="text-sm text-muted">Key results</h2>

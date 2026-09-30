@@ -9,7 +9,7 @@ export function SiteFooter() {
           <p>
             © {new Date().getFullYear()} {profile.name}
           </p>
-          <p>{profile.location}</p>
+          <p>{profile.location}, UK</p>
         </div>
       </Container>
     </footer>

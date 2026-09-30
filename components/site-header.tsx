@@ -56,7 +56,7 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur-sm">
+    <header className="header-fade pointer-events-none sticky top-0 z-40 -mb-6 bg-paper/90 pb-6 backdrop-blur-sm *:pointer-events-auto">
       <Container className="flex h-14 items-center justify-between text-sm">
         <Link href="/" className="font-medium">
           {profile.name}

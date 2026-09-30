@@ -6,7 +6,7 @@ Personal portfolio of Alina Kabanets (Product Engineer). Next.js 16 App Router, 
 
 ## Conventions
 - **Content lives in `content/`** (`profile.ts`, `projects.ts`). Never hard-code personal details or project copy in components; the planned creative version (`/studio`) and blog will read the same data.
-- **Design tokens** are in `app/globals.css` (`paper`, `ink`, `muted`, `line`, `tint`). One typeface (Inter, optical sizing). No accent colour. Layout is a 12-column grid: small label on the left, content from the middle column.
+- **Design tokens** are in `app/globals.css` (`paper` = warm off-white `#f1f0ec` with a film-grain overlay on `body::after`, `ink`, `muted`, `line`, `tint`). One typeface (Inter, optical sizing). No accent colour. Layout is a 12-column grid: small label on the left, content from the middle column.
 - **Every page is static.** Don't introduce request-time APIs, and keep client components to interactive bits only (header menu, work view toggle, copy email).
 - **Motion must never gate content** and must respect `prefers-reduced-motion`.
 - **Analytics**: Umami via `data-umami-event` attributes (`case-study-open`, `cv-click`, `email-click`, `email-copy`, `linkedin-click`, `github-click`). Loads only when `UMAMI_WEBSITE_ID` is set and `VERCEL_ENV=production`.

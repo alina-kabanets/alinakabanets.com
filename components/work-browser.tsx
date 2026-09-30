@@ -42,31 +42,41 @@ export function WorkBrowser({
         </div>
 
         {view === "grid" ? (
-          <ul className="mt-8 grid gap-x-5 gap-y-16 md:mt-12 md:grid-cols-2">
+          <ul className="mt-8 md:mt-12">
             {projects.map((project, index) => (
-              <li key={project.slug}>
-                <Link
-                  href={`/work/${project.slug}`}
-                  className="group block"
-                  data-umami-event="case-study-open"
-                  data-umami-event-project={project.slug}
-                  data-umami-event-view="grid"
-                >
-                  {covers[index]}
-                  <div className="mt-4 flex items-baseline justify-between gap-6 text-sm">
-                    <span>
-                      {number(index)} · {project.company}, {project.context}
-                    </span>
-                    <span className="shrink-0 text-muted">{project.year}</span>
-                  </div>
-                  <h3 className="mt-3 text-2xl leading-tight tracking-[-0.02em] text-balance group-hover:underline underline-offset-4 decoration-1 md:text-3xl">
-                    {project.title}
-                  </h3>
-                  <p className="mt-3 text-base">{project.headline}</p>
-                  <p className="mt-3 text-sm text-muted">
-                    {project.role} — {project.tags.join(" · ")}
+              <li
+                key={project.slug}
+                className="group relative grid grid-cols-12 gap-x-5 gap-y-6 border-line py-16 first:pt-0 not-first:border-t md:py-32"
+              >
+                {/* Details stay in view while the demo plays beside them; on large
+                    screens an empty column separates the two. */}
+                <div className="col-span-12 md:col-span-4 md:self-start md:sticky md:top-20 lg:col-span-3">
+                  <p className="text-sm">
+                    {number(index)} · {project.company}
                   </p>
-                </Link>
+                  <p className="mt-1 text-sm text-muted">{project.year}</p>
+                  <p className="text-sm text-muted">{project.context}</p>
+                  <h3 className="mt-6 text-2xl leading-tight tracking-[-0.02em] text-balance md:text-3xl">
+                    {/* Stretched link: the whole row is clickable, while the
+                        demo's controls stay separate buttons above it. */}
+                    <Link
+                      href={`/work/${project.slug}`}
+                      className="decoration-1 underline-offset-4 group-hover:underline after:absolute after:inset-0"
+                      data-umami-event="case-study-open"
+                      data-umami-event-project={project.slug}
+                      data-umami-event-view="grid"
+                    >
+                      {project.title}
+                    </Link>
+                  </h3>
+                  <p className="mt-4 text-base">{project.headline}</p>
+                  <p className="mt-4 text-sm text-muted">{project.role}</p>
+                  <p className="mt-1 text-sm text-muted">{project.tags.join(" · ")}</p>
+                  <p className="mt-6 text-sm">
+                    Read case study <span aria-hidden>→</span>
+                  </p>
+                </div>
+                <div className="col-span-12 md:col-span-8 lg:col-start-5">{covers[index]}</div>
               </li>
             ))}
           </ul>
