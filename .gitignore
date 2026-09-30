@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Source files for case studies (originals); web copies live next to them
+/public/images/work/borna/case/

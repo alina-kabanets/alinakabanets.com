@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/container";
 import { ProjectCover } from "@/components/project-cover";
+import { caseStudies } from "@/content/case-studies";
 import { profile } from "@/content/profile";
 import { getNextProject, getProject, projects } from "@/content/projects";
 
@@ -33,6 +34,7 @@ export default async function CaseStudy({ params }: PageProps<"/work/[slug]">) {
   const index = projects.indexOf(project);
   const next = getNextProject(project.slug);
   const { summary } = project;
+  const Body = caseStudies[project.slug];
 
   return (
     <article>
@@ -94,7 +96,9 @@ export default async function CaseStudy({ params }: PageProps<"/work/[slug]">) {
           </div>
         </section>
 
-        {project.draft && (
+        {Body ? (
+          <Body />
+        ) : (
           <section aria-label="Status" className="mt-28 grid grid-cols-12 gap-x-5 border-t border-line pt-5 md:mt-44">
             <p className="col-span-12 text-sm md:col-span-6">In progress</p>
             <div className="col-span-12 mt-6 md:col-span-6 md:mt-0">

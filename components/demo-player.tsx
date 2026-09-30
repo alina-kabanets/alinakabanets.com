@@ -9,10 +9,9 @@ const TYPE_MS = 28; // per caption character
 const HOLD_MS = 2800; // reading time after the caption finishes
 // Frame height / width for each screen.
 const PHONE_RATIO = 19.5 / 9;
-const BROWSER_RATIO = 10 / 16;
 const sceneDuration = (scene: DemoScene) => scene.caption.length * TYPE_MS + HOLD_MS;
 
-// Screens taller than their frame scroll to the bottom over the scene. The
+// Phone screens taller than their frame scroll to the bottom over the scene. The
 // end offset is the hidden part, as a percentage of the image's own height.
 // Near-fits stay still rather than jiggle.
 function scrollStyle(
@@ -153,20 +152,13 @@ export function DemoPlayer({ title, scenes }: { title: string; scenes: DemoScene
                   <span className="size-1.5 rounded-full bg-ink/20" />
                   <span className="size-1.5 rounded-full bg-ink/20" />
                 </div>
-                <div className="relative aspect-[16/10] overflow-hidden">
+                <div className="relative aspect-[16/10]">
                   <Image
-                    key={i === index ? `${index}-active` : "idle"}
                     src={item.admin.src}
                     alt={i === index ? item.admin.alt : ""}
-                    width={item.admin.width}
-                    height={item.admin.height}
+                    fill
                     sizes="(min-width: 768px) 55vw, 70vw"
-                    className="h-auto w-full"
-                    style={
-                      i === index && !reducedMotion
-                        ? scrollStyle(item.admin, BROWSER_RATIO, sceneDuration(item), animationState)
-                        : undefined
-                    }
+                    className="object-cover object-left-top"
                   />
                 </div>
               </div>
