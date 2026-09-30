@@ -1,69 +1,138 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+import { CopyEmail } from "@/components/copy-email";
+import { Hero } from "@/components/hero";
+import { ProjectCover } from "@/components/project-cover";
+import { Section } from "@/components/section";
+import { WorkBrowser } from "@/components/work-browser";
+import { about, photographs, principles, profile } from "@/content/profile";
+import { projects } from "@/content/projects";
+import { siteUrl } from "@/lib/site";
+import portrait from "@/public/images/portrait.jpg";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.role,
+  url: siteUrl,
+  email: `mailto:${profile.email}`,
+  address: { "@type": "PostalAddress", addressLocality: profile.location, addressCountry: "GB" },
+  sameAs: [profile.links.linkedin, profile.links.github],
+  knowsAbout: ["React", "TypeScript", "Next.js", "Product design", "UX for AI agents"],
+};
+
+const contactLinks = [
+  { href: profile.links.linkedin, label: "LinkedIn", event: "linkedin-click" },
+  { href: profile.links.github, label: "GitHub", event: "github-click" },
+  { href: profile.cv, label: "CV (PDF)", event: "cv-click" },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }}
+      />
+
+      <Hero />
+
+      <WorkBrowser
+        projects={projects}
+        covers={projects.map((project, index) => (
+          <ProjectCover key={project.slug} project={project} priority={index === 0} />
+        ))}
+      />
+
+      <Section id="how-i-work" label="How I work">
+        <ol className="grid gap-10 sm:grid-cols-3 sm:gap-5">
+          {principles.map((principle, index) => (
+            <li key={principle.title}>
+              <p className="text-sm text-muted">{String(index + 1).padStart(2, "0")}</p>
+              <h3 className="mt-2 text-2xl tracking-[-0.02em]">{principle.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed">{principle.body}</p>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      <Section id="about" label="About">
         <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+          src={portrait}
+          alt={`${profile.name}, a black-and-white portrait with motion blur`}
+          placeholder="blur"
+          sizes="(min-width: 768px) 280px, 60vw"
+          className="w-3/5 max-w-[280px]"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+        <div className="mt-10 max-w-[38rem] space-y-5 text-base leading-relaxed md:text-lg">
+          {about.map((paragraph) => (
+            <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+
+        <figure className="mt-16">
+          <ul className="grid grid-cols-3 gap-2 md:gap-3">
+            {(photographs.length ? photographs : Array.from({ length: 6 }, () => null)).map((photo, index) => (
+              <li key={photo?.src ?? index} className="relative aspect-[4/5] bg-tint">
+                {photo && (
+                  <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 768px) 16vw, 33vw" className="object-cover" />
+                )}
+              </li>
+            ))}
+          </ul>
+          <figcaption className="mt-3 text-sm text-muted">
+            Photographs, 2014–2022{photographs.length ? "" : " — selection coming soon"}
+          </figcaption>
+        </figure>
+      </Section>
+
+      <Section id="contact" label="Contact">
+        <p className="text-2xl leading-[1.15] tracking-[-0.02em] text-balance md:text-[2.5rem]">
+          Let’s build something people can trust.
+        </p>
+
+        <div className="mt-10 flex items-baseline gap-5 border-t border-line pt-4">
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`mailto:${profile.email}`}
+            className="link text-lg md:text-xl"
+            data-umami-event="email-click"
+            data-umami-event-location="contact"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
+            {profile.email}
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          <CopyEmail email={profile.email} />
         </div>
-      </main>
-    </div>
+
+        <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-4">
+          {contactLinks.map((link) => (
+            <li key={link.label}>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener"
+                className="link"
+                data-umami-event={link.event}
+                data-umami-event-location="contact"
+              >
+                {link.label} <span aria-hidden>↗</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-10 text-sm leading-relaxed">
+          {profile.openTo} · {profile.location}, {profile.workMode}
+          <br />
+          <span className="text-muted">
+            {profile.availability}. {profile.rightToWork}.
+          </span>
+        </p>
+      </Section>
+    </>
   );
 }
