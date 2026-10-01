@@ -1,5 +1,6 @@
 import {
   CaseSection,
+  DataTable,
   Figure,
   FigureGrid,
   Prose,
@@ -153,21 +154,35 @@ export default function VigorantCaseStudy() {
           ]}
           caption="Four of the sketch pages. Treatment history was explored here, then deferred at the MVP cut."
         />
-        <Subheading>Directions that didn’t ship</Subheading>
+        <Subheading>Choosing the visual language</Subheading>
         <Prose>
           <p>
-            My early concepts used a soft, neumorphic style: a home for the future five-product platform, Dash
-            redrawn in the new language, and the first patient form.
+            I reviewed how competing products look and was given a free hand to choose the UI style for the new
+            products and their design system. I chose a soft, neumorphic style, and the team approved it:
+          </p>
+          <ul>
+            <li>
+              <strong>Calm and human</strong>, which suits clinics and patients better than a dense, spreadsheet-like
+              dashboard.
+            </li>
+            <li>
+              <strong>Minimal and versatile</strong> enough to carry data-heavy admin screens as well as simple
+              patient ones.
+            </li>
+          </ul>
+          <p>
+            Before designing, I checked with the developers how a UI that relies heavily on shadows would perform,
+            so the style was a decision the build could afford.
           </p>
         </Prose>
         <FigureGrid
           columns={3}
           images={[
-            { src: exploreHub, alt: "Exploration: a platform home listing apps, today’s snapshot and recommendations" },
-            { src: exploreForm, alt: "Exploration: patient form with a step tracker and a My Self / My Child toggle" },
-            { src: exploreDash, alt: "Exploration: Dash Vigorant paid advertising dashboard in a neumorphic style" },
+            { src: exploreHub, alt: "Early concept: a platform home listing apps, today’s snapshot and recommendations" },
+            { src: exploreForm, alt: "Early concept: patient form with a step tracker and a My Self / My Child toggle" },
+            { src: exploreDash, alt: "Early concept: Dash Vigorant paid advertising dashboard in the neumorphic style" },
           ]}
-          caption="They set the structure (a platform home, the stepped form, the “My Child” toggle) while the visual style was simplified for the shipped product."
+          caption="Early concepts in the new language: a home for the future five-product platform, the first patient form, and Dash redrawn. The style carried through to the shipped portals; these particular screens were explorations."
         />
         <Subheading>A design system for five products</Subheading>
         <Prose>
@@ -198,10 +213,30 @@ export default function VigorantCaseStudy() {
         <Subheading>RBAC: one table instead of guesswork</Subheading>
         <Prose>
           <p>
-            Role and permission requirements were ambiguous. Rather than design screens on assumptions, I made a{" "}
+            Role and permission requirements arrived as long lists per role, with overlaps and the same role under
+            two different names. Rather than design screens on assumptions, I turned them into a{" "}
             <strong>comparison matrix of roles and permissions</strong> and resolved every open question with the
             founder and developers. Then I revisited every flow and annotated the handoff.
           </p>
+        </Prose>
+        <DataTable
+          head={["Permission", "Account owner", "Admin", "User"]}
+          rows={[
+            ["Scope", "All companies", "Assigned companies", "Assigned branches"],
+            ["Billing, subscription, purchases", "✓", "–", "–"],
+            ["Create admins, assign the admin role", "✓", "–", "–"],
+            ["Enable or disable apps and licences", "✓", "–", "–"],
+            ["Invite and deactivate users", "✓", "✓", "–"],
+            ["Assign roles and seats", "✓", "✓ from existing licences", "–"],
+            ["Company, office and app settings", "✓", "✓", "–"],
+            ["Forms, templates, EHR integrations", "✓", "✓", "View only"],
+            ["Payment requests and history", "✓", "✓", "View only"],
+            ["Appointments and daily operations", "✓", "✓", "✓"],
+            ["Dashboards and reports", "✓", "✓", "✓ own branch"],
+          ]}
+          caption="A condensed version of the matrix. Seen side by side, the three roles differ in two things: how far they reach, and whether they can change money, people or settings."
+        />
+        <Prose>
           <p>Engineers implemented it without rework, which saved the team a couple of days.</p>
         </Prose>
       </CaseSection>
@@ -249,7 +284,8 @@ export default function VigorantCaseStudy() {
         <Prose>
           <p>
             Intake forms became a <strong>standalone product</strong>, Borna Forms. It was the first part of
-            Borna to be sold, and it won the product’s <strong>first paying client</strong>.
+            Borna to be sold, and it won the product’s <strong>first paying client</strong>. It is live in
+            production today on a client clinic’s website.
           </p>
         </Prose>
         <FigureGrid

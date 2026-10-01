@@ -141,3 +141,95 @@ export function TeamMap({ members }: { members: { role: string; note: string; me
     </ul>
   );
 }
+
+// Horizontal bars for small data stories. Values are percentages (0–100);
+// only ratios are shown, never raw counts.
+export function Bars({
+  title,
+  rows,
+  note,
+}: {
+  title: string;
+  rows: { label: string; value: number; display: string; strong?: boolean }[];
+  note?: string;
+}) {
+  return (
+    <figure className="col-span-12 md:col-span-8 md:col-start-5">
+      <figcaption className="text-lg font-medium tracking-[-0.01em] text-balance md:text-xl">{title}</figcaption>
+      <dl className="mt-6 space-y-4">
+        {rows.map((row) => (
+          <div key={row.label} className="grid grid-cols-12 items-center gap-x-5 gap-y-1">
+            <dt className="col-span-12 text-sm text-muted sm:col-span-4">{row.label}</dt>
+            <dd className="col-span-12 flex items-center gap-3 sm:col-span-8">
+              <span
+                aria-hidden
+                className={`h-7 shrink-0 ${row.strong ? "bg-ink" : "bg-ink/20"}`}
+                style={{ width: `${Math.max(row.value, 1) * 0.8}%` }}
+              />
+              <span className={`text-sm ${row.strong ? "font-medium" : ""}`}>{row.display}</span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+      {note && <p className="mt-5 max-w-[38rem] text-sm leading-relaxed text-muted">{note}</p>}
+    </figure>
+  );
+}
+
+// A written artefact (a brief, a message to the team) set as a document.
+export function Note({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <aside className="col-span-12 rounded-lg border border-ink/15 bg-paper p-5 md:col-span-8 md:col-start-5 md:p-8">
+      <p className="text-[10px] tracking-[0.12em] text-muted uppercase">{title}</p>
+      <div className="mt-4 space-y-3 text-sm leading-relaxed [&_ol]:list-decimal [&_ol]:space-y-3 [&_ol]:pl-5 [&_strong]:font-medium [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5">
+        {children}
+      </div>
+    </aside>
+  );
+}
+
+export function CodeBlock({ code, caption }: { code: string; caption?: React.ReactNode }) {
+  return (
+    <figure className="col-span-12 md:col-span-8 md:col-start-5">
+      <pre
+        tabIndex={0}
+        className="overflow-x-auto rounded-lg bg-ink p-5 font-mono text-[12px] leading-relaxed text-paper/90 md:text-[13px]"
+      >
+        <code>{code}</code>
+      </pre>
+      {caption && <figcaption className="mt-3 max-w-[38rem] text-sm leading-relaxed text-muted">{caption}</figcaption>}
+    </figure>
+  );
+}
+
+export function DataTable({ head, rows, caption }: { head: string[]; rows: string[][]; caption?: string }) {
+  return (
+    <figure className="col-span-12 md:col-span-8 md:col-start-5">
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[34rem] text-left text-sm">
+          <thead className="text-muted">
+            <tr>
+              {head.map((cell) => (
+                <th key={cell} scope="col" className="pr-5 pb-3 font-normal">
+                  {cell}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row[0]} className="border-t border-line align-top">
+                {row.map((cell, i) => (
+                  <td key={i} className={`py-3 pr-5 ${i === 0 ? "font-medium" : ""}`}>
+                    {cell}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {caption && <figcaption className="mt-3 max-w-[38rem] text-sm leading-relaxed text-muted">{caption}</figcaption>}
+    </figure>
+  );
+}
