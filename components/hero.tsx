@@ -2,9 +2,14 @@ import Image from "next/image";
 import { profile } from "@/content/profile";
 import portrait from "@/public/images/portrait.jpg";
 import { Container } from "./container";
+import { CopyEmail } from "./copy-email";
 
-const button =
-  "inline-flex h-11 items-center rounded-full border border-ink px-5 text-sm transition-colors hover:bg-ink hover:text-paper";
+// The two styles invert on hover. They don't share hover classes: when both
+// sets were on one element, the outline's hover text colour won and the
+// primary button's label vanished.
+const buttonBase = "inline-flex h-11 items-center rounded-full border border-ink px-5 text-sm transition-colors";
+const button = `${buttonBase} hover:bg-ink hover:text-paper`;
+const buttonPrimary = `${buttonBase} bg-ink text-paper hover:bg-transparent hover:text-ink`;
 
 // Follows the Liam Bennett reference: oversized name, a small portrait that
 // starts at the middle column and sits on the rule, text below the rule.
@@ -69,7 +74,7 @@ export function Hero() {
           </p>
 
           <div className="mt-4 flex flex-wrap gap-3">
-            <a href="#work" className={`${button} bg-ink text-paper hover:bg-transparent hover:text-ink`}>
+            <a href="#work" className={buttonPrimary}>
               See work
             </a>
             <a
@@ -82,14 +87,13 @@ export function Hero() {
             >
               CV
             </a>
-            <a
-              href={`mailto:${profile.email}`}
+            <CopyEmail
+              email={profile.email}
+              label="Email"
+              copiedLabel={`Copied: ${profile.email}`}
               className={button}
-              data-umami-event="email-click"
-              data-umami-event-location="hero"
-            >
-              Email
-            </a>
+              location="hero"
+            />
           </div>
         </div>
       </div>

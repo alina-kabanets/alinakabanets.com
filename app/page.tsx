@@ -93,7 +93,7 @@ export default function Home() {
           >
             {profile.email}
           </a>
-          <CopyEmail email={profile.email} />
+          <CopyEmail email={profile.email} location="contact" />
         </div>
 
         <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-4">
