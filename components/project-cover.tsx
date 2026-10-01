@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Project } from "@/content/projects";
 import { DemoPlayer } from "./demo-player";
+import { KpiTree } from "./kpi-tree";
 import { LandingShowcase } from "./landing-showcase";
 
 // A live demo or before/after when the project has one, otherwise the
@@ -12,6 +13,10 @@ export function ProjectCover({ project, priority = false }: { project: Project; 
 
   if (project.showcase) {
     return <LandingShowcase title={`${project.company} landing page`} showcase={project.showcase} />;
+  }
+
+  if (project.diagram === "kpi-tree") {
+    return <KpiTree />;
   }
 
   if (project.cover) {

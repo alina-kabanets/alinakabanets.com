@@ -26,7 +26,7 @@ export const profile = {
 export const principles = [
   {
     title: "Problem + goal",
-    body: "Start from what the user is stuck on and what the business needs. Research, flows and success criteria come before pixels.",
+    body: "Start from the user’s pain points and the business goal. Research, flows and success criteria come before pixels.",
   },
   {
     title: "Design",
@@ -47,6 +47,14 @@ export const about = [
   "At Deaku, a five-person AI-native startup, I own the design stage: every ticket that needs a UX or UI decision comes through me before engineering starts. I’ve designed and built more than 80 features and fixes across the web and mobile apps, including the landing page redesign, reviewed how the AI assistant, agent and MCP features behave (76 recommendations, about 90% adopted), and set up the company’s first funnel and KPI tree. The part I find most interesting is how people come to trust an agent: what it shows, what it asks, and when it stops.",
   "Before that I designed two healthcare products and their design system from scratch. I studied psychology and spent eight years as a photographer, and both still show up in my work: an interest in why people act the way they do, and an eye for detail.",
 ] as const;
+
+// From a reference letter, shown in About.
+export const testimonial = {
+  quote:
+    "Alina owned the design stage of our delivery. Every ticket that needed a UX or UI decision went through her, which in a small team made her one of the people most responsible for how the product feels to our users.",
+  name: "Dr Oscar Ferguson",
+  role: "CEO & Co-Founder, Deaku",
+} as const;
 
 // Self-portrait series shown in About, in display order.
 export const photographs: { src: string; alt: string }[] = [

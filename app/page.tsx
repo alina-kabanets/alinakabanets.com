@@ -5,7 +5,7 @@ import { Hero } from "@/components/hero";
 import { ProjectCover } from "@/components/project-cover";
 import { Section } from "@/components/section";
 import { WorkBrowser } from "@/components/work-browser";
-import { about, photographs, principles, profile } from "@/content/profile";
+import { about, photographs, principles, profile, testimonial } from "@/content/profile";
 import { projects } from "@/content/projects";
 import { siteUrl } from "@/lib/site";
 
@@ -77,6 +77,16 @@ export default function Home() {
             <p key={paragraph.slice(0, 24)}>{paragraph}</p>
           ))}
         </div>
+
+        <figure className="mt-12 max-w-[38rem] border-l-2 border-ink pl-5 md:pl-7">
+          <blockquote className="text-xl leading-[1.3] tracking-[-0.01em] text-balance md:text-2xl">
+            “{testimonial.quote}”
+          </blockquote>
+          <figcaption className="mt-4 text-sm">
+            {testimonial.name}
+            <span className="block text-muted">{testimonial.role}</span>
+          </figcaption>
+        </figure>
       </Section>
 
       <Section id="contact" label="Contact">

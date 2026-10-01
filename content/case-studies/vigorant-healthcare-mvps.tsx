@@ -4,6 +4,7 @@ import {
   Figure,
   FigureGrid,
   Prose,
+  Quote,
   Stats,
   Subheading,
   TeamMap,
@@ -323,6 +324,12 @@ export default function VigorantCaseStudy() {
             is how I started learning product management.
           </p>
         </Prose>
+        <Quote name="Hamid Baher" role="Founder & CEO, Vigorant">
+          “The progress we made on both MVPs in such a short time speaks a lot about your dedication and ability to
+          take ownership in complex environments. I truly appreciate the effort, creativity, and initiative you
+          brought to the table - not just in design, but in thinking through product challenges and supporting the
+          team.”
+        </Quote>
       </CaseSection>
 
       <CaseSection label="Reflection" title="What I’d do differently.">
@@ -350,6 +357,10 @@ export default function VigorantCaseStudy() {
             compliance training · introduced AI design tools to the team.
           </p>
         </Prose>
+        <Quote name="Wareesha Khan" role="Product Designer, Vigorant">
+          “It’s been a pleasure working alongside you and seeing your growth and impact in such a short time. Your
+          contributions truly made a difference.”
+        </Quote>
       </CaseSection>
     </>
   );

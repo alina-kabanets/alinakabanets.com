@@ -11,7 +11,8 @@ type Video = { mp4: string; webm: string; poster: string; width: number; height:
 
 export type Showcase = {
   before: { src: string; alt: string; width: number; height: number; caption: string };
-  after: { desktop: Video; alt: string; caption: string };
+  // `small` is a lighter 30fps encode for phones, which stutter on the 60fps one.
+  after: { desktop: Video; small: { mp4: string; webm: string }; alt: string; caption: string };
 };
 
 export type Project = {
@@ -35,6 +36,8 @@ export type Project = {
   // Scene-by-scene product demo; replaces the static cover when present.
   // Phone screens should be full-length exports: the player scrolls them.
   demo?: { title: string; scenes: DemoScene[] };
+  // A diagram drawn in code, used as the cover.
+  diagram?: "kpi-tree";
   // Before/after of a page: a long static export vs screen recordings.
   showcase?: Showcase;
   link?: { href: string; label: string };
@@ -166,9 +169,10 @@ export const projects: Project[] = [
     tags: ["Funnel analysis", "UX strategy", "Copy", "Next.js", "Instrumentation"],
     summary: {
       role: "Product engineer: research, structure, copy, visual design, build, instrumentation",
-      team: "Two founders, engineering lead, me",
+      team: "Two founders, founding technical lead, me",
       timeline: "September 2026 · designed and built in two days",
-      tools: ["Next.js", "TypeScript", "Tailwind", "Fathom", "Claude Code"],
+      // The "\n" starts a new line in the summary box.
+      tools: ["Next.js", "TypeScript", "Tailwind", "Web analytics", "\nClaude Code"],
       results: [
         "Found the leak: 96 in 100 visitors never started sign-up, while the form itself converted 70%",
         "A 20-screen feature tour became one focused page; its structure, pricing logic and tracking are live",
@@ -191,10 +195,37 @@ export const projects: Project[] = [
           width: 1440,
           height: 900,
         },
+        small: {
+          mp4: "/images/work/deaku/after-small.mp4",
+          webm: "/images/work/deaku/after-small.webm",
+        },
         alt: "Screen recording scrolling through the redesigned Deaku landing page",
         caption: "My version: the problem, the workflow in seven stages, then one call to action.",
       },
     },
+    draft: false,
+  },
+  {
+    slug: "deaku-kpi-tree",
+    title: "The first metrics layer, from a revenue goal to design metrics",
+    company: "Deaku",
+    context: "AI-native creator workspace",
+    role: "Metric design, analysis + hypotheses",
+    year: "2026",
+    headline: "Nobody had defined what to measure between sign-up and payment. I built that layer",
+    tags: ["KPI tree", "North-star metric", "Funnel analysis", "Hypotheses", "AI agents"],
+    summary: {
+      role: "Product engineer: metric design, data analysis, hypotheses, presentation",
+      team: "Two founders, founding technical lead, me",
+      timeline: "September 2026 · about three working days, spread over a month",
+      tools: ["Product event tracking", "Web analytics", "Claude Code research agent"],
+      results: [
+        "A KPI tree from the revenue target down to design metrics, with one north-star metric",
+        "The first baseline of the funnel, showing where visitors and new users drop off",
+        "Plan accepted: I now own the metrics, the tracking and the dashboard",
+      ],
+    },
+    diagram: "kpi-tree",
     draft: false,
   },
 ];

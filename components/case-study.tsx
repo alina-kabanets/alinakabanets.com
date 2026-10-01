@@ -233,3 +233,54 @@ export function DataTable({ head, rows, caption }: { head: string[]; rows: strin
     </figure>
   );
 }
+
+// A rule or principle shown as a dark card: one large statement, then the
+// supporting points as numbered columns.
+export function RuleCard({
+  title,
+  statement,
+  itemsTitle,
+  items,
+  footer,
+}: {
+  title: string;
+  statement: string;
+  itemsTitle: string;
+  items: { name: string; body: string }[];
+  footer: string;
+}) {
+  return (
+    <aside className="col-span-12 rounded-xl bg-ink p-6 text-paper md:p-10">
+      <p className="text-[11px] font-medium tracking-[0.12em] text-paper/75 uppercase">{title}</p>
+      <p className="mt-4 max-w-[46rem] text-2xl leading-[1.2] tracking-[-0.02em] text-balance md:text-[2.25rem]">
+        {statement}
+      </p>
+      <p className="mt-10 text-[11px] font-medium tracking-[0.12em] text-paper/75 uppercase">{itemsTitle}</p>
+      <ol className="mt-3 grid gap-3 md:grid-cols-3">
+        {items.map((item, index) => (
+          <li key={item.name} className="rounded-lg border border-paper/30 bg-paper/[0.08] p-4">
+            <p className="text-3xl tracking-[-0.03em] text-paper/60">{index + 1}</p>
+            <p className="mt-3 text-base font-medium">{item.name}</p>
+            <p className="mt-1 text-sm leading-relaxed text-paper/80">{item.body}</p>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-6 max-w-[46rem] border-t border-paper/25 pt-4 text-sm leading-relaxed text-paper/80">{footer}</p>
+    </aside>
+  );
+}
+
+// A quote from someone the author worked with, attributed by name and role.
+export function Quote({ children, name, role }: { children: React.ReactNode; name: string; role: string }) {
+  return (
+    <figure className="col-span-12 border-l-2 border-ink pl-5 md:col-span-8 md:col-start-5 md:pl-7">
+      <blockquote className="max-w-[40rem] text-xl leading-[1.3] tracking-[-0.01em] text-balance md:text-2xl">
+        {children}
+      </blockquote>
+      <figcaption className="mt-4 text-sm">
+        {name}
+        <span className="block text-muted">{role}</span>
+      </figcaption>
+    </figure>
+  );
+}

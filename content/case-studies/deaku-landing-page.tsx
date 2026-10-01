@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Bars,
   CaseSection,
@@ -70,15 +71,18 @@ export default function DeakuLandingCaseStudy() {
             This case study shows my version.
           </p>
           <p>
-            It was the first fix to come out of a larger piece of work: defining Deaku’s funnel and KPI tree, which
-            is a case study of its own.
+            It was the first fix to come out of a larger piece of work:{" "}
+            <Link href="/work/deaku-kpi-tree" className="link">
+              defining Deaku’s funnel and KPI tree
+            </Link>
+            , which is a case study of its own.
           </p>
         </Prose>
         <TeamMap
           members={[
             { role: "Me", note: "Research, structure, copy, design, build, instrumentation", me: true },
             { role: "Two founders", note: "Brief, brand, final say on visuals" },
-            { role: "Engineering lead", note: "Event system, review" },
+            { role: "Founding technical lead", note: "Event system, review" },
           ]}
         />
       </CaseSection>
@@ -87,7 +91,7 @@ export default function DeakuLandingCaseStudy() {
         <Prose>
           <p>
             Deaku had no reliable picture of how a visitor became a paying customer. While building the KPI tree I
-            asked for access to the analytics, cleaned out bot traffic and looked at the landing page.
+            asked for access to the analytics and looked at the landing page.
           </p>
         </Prose>
         <Bars
@@ -97,12 +101,11 @@ export default function DeakuLandingCaseStudy() {
             { label: "Started sign-up", value: 4, display: "4 in 100", strong: true },
             { label: "Created an account", value: 2.8, display: "7 in 10 of those who started" },
           ]}
-          note="Eight weeks of traffic, bots removed. Ratios only; visitor numbers are confidential."
+          note="Eight weeks of traffic. Ratios only; visitor numbers are confidential."
         />
         <Prose>
           <p>
-            My first read, from the page’s own event listeners, blamed the sign-up form. The fuller data said the
-            opposite: <strong>people who started sign-up mostly finished it. The leak was the landing page.</strong>
+            <strong>People who started sign-up mostly finished it. The leak was the landing page.</strong>
           </p>
         </Prose>
         <Bars
@@ -115,10 +118,6 @@ export default function DeakuLandingCaseStudy() {
         />
         <Prose>
           <ul>
-            <li>
-              <strong>Almost nobody saw a price.</strong> Pricing lived on a separate page that about 2 in 100
-              visitors reached.
-            </li>
             <li>
               <strong>Almost nobody engaged with the content.</strong> The hero video and the feature grids were
               opened a handful of times.
@@ -393,7 +392,6 @@ export default function DeakuLandingCaseStudy() {
           rows={[
             ["Visitors who start sign-up", "4 in 100", "6–8 in 100", "The main leak"],
             ["Phone share of sign-up starts", "14%", "25% or more", "Phones are a third of visitors"],
-            ["Visitors who see pricing", "About 2 in 100", "30 in 100 or more", "Pricing is now on the page"],
             ["Sign-up completion", "70%", "Stays at 70% or above", "Guardrail: more starts shouldn’t mean worse starts"],
           ]}
           caption="Targets are my proposals. Check date: late November 2026."
@@ -402,7 +400,7 @@ export default function DeakuLandingCaseStudy() {
           <p>
             <strong>Already true:</strong> the structure, the three-plan pricing and the section tracking shipped,
             and the team can now see where visitors leave, not only whether they converted. The sign-up flow was
-            rebuilt too, on my recommendations: the engineering lead implemented it and I reviewed it.
+            rebuilt too, on my recommendations: the founding technical lead implemented it and I reviewed it.
           </p>
         </Prose>
       </CaseSection>
@@ -410,11 +408,6 @@ export default function DeakuLandingCaseStudy() {
       <CaseSection label="Reflection" title="What I’d do differently.">
         <Prose>
           <ul>
-            <li>
-              <strong>Get the full data before diagnosing.</strong> My first numbers pointed at the sign-up form.
-              With bot traffic removed, the form was fine and the landing page was the leak. I now ask for the
-              source data first.
-            </li>
             <li>
               <strong>Agree the brand boundaries as well as the structure.</strong> We agreed the skeleton up
               front, and it held. The visuals were restyled after my hand-off; a short brand check before building

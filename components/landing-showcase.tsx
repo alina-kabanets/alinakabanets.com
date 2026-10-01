@@ -102,6 +102,8 @@ export function LandingShowcase({ title, showcase }: { title: string; showcase: 
                 preload="none"
                 className="h-full w-full object-cover object-top"
               >
+                <source media="(max-width: 767px)" src={after.small.webm} type="video/webm" />
+                <source media="(max-width: 767px)" src={after.small.mp4} type="video/mp4" />
                 <source src={after.desktop.webm} type="video/webm" />
                 <source src={after.desktop.mp4} type="video/mp4" />
               </video>
@@ -125,8 +127,8 @@ export function LandingShowcase({ title, showcase }: { title: string; showcase: 
                 alt={before.alt}
                 width={before.width}
                 height={before.height}
-                sizes="(min-width: 768px) 60vw, 100vw"
-                className="h-auto w-full"
+                sizes="(min-width: 768px) 60vw, 50vw"
+                className="h-auto w-full will-change-transform"
                 style={
                   view === "before" && !reducedMotion
                     ? ({

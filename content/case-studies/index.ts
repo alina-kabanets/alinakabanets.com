@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import DeakuKpiTreeCaseStudy from "./deaku-kpi-tree";
 import DeakuLandingCaseStudy from "./deaku-landing-page";
 import VigorantCaseStudy from "./vigorant-healthcare-mvps";
 
@@ -7,4 +8,5 @@ import VigorantCaseStudy from "./vigorant-healthcare-mvps";
 export const caseStudies: Record<string, ComponentType> = {
   "vigorant-healthcare-mvps": VigorantCaseStudy,
   "deaku-landing-page": DeakuLandingCaseStudy,
+  "deaku-kpi-tree": DeakuKpiTreeCaseStudy,
 };

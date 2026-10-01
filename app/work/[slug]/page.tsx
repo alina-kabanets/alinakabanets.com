@@ -50,7 +50,7 @@ export default async function CaseStudy({ params }: PageProps<"/work/[slug]">) {
           {project.title}
         </h1>
 
-        <div className={`mt-12 md:mt-20 ${project.demo || project.showcase ? "mx-auto max-w-[1100px]" : ""}`}>
+        <div className={`mt-12 md:mt-20 ${project.demo || project.showcase || project.diagram ? "mx-auto max-w-[1100px]" : ""}`}>
           <ProjectCover project={project} priority />
         </div>
 
@@ -65,7 +65,7 @@ export default async function CaseStudy({ params }: PageProps<"/work/[slug]">) {
             ].map(([term, detail]) => (
               <div key={term}>
                 <dt className="text-muted">{term}</dt>
-                <dd className="mt-1">{detail}</dd>
+                <dd className="mt-1 whitespace-pre-line">{detail}</dd>
               </div>
             ))}
             {project.link && (

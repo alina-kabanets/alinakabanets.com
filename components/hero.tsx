@@ -16,7 +16,7 @@ const buttonPrimary = `${buttonBase} bg-ink text-paper hover:bg-transparent hove
 export function Hero() {
   return (
     <Container className="pt-10 md:pt-14">
-      <h1 className="font-display text-[clamp(3.25rem,12.5vw,11.5rem)] leading-[0.88] tracking-[-0.05em]">
+      <h1 id="hero-name" className="font-display text-[clamp(3.25rem,12.5vw,11.5rem)] leading-[0.88] tracking-[-0.05em]">
         {profile.name}
       </h1>
 
