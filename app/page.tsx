@@ -69,7 +69,7 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <figcaption className="mt-3 text-sm text-muted">Self-portraits</figcaption>
+          <figcaption className="mt-3 text-sm text-muted">Self-portraits, 2025</figcaption>
         </figure>
 
         <div className="mt-12 max-w-[38rem] space-y-5 text-base leading-relaxed md:text-lg">
