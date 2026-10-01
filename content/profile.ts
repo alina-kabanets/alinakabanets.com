@@ -42,7 +42,7 @@ export const principles = [
 
 export const about = [
   "I’m a product and design engineer in London. I take a feature from the user problem and the business goal, through design, to shipped React and TypeScript, and then check whether it worked.",
-  "At Deaku, a five-person AI-native startup, I’ve designed and built more than 80 features and fixes across the web and mobile apps, including the landing page redesign, reviewed how the AI assistant, agent and MCP features behave (76 recommendations, about 90% adopted), and set up the company’s first funnel and KPI tree. The part I find most interesting is how people come to trust an agent: what it shows, what it asks, and when it stops.",
+  "At Deaku, a five-person AI-native startup, I design and build across the web and mobile apps: the main dashboard redesign, the task-management system, the workspace invitation flow and the landing page. I also reviewed how the AI assistant, agent and MCP features behave (76 recommendations, about 90% adopted) and set up the company’s first funnel and KPI tree. The part I find most interesting is how people come to trust an agent: what it shows, what it asks, and when it stops.",
   "Before that I designed two healthcare products and their design system from scratch. I studied psychology and spent eight years as a photographer, and both still show up in my work: an interest in why people act the way they do, and an eye for detail.",
 ] as const;
 
