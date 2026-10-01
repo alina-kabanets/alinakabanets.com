@@ -31,7 +31,7 @@ export function Hero() {
         />
       </div>
 
-      <div className="grid grid-cols-12 gap-x-5 gap-y-8 border-t border-line pt-4 md:pt-5">
+      <div className="grid grid-cols-12 gap-x-5 gap-y-8 border-t border-line pt-5 md:pt-7">
         <p className="col-span-12 text-sm md:col-span-6">
           {profile.role}
           <br />
@@ -42,7 +42,7 @@ export function Hero() {
           <p className="text-2xl leading-[1.15] tracking-[-0.02em] text-balance md:text-[2.25rem]">
             {profile.tagline}
           </p>
-          <p className="mt-3 text-sm text-muted">
+          <p className="mt-5 text-sm text-muted">
             {profile.loop.map((step, index) => (
               <span key={step}>
                 {index > 0 && (
@@ -64,16 +64,14 @@ export function Hero() {
             ))}
           </p>
 
-          <p className="mt-4 flex gap-2.5 text-sm">
+          <p className="mt-3 flex gap-2.5 text-sm">
             <span aria-hidden className="mt-[0.45em] size-2 shrink-0 rounded-full bg-ink" />
             <span>
               {profile.openTo} · {profile.location}, {profile.workMode}
-              <br />
-              <span className="text-muted">{profile.availability}</span>
             </span>
           </p>
 
-          <div className="mt-4 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap gap-3">
             <a href="#work" className={buttonPrimary}>
               See work
             </a>
