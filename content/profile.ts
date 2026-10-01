@@ -7,8 +7,6 @@ export const profile = {
   stack: "Product design · React / TypeScript · Funnels & metrics",
   tagline:
     "I design and build products end to end, from user research to shipped code to the numbers that follow.",
-  // Small supporting line in the hero.
-  loop: ["User problem + business goal", "design", "shipped code", "measured"],
   email: "aokabanets@gmail.com",
   location: "London",
   workMode: "hybrid or remote",

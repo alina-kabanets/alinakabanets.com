@@ -170,7 +170,7 @@ export function DemoPlayer({ title, scenes }: { title: string; scenes: DemoScene
       <div className="mt-6 flex flex-col gap-3 border-t border-line pt-4 sm:flex-row sm:items-start">
         <span className="shrink-0 self-start rounded-full border border-ink px-3 py-1 text-xs">{scene.tag}</span>
         <p className="min-h-[3lh] flex-1 text-sm leading-relaxed">
-          <span className="sr-only">{scene.caption}</span>
+          <span className="sr-only select-none">{scene.caption}</span>
           <span aria-hidden>
             {typed}
             {!reducedMotion && typed.length < scene.caption.length && (

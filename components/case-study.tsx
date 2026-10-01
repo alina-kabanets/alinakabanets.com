@@ -107,6 +107,8 @@ export function FigureGrid({
   );
 }
 
+// Text that exists only for screen readers is marked `select-none`, so it
+// doesn't end up in what a visitor copies from the page.
 export function Stats({ items }: { items: { value: string; label: string }[] }) {
   return (
     <dl
@@ -116,7 +118,7 @@ export function Stats({ items }: { items: { value: string; label: string }[] }) 
     >
       {items.map((item) => (
         <div key={item.label} className="border-t border-line pt-4">
-          <dt className="sr-only">{item.label}</dt>
+          <dt className="sr-only select-none">{item.label}</dt>
           <dd className="text-5xl tracking-[-0.04em] md:text-6xl">{item.value}</dd>
           <dd className="mt-2 text-sm leading-relaxed text-muted">{item.label}</dd>
         </div>

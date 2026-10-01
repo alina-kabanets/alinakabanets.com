@@ -42,36 +42,17 @@ export function Hero() {
           <p className="text-2xl leading-[1.15] tracking-[-0.02em] text-balance md:text-[2.25rem]">
             {profile.tagline}
           </p>
-          <p className="mt-5 text-sm text-muted">
-            {profile.loop.map((step, index) => (
-              <span key={step}>
-                {index > 0 && (
-                  // Drawn rather than typed: the font's arrow glyph is too long at this size.
-                  <svg
-                    aria-hidden
-                    viewBox="0 0 12 10"
-                    className="mx-1.5 inline-block h-[0.6em] w-[0.72em] -translate-y-px"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                  >
-                    <path d="M0 5h11M7 1l4 4-4 4" />
-                  </svg>
-                )}
-                {index > 0 && <span className="sr-only">, then </span>}
-                {step}
-              </span>
-            ))}
-          </p>
 
-          <p className="mt-3 flex gap-2.5 text-sm">
+          <p className="mt-7 flex gap-2.5 text-sm">
             <span aria-hidden className="mt-[0.45em] size-2 shrink-0 rounded-full bg-ink" />
             <span>
               {profile.openTo} · {profile.location}, {profile.workMode}
+              <br />
+              <span className="text-muted">{profile.availability}</span>
             </span>
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-7 flex flex-wrap gap-3">
             <a href="#work" className={buttonPrimary}>
               See work
             </a>

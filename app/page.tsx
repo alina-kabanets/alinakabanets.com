@@ -94,7 +94,7 @@ export default function Home() {
           Let’s build something people can trust.
         </p>
 
-        <div className="mt-10 flex items-baseline gap-5 border-t border-line pt-4">
+        <div className="mt-10 flex items-center gap-3 border-t border-line pt-4">
           <a
             href={`mailto:${profile.email}`}
             className="link text-lg md:text-xl"
@@ -103,7 +103,14 @@ export default function Home() {
           >
             {profile.email}
           </a>
-          <CopyEmail email={profile.email} location="contact" />
+          <CopyEmail
+            email={profile.email}
+            location="contact"
+            icon
+            label="Copy email address"
+            copiedLabel="Copied"
+            className="flex size-8 items-center justify-center rounded-full text-muted hover:bg-ink/5 hover:text-ink"
+          />
         </div>
 
         <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-4">
