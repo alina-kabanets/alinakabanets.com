@@ -49,7 +49,7 @@ export default function Home() {
       />
 
       <Section id="how-i-work" label="How I work">
-        <ol className="grid gap-10 sm:grid-cols-3 sm:gap-5">
+        <ol className="grid gap-10 sm:grid-cols-2 sm:gap-x-5">
           {principles.map((principle, index) => (
             <li key={principle.title}>
               <p className="text-sm text-muted">{String(index + 1).padStart(2, "0")}</p>

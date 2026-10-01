@@ -26,6 +26,8 @@ import pricingFirst from "@/public/images/work/deaku/study/pricing-first-v3.jpg"
 import pricingLive from "@/public/images/work/deaku/study/pricing-live.jpg";
 import problem from "@/public/images/work/deaku/study/problem-v3.jpg";
 import stages from "@/public/images/work/deaku/study/stages-v3.jpg";
+import themeDark from "@/public/images/work/deaku/study/theme-dark.jpg";
+import themeLight from "@/public/images/work/deaku/study/theme-light.jpg";
 import swiss1 from "@/public/images/work/deaku/study/swiss-1.jpg";
 import swiss2 from "@/public/images/work/deaku/study/swiss-2.jpg";
 import swiss3 from "@/public/images/work/deaku/study/swiss-3.jpg";
@@ -325,6 +327,13 @@ export default function DeakuLandingCaseStudy() {
             alt: "The seven stages: a sticky stage list on the left, a thread with nodes, and one live demo per stage",
           }}
           caption="Seven stages, one live demo each, cut from the original sprawl. The stage list stays in view and the thread marks where you are."
+        />
+        <FigureGrid
+          images={[
+            { src: themeLight, alt: "Stage 03, Plan, in the light theme: stage list, thread and a projects table demo" },
+            { src: themeDark, alt: "The same stage in the dark theme, with the demo and its status chips recoloured" },
+          ]}
+          caption="Light and dark, from the same tokens. The grid, the thread and the live demos all follow the theme, so neither version is an afterthought."
         />
         <Figure
           wide

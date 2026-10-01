@@ -3,14 +3,16 @@
 
 export const profile = {
   name: "Alina Kabanets",
-  role: "Product Engineer",
-  stack: "React / TypeScript",
+  role: "Product & Design Engineer",
+  stack: "Product design · React / TypeScript · Funnels & metrics",
   tagline:
     "I design and build products end to end, from user research to shipped code to the numbers that follow.",
+  // Small supporting line in the hero.
+  loop: ["User problem + business goal", "design", "shipped code", "measured"],
   email: "aokabanets@gmail.com",
   location: "London",
   workMode: "hybrid or remote",
-  openTo: "Open to product engineer roles",
+  openTo: "Open to product and design engineer roles",
   availability:
     "Available now for 3 days a week, or full-time with 1 month’s notice",
   rightToWork: "Fully authorised to work in the UK",
@@ -23,23 +25,27 @@ export const profile = {
 
 export const principles = [
   {
-    title: "Understand",
-    body: "Start from the user problem and the business goal. Research, flows and success criteria come before pixels.",
+    title: "Problem + goal",
+    body: "Start from what the user is stuck on and what the business needs. Research, flows and success criteria come before pixels.",
   },
   {
-    title: "Build",
-    body: "Design in Figma, prototype in code, then ship production React and TypeScript. I own both the decision and the implementation.",
+    title: "Design",
+    body: "Structure first, then interaction and visual design, in Figma or straight in code against a design system.",
   },
   {
-    title: "Measure",
-    body: "Agree what success looks like up front, instrument it, and check after launch. Then iterate on what the numbers say.",
+    title: "Shipped code",
+    body: "Production React and TypeScript, on web and React Native. I work agent-first, with a multi-agent Claude Code setup.",
+  },
+  {
+    title: "Measured",
+    body: "Agree what success looks like up front, instrument it, and check after launch. The next change starts from the numbers.",
   },
 ] as const;
 
 export const about = [
-  "I’m a product engineer in London. I design and build front-end products in React and TypeScript, and I care most about the moment someone decides whether to trust what’s on the screen.",
-  "At Deaku, a five-person AI-native startup, I shape how the assistant, agent and MCP features behave: what they show, what they ask, and when they stop. Before that I designed two healthcare products from scratch for a US SaaS company, including their design system.",
-  "I studied psychology and spent eight years as a photographer before moving into product. Both still show up in my work: an interest in why people act the way they do, and an eye for detail and patience with craft.",
+  "I’m a product and design engineer in London. I take a feature from the user problem and the business goal, through design, to shipped React and TypeScript, and then check what it changed.",
+  "At Deaku, a five-person AI-native startup, I own the design stage: every ticket that needs a UX or UI decision comes through me before engineering starts. I’ve designed and built more than 80 features and fixes across the web and mobile apps, including the landing page redesign, reviewed how the AI assistant, agent and MCP features behave (76 recommendations, about 90% adopted), and set up the company’s first funnel and KPI tree. The part I find most interesting is how people come to trust an agent: what it shows, what it asks, and when it stops.",
+  "Before that I designed two healthcare products and their design system from scratch. I studied psychology and spent eight years as a photographer, and both still show up in my work: an interest in why people act the way they do, and an eye for detail.",
 ] as const;
 
 // Self-portrait series shown in About, in display order.
