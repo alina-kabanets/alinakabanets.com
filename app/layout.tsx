@@ -24,6 +24,7 @@ export const metadata: Metadata = {
   description,
   openGraph: {
     type: "website",
+    url: "/",
     locale: "en_GB",
     siteName: profile.name,
     title: `${profile.name} — ${profile.role}`,

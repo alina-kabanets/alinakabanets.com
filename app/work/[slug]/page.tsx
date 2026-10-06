@@ -22,7 +22,16 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
     title: project.title,
     description,
     alternates: { canonical: `/work/${project.slug}` },
-    openGraph: { type: "article", title: project.title, description },
+    // A page's openGraph replaces the layout's, so the shared fields are
+    // repeated here. LinkedIn needs og:url to build a link preview.
+    openGraph: {
+      type: "article",
+      url: `/work/${project.slug}`,
+      siteName: profile.name,
+      locale: "en_GB",
+      title: project.title,
+      description,
+    },
     robots: project.draft ? { index: false, follow: true } : undefined,
   };
 }
