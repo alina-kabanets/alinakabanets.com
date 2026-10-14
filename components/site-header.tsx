@@ -79,7 +79,7 @@ export function SiteHeader() {
   return (
     <header className="header-fade pointer-events-none sticky top-0 z-40 -mb-6 bg-paper/90 pb-6 backdrop-blur-sm *:pointer-events-auto">
       <Container className="flex h-14 items-center justify-between text-sm">
-        <Link href="/" aria-label={profile.name} className="grid font-medium">
+        <Link href="/" aria-label={short ? `${initials}, ${profile.name}` : profile.name} className="grid font-medium">
           {/* Both labels share one cell and crossfade, so nothing shifts. */}
           <span
             aria-hidden

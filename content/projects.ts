@@ -191,7 +191,7 @@ export const projects: Project[] = [
         desktop: {
           mp4: "/images/work/deaku/after-desktop.mp4",
           webm: "/images/work/deaku/after-desktop.webm",
-          poster: "/images/work/deaku/after-desktop-poster.jpg",
+          poster: "/images/work/deaku/after-desktop-poster.webp",
           width: 1440,
           height: 900,
         },

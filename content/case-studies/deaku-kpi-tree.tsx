@@ -73,7 +73,7 @@ function MetricFilter() {
                   className={`rounded-full px-2.5 py-1 text-sm ${
                     group.style === "dashed"
                       ? "border border-dashed border-ink/40"
-                      : "bg-tint text-muted line-through decoration-ink/50"
+                      : "bg-tint text-ink/70 line-through decoration-ink/50"
                   }`}
                 >
                   {chip}

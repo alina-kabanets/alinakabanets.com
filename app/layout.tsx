@@ -18,8 +18,8 @@ const description = `${profile.role} (${profile.stack}) in ${profile.location}. 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${profile.name} — ${profile.role}`,
-    template: `%s — ${profile.name}`,
+    default: `${profile.name} - ${profile.role}`,
+    template: `%s - ${profile.name}`,
   },
   description,
   openGraph: {
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     url: "/",
     locale: "en_GB",
     siteName: profile.name,
-    title: `${profile.name} — ${profile.role}`,
+    title: `${profile.name} - ${profile.role}`,
     description,
   },
   twitter: { card: "summary_large_image" },

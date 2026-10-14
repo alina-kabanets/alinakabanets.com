@@ -9,6 +9,9 @@ const TYPE_MS = 28; // per caption character
 const HOLD_MS = 2800; // reading time after the caption finishes
 // Frame height / width for each screen.
 const PHONE_RATIO = 19.5 / 9;
+// Scene i and the one after it, added to the set of scenes allowed to load.
+const withNext = (set: Set<number>, i: number, count: number) => new Set([...set, i, (i + 1) % count]);
+
 const sceneDuration = (scene: DemoScene) => scene.caption.length * TYPE_MS + HOLD_MS;
 
 // Phone screens taller than their frame scroll to the bottom over the scene. The
@@ -34,7 +37,10 @@ function scrollStyle(
 // scenes that advance on their own. Autoplays only while on screen, never with
 // reduced motion, and can always be paused.
 export function DemoPlayer({ title, scenes }: { title: string; scenes: DemoScene[] }) {
-  const [{ index, chars }, setState] = useState({ index: 0, chars: 0 });
+  // `loaded` holds the scenes whose screens may load: every scene shown so far
+  // plus the next one, so images arrive ahead of the crossfade but hidden
+  // scenes don't all download up front.
+  const [{ index, chars, loaded }, setState] = useState(() => ({ index: 0, chars: 0, loaded: new Set([0, 1]) }));
   const [playing, setPlaying] = useState(true);
   const [visible, setVisible] = useState(false);
   const root = useRef<HTMLElement>(null);
@@ -58,7 +64,10 @@ export function DemoPlayer({ title, scenes }: { title: string; scenes: DemoScene
         setState((current) =>
           typing
             ? { ...current, chars: current.chars + 1 }
-            : { index: (current.index + 1) % scenes.length, chars: 0 },
+            : (() => {
+                const nextIndex = (current.index + 1) % scenes.length;
+                return { index: nextIndex, chars: 0, loaded: withNext(current.loaded, nextIndex, scenes.length) };
+              })(),
         ),
       typing ? TYPE_MS : HOLD_MS,
     );
@@ -68,7 +77,11 @@ export function DemoPlayer({ title, scenes }: { title: string; scenes: DemoScene
   // Manual navigation shows the whole caption unless the demo is playing.
   const go = (next: number) => {
     const target = (next + scenes.length) % scenes.length;
-    setState({ index: target, chars: autoplay ? 0 : scenes[target].caption.length });
+    setState((current) => ({
+      index: target,
+      chars: autoplay ? 0 : scenes[target].caption.length,
+      loaded: withNext(current.loaded, target, scenes.length),
+    }));
   };
 
   const typed = reducedMotion ? scene.caption : scene.caption.slice(0, chars);
@@ -83,7 +96,8 @@ export function DemoPlayer({ title, scenes }: { title: string; scenes: DemoScene
           <span className="text-muted">
             Scene {index + 1} of {scenes.length}
           </span>
-          <div className="flex gap-1.5">
+          {/* Each dot sits in a 24px button so it's easy to tap. */}
+          <div className="-mx-2 flex">
             {scenes.map((item, i) => (
               <button
                 key={item.tag}
@@ -91,8 +105,10 @@ export function DemoPlayer({ title, scenes }: { title: string; scenes: DemoScene
                 aria-label={`Scene ${i + 1}: ${item.tag}`}
                 aria-current={i === index}
                 onClick={() => go(i)}
-                className="relative z-10 size-2 rounded-full bg-ink/20 aria-[current=true]:bg-ink"
-              />
+                className="group/dot relative z-10 flex size-6 items-center justify-center"
+              >
+                <span className="size-2 rounded-full bg-ink/20 group-aria-[current=true]/dot:bg-ink" />
+              </button>
             ))}
           </div>
         </div>
@@ -126,6 +142,7 @@ export function DemoPlayer({ title, scenes }: { title: string; scenes: DemoScene
                 {item.patient.label}
               </figcaption>
               <div className="relative aspect-[9/19.5] overflow-hidden rounded-[12%/5.5%] border border-ink/15 bg-white">
+                {loaded.has(i) && (
                 <Image
                   key={i === index ? `${index}-active` : "idle"}
                   src={item.patient.src}
@@ -140,6 +157,7 @@ export function DemoPlayer({ title, scenes }: { title: string; scenes: DemoScene
                       : undefined
                   }
                 />
+                )}
               </div>
             </figure>
             <figure className="min-w-0 flex-1">
@@ -153,6 +171,7 @@ export function DemoPlayer({ title, scenes }: { title: string; scenes: DemoScene
                   <span className="size-1.5 rounded-full bg-ink/20" />
                 </div>
                 <div className="relative aspect-[16/10]">
+                  {loaded.has(i) && (
                   <Image
                     src={item.admin.src}
                     alt={i === index ? item.admin.alt : ""}
@@ -160,6 +179,7 @@ export function DemoPlayer({ title, scenes }: { title: string; scenes: DemoScene
                     sizes="(min-width: 768px) 55vw, 70vw"
                     className="object-cover object-left-top"
                   />
+                  )}
                 </div>
               </div>
             </figure>

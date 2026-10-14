@@ -1,7 +1,7 @@
 import { profile } from "@/content/profile";
 import { ogSize, renderOgImage } from "@/lib/og";
 
-export const alt = `${profile.name} — ${profile.role}`;
+export const alt = `${profile.name} - ${profile.role}`;
 export const size = ogSize;
 export const contentType = "image/png";
 
