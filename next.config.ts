@@ -3,14 +3,15 @@ import type { NextConfig } from "next";
 const isDev = process.env.NODE_ENV === "development";
 
 // No nonces: every page is static, so the policy is set here instead of in a proxy.
-// Umami Cloud is the only third-party origin (analytics script + event endpoint).
+// Umami Cloud is the only third-party origin: the script loads from
+// cloud.umami.is and sends events to gateway.umami.is.
 const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline' https://cloud.umami.is${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' blob: data:",
   "font-src 'self'",
-  "connect-src 'self' https://cloud.umami.is https://api-gateway.umami.dev",
+  "connect-src 'self' https://cloud.umami.is https://gateway.umami.is",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
