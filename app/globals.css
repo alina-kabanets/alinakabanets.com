@@ -10,6 +10,7 @@
 
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-paper-mono: var(--font-paper-mono-face), ui-monospace, monospace;
   --font-display: var(--font-hero, var(--font-inter)), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -98,4 +99,25 @@ body::after {
   pointer-events: none;
   opacity: 0.09;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* /paper: masking tape. Translucent, slightly yellowed, with soft ends. */
+.paper-tape {
+  background: rgb(236 230 208 / 0.72);
+  box-shadow: 0 1px 1px rgb(17 17 17 / 0.06);
+  mask-image: linear-gradient(90deg, transparent 0, #000 6px, #000 calc(100% - 6px), transparent 100%);
+  backdrop-filter: blur(0.5px);
+}
+
+/* /paper: clear packing tape, with a glossy highlight and a faint edge. */
+.paper-tape-clear {
+  background: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.55),
+    rgb(255 255 255 / 0.22) 45%,
+    rgb(255 255 255 / 0.38)
+  );
+  border-block: 1px solid rgb(17 17 17 / 0.06);
+  box-shadow: 0 1px 2px rgb(17 17 17 / 0.08);
+  backdrop-filter: blur(0.6px) brightness(1.04);
 }

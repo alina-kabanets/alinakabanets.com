@@ -1,0 +1,261 @@
+import type { Metadata } from "next";
+import localFont from "next/font/local";
+import { CaseSection, CodeBlock, Prose, Subheading } from "@/components/case-study";
+import { AdviceNote } from "@/components/paper/advice-note";
+import { Container } from "@/components/container";
+import { FlexLesson } from "@/components/paper/flex-lesson";
+import { LostTimeline } from "@/components/paper/lost-timeline";
+import { PortraitPaywall } from "@/components/paper/portrait-paywall";
+import { Tape } from "@/components/paper/tape";
+import { TearOffFlyer } from "@/components/paper/tear-off-flyer";
+import { TextureCard } from "@/components/paper/texture-card";
+import {
+  canvasNotes,
+  lessons,
+  loves,
+  menu,
+  mobileMenuFix,
+  paperPage,
+  startNotes,
+} from "@/content/paper";
+
+// Paper Mono, Paper's own typeface (SIL Open Font License), self-hosted.
+const paperMono = localFont({
+  src: [
+    { path: "./PaperMono-Regular.woff2", weight: "400" },
+    { path: "./PaperMono-Medium.woff2", weight: "500" },
+  ],
+  variable: "--font-paper-mono-face",
+  display: "swap",
+});
+
+// Unlisted: shared by link only.
+export const metadata: Metadata = {
+  title: "Notes on Paper",
+  description: "An independent concept: what I love about Paper, where my first hour went sideways, and what I’d build.",
+  alternates: { canonical: "/paper" },
+  robots: { index: false, follow: false },
+  openGraph: { type: "article", url: "/paper", title: "Notes on Paper", description: paperPage.summary },
+};
+
+function Notes({ items }: { items: readonly { key: string; title: string; body: string }[] }) {
+  return (
+    <dl className="col-span-12 grid gap-x-5 gap-y-6 sm:grid-cols-2 md:col-span-8 md:col-start-5">
+      {items.map((note) => (
+        <div key={note.key} className="border-t border-line pt-3">
+          <dt className="text-base font-medium">
+            <span className="mr-2 font-paper-mono text-muted">{note.key}</span>
+            {note.title}
+          </dt>
+          <dd className="mt-1 text-sm leading-relaxed text-muted">{note.body}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+function StartPageMock() {
+  return (
+    <figure className="col-span-12">
+      <div className="overflow-hidden rounded-lg border border-ink/15 bg-white text-[13px] text-[#222]">
+        <div className="flex items-center gap-2 border-b border-black/10 bg-[#e8e8e8] px-3 py-2">
+          <span className="rounded bg-[#f9f9f9] px-2 py-0.5 shadow-sm">Start</span>
+          <span className="px-2 py-0.5 text-[#6b6b6b]">Welcome to Paper</span>
+          <span className="px-2 py-0.5 text-[#6b6b6b]">Scratchpad</span>
+        </div>
+        <div className="grid md:grid-cols-[12rem_1fr_15rem]">
+          <nav aria-label="Mock sidebar" className="hidden border-r border-black/10 bg-[#f2f2f2] p-3 md:block">
+            {["Start", "All files · 3", "Shared with me", "Archive"].map((item, index) => (
+              <p
+                key={item}
+                className={`rounded px-2 py-1.5 ${index === 0 ? "bg-[#e3e3e3] font-medium" : "text-[#6b6b6b]"}`}
+              >
+                {item}
+              </p>
+            ))}
+            <div className="mt-6 px-2">
+              <p className="text-[12px] text-[#6b6b6b]">Your progress</p>
+              <div className="mt-2 h-1.5 rounded-full bg-[#e4e4e4]">
+                <div className="h-full w-1/3 rounded-full bg-[#5c89dd]" />
+              </div>
+              <p className="mt-1.5 text-[12px] text-[#6b6b6b]">2 of 6 lessons done</p>
+            </div>
+          </nav>
+          <div className="p-5">
+            <p className="text-[20px] font-medium tracking-[-0.01em]">Good afternoon, Alina</p>
+            <div className="mt-4 grid gap-4 rounded-lg bg-[#f2f2f2] p-4 sm:grid-cols-[10rem_1fr]">
+              <div className="relative flex aspect-video items-center justify-center rounded-md bg-[#222] text-white">
+                <svg aria-hidden viewBox="0 0 16 16" className="size-6" fill="currentColor">
+                  <path d="M5 3.5v9l7.5-4.5z" />
+                </svg>
+                <span className="absolute bottom-1.5 left-2 text-[11px] opacity-80">1:40 · plays in Paper</span>
+              </div>
+              <div>
+                <p className="text-[12px] text-[#6b6b6b]">Next lesson · 3 of 6</p>
+                <p className="mt-1 text-[15px] font-medium">Real flex layout, by hand</p>
+                <p className="mt-1 text-[#6b6b6b]">Watch for 100 seconds, then build it yourself.</p>
+                <span className="mt-3 inline-block rounded-md bg-[#222] px-3 py-1.5 text-white">
+                  Try it on canvas →
+                </span>
+              </div>
+            </div>
+            <ol className="mt-4 divide-y divide-black/5 rounded-lg bg-[#f2f2f2]">
+              {lessons.map((lesson, index) => (
+                <li key={lesson.title} className="flex items-center gap-3 px-4 py-2.5">
+                  <span
+                    className={`flex size-5 items-center justify-center rounded-full text-[11px] ${
+                      "done" in lesson && lesson.done
+                        ? "bg-[#222] text-white"
+                        : "current" in lesson && lesson.current
+                          ? "bg-[#5c89dd] text-white"
+                          : "border border-black/20 text-[#6b6b6b]"
+                    }`}
+                  >
+                    {index + 1}
+                  </span>
+                  <span className={"done" in lesson && lesson.done ? "text-[#6b6b6b] line-through" : ""}>
+                    {lesson.title}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <aside aria-label="Mock agent pane" className="border-t border-black/10 bg-[#f2f2f2] p-4 md:border-t-0 md:border-l">
+            <p className="flex items-center gap-2 text-[12px] text-[#6b6b6b]">
+              <span className="size-2 rounded-full bg-[#3E9C8F]" /> Claude Code · connected
+            </p>
+            <div className="mt-4 space-y-3">
+              <p className="ml-6 rounded-lg bg-[#e3e3e3] p-2.5">Set me up to practise flex layout.</p>
+              <p className="mr-6 rounded-lg bg-white p-2.5">
+                Created “Flex practice” with one card to lay out. Open it when you’re ready.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+      <figcaption className="mt-3 max-w-[38rem] text-sm leading-relaxed text-muted">
+        A Start page that is always the first tab: the next lesson, all six lessons, and the agent docked beside it.
+      </figcaption>
+    </figure>
+  );
+}
+
+export default function PaperPage() {
+  return (
+    <article className={paperMono.variable}>
+      <Container className="pt-10 md:pt-16">
+        <Tape rotate={-1.5}>{paperPage.disclaimer}</Tape>
+
+        <h1 className="mt-10 max-w-[18ch] text-[clamp(2.5rem,6.5vw,6rem)] leading-[0.95] font-medium tracking-[-0.045em] text-balance md:mt-14">
+          {paperPage.title}
+        </h1>
+        <div className="mt-10 grid grid-cols-12 gap-x-5 gap-y-4 border-t border-line pt-5">
+          <p className="col-span-12 text-sm md:col-span-4">{paperPage.byline}</p>
+          <p className="col-span-12 max-w-[38rem] text-lg leading-relaxed md:col-span-8 md:col-start-5 md:text-xl">
+            {paperPage.summary}
+          </p>
+        </div>
+
+        <CaseSection label="01 · What I love" title="Three things that made me stay.">
+          <ul className="col-span-12 grid gap-5 md:grid-cols-3">
+            <li>
+              <TextureCard />
+              <p className="mt-4 text-base font-medium">{loves[0].title}</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted">{loves[0].body}</p>
+            </li>
+            <li>
+              <div className="flex aspect-[4/3] flex-col justify-end rounded-md bg-[#fbfaf6] p-5 shadow-[0_1px_2px_rgba(17,17,17,0.06)]">
+                <p className="font-paper-mono text-[12px] text-muted">Welcome to Paper</p>
+                <p className="mt-2 text-2xl leading-tight tracking-[-0.02em]">Learn Paper by using Paper.</p>
+              </div>
+              <p className="mt-4 text-base font-medium">{loves[1].title}</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted">{loves[1].body}</p>
+            </li>
+            <li>
+              <div className="flex aspect-[4/3] items-center justify-center rounded-md bg-[#999999] p-5">
+                <ul aria-label="Paper context menu" className="w-full max-w-60 rounded-lg bg-white p-1.5 text-[13px] shadow-md">
+                  {menu.map((item) => (
+                    <li key={item.label} className="flex justify-between rounded px-2.5 py-1.5 hover:bg-[#e3e3e3]">
+                      <span>{item.label}</span>
+                      <kbd className="font-paper-mono text-[#6b6b6b]">{item.keys}</kbd>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <p className="mt-4 text-base font-medium">{loves[2].title}</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted">{loves[2].body}</p>
+            </li>
+          </ul>
+        </CaseSection>
+
+        <CaseSection label="02 · Where I got lost" title="My first hour, and where the line wandered.">
+          <LostTimeline />
+          <Prose>
+            <p>
+              The pattern: <strong>the product is great once you’re in, and the way in is hidden.</strong> The Learn
+              tab and the Welcome file already exist. They just aren’t the front door.
+            </p>
+          </Prose>
+        </CaseSection>
+
+        <CaseSection label="03 · What I’d build" title="A front door, then lessons you do on the canvas.">
+          <StartPageMock />
+          <Notes items={startNotes} />
+          <Subheading>Then: try it on canvas</Subheading>
+          <FlexLesson />
+          <Notes items={canvasNotes} />
+        </CaseSection>
+
+        <CaseSection label="04 · Quick wins" title="Two fixes that don’t need a roadmap slot.">
+          <Prose>
+            <p>
+              <strong>Desktop handoff.</strong> Download → an “Open Paper Desktop” deep link → the first launch opens
+              the Welcome file with the agent panel showing. No grey dashboard.
+            </p>
+            <p>
+              <strong>The mobile menu.</strong> Pin it above the footer and let it scroll on its own:
+            </p>
+          </Prose>
+          <CodeBlock code={mobileMenuFix} />
+        </CaseSection>
+
+        <CaseSection label="05 · The ask" title="I’d like to build this with you.">
+          <Prose>
+            <p>
+              I’m a product and design engineer in London. I design in code, ship React and TypeScript, and measure
+              what changed. I used Paper and its agent connection to make the first version of this page.
+            </p>
+          </Prose>
+          <div className="col-span-12 grid grid-cols-12 gap-x-5 gap-y-12 pt-6">
+            <PortraitPaywall />
+            <div className="col-span-12 md:col-span-5 md:col-start-8">
+              <p className="text-2xl leading-[1.15] tracking-[-0.02em] text-balance md:text-[2.25rem]">
+                The rest is a Pro feature. Hire me to unlock.
+              </p>
+              <div className="mt-12">
+                <TearOffFlyer />
+              </div>
+            </div>
+          </div>
+        </CaseSection>
+
+        <CaseSection label="06 · Too early?" title="Tell me what “ready” looks like.">
+          <Prose>
+            <p>
+              I saw the design engineer role is principal-level, and I know I’m not there yet. But Paper is exactly
+              the kind of team I want to work with. If the team grows in a way that fits someone earlier in their
+              career, I’d love to be considered. If not yet, tell me what you’d look for, and I’ll come back in a few
+              years ready.
+            </p>
+          </Prose>
+          <AdviceNote />
+        </CaseSection>
+
+        {/* Sits just above the site footer: the negative margin eats most of the footer's top gap. */}
+        <p className="mt-28 -mb-20 text-center text-sm text-muted md:mt-44 md:-mb-36">
+          Made in Paper, with an agent, then built for the web.
+        </p>
+      </Container>
+    </article>
+  );
+}
