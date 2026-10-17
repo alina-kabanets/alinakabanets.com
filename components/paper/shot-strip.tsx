@@ -104,3 +104,52 @@ export function ShotStrip({ shots }: { shots: Shot[] }) {
     </>
   );
 }
+
+// One image that fills its frame and opens full size on click (or tap).
+export function ZoomImage({ shot, className = "" }: { shot: Shot; className?: string }) {
+  const dialog = useRef<HTMLDialogElement>(null);
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => dialog.current?.showModal()}
+        aria-label={`Enlarge: ${shot.alt}`}
+        className={`group relative block w-full cursor-zoom-in overflow-hidden ${className}`}
+      >
+        <Image
+          src={shot.src}
+          alt={shot.alt}
+          fill
+          sizes="(min-width: 768px) 33vw, 100vw"
+          className="object-contain transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none"
+        />
+      </button>
+      <dialog
+        ref={dialog}
+        aria-label={shot.alt}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) dialog.current?.close();
+        }}
+        className="m-auto max-h-none max-w-none bg-transparent p-0 font-sans backdrop:bg-[rgba(17,17,17,0.82)] backdrop:backdrop-blur-sm"
+      >
+        <figure className="flex flex-col items-center gap-3">
+          <Image
+            src={shot.src}
+            alt={shot.alt}
+            width={shot.width}
+            height={shot.height}
+            sizes="90vw"
+            className="h-auto max-h-[82vh] w-auto max-w-[90vw] rounded-md shadow-2xl"
+          />
+          <button
+            type="button"
+            onClick={() => dialog.current?.close()}
+            className="h-11 rounded-full border border-paper/40 px-4 text-sm text-paper hover:bg-paper/15"
+          >
+            Close
+          </button>
+        </figure>
+      </dialog>
+    </>
+  );
+}

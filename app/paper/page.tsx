@@ -6,6 +6,7 @@ import { Container } from "@/components/container";
 import { FlexLesson } from "@/components/paper/flex-lesson";
 import { LostTimeline } from "@/components/paper/lost-timeline";
 import { PortraitPaywall } from "@/components/paper/portrait-paywall";
+import { ZoomImage } from "@/components/paper/shot-strip";
 import { Tape } from "@/components/paper/tape";
 import { TearOffFlyer } from "@/components/paper/tear-off-flyer";
 import { TextureCard } from "@/components/paper/texture-card";
@@ -164,15 +165,20 @@ export default function PaperPage() {
               <p className="mt-1 text-sm leading-relaxed text-muted">{loves[0].body}</p>
             </li>
             <li>
-              <div className="flex aspect-[4/3] flex-col justify-end rounded-md bg-[#fbfaf6] p-5 shadow-[0_1px_2px_rgba(17,17,17,0.06)]">
-                <p className="font-paper-mono text-[12px] text-muted">Welcome to Paper</p>
-                <p className="mt-2 text-2xl leading-tight tracking-[-0.02em]">Learn Paper by using Paper.</p>
-              </div>
+              <ZoomImage
+                shot={{
+                  src: "/images/paper/welcome-file.jpg",
+                  alt: "Paper’s Welcome file: six columns of lessons on a grey canvas, from building with an AI agent to shaders, React export, colour tools and the roadmap",
+                  width: 1353,
+                  height: 1073,
+                }}
+                className="aspect-[4/3] rounded-md bg-[#8e8e8e]"
+              />
               <p className="mt-4 text-base font-medium">{loves[1].title}</p>
               <p className="mt-1 text-sm leading-relaxed text-muted">{loves[1].body}</p>
             </li>
             <li>
-              <div className="flex aspect-[4/3] items-center justify-center rounded-md bg-[#999999] p-5">
+              <div className="flex aspect-[4/3] items-center justify-center rounded-md bg-[#8e8e8e] p-5">
                 <ul aria-label="Paper context menu" className="w-full max-w-60 rounded-lg bg-white p-1.5 text-[13px] shadow-md">
                   {menu.map((item) => (
                     <li key={item.label} className="flex justify-between rounded px-2.5 py-1.5 hover:bg-[#e3e3e3]">
