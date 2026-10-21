@@ -28,8 +28,8 @@ const stops: Stop[] = [
 ];
 
 // A hand-drawn detour: a deterministic wandering path from top centre to
-// bottom centre, mostly swinging left (into the empty label column).
-function detour(seed: number) {
+// bottom centre, swinging out to one side (into the empty half of the row).
+function detour(seed: number, side: 1 | -1 = -1) {
   let s = seed;
   const rand = () => {
     s = (s * 9301 + 49297) % 233280;
@@ -37,7 +37,7 @@ function detour(seed: number) {
   };
   const centre = 150;
   const points: [number, number][] = [[centre, 0]];
-  const swing = -(55 + rand() * 75); // how far left the detour goes
+  const swing = side * (55 + rand() * 75); // how far the detour goes, and which way
   const wiggle = 8 + rand() * 14;
   const phase = rand() * Math.PI * 2;
   const steps = 34;
@@ -109,40 +109,57 @@ export function LostTimeline() {
     <ol className="col-span-12 font-paper-mono text-[13px] leading-relaxed md:text-[14px]">
       {stops.map((stop, index) => {
         const last = index === stops.length - 1;
+        // On wider screens the stops alternate sides of the line: text and
+        // screenshots on the right, then the left, and so on.
+        const left = index % 2 === 1;
         return (
           <li
             key={stop.title}
             className="grid grid-cols-[5.5rem_2rem_1fr] gap-x-3 md:grid-cols-[1fr_3rem_1fr] md:gap-x-6"
           >
-            <p className="pt-0.5 text-right text-muted">
+            <p className={`pt-0.5 text-right text-muted md:row-start-1 ${left ? "md:col-start-3 md:text-left" : "md:col-start-1"}`}>
               {stop.highlight ? <span className="rounded bg-ink px-1.5 py-0.5 text-paper">{stop.label}</span> : stop.label}
             </p>
 
             {/* The line: a dot, then a straight run or a detour down to the next stop,
                 with a small gap either side of each dot, like a pen lifted. */}
-            <div aria-hidden className="relative">
+            <div aria-hidden className="relative md:col-start-2 md:row-start-1">
               <svg viewBox="0 0 12 12" className="absolute top-[0.4rem] left-1/2 size-3 -translate-x-1/2">
                 <path d={blot(index * 1.7 + 0.4)} fill="#111" />
               </svg>
               {!last &&
                 (stop.lost ? (
-                  <svg
-                    viewBox="0 0 180 100"
-                    preserveAspectRatio="none"
-                    className="absolute top-[1.6rem] left-1/2 h-[calc(100%-1.85rem)] w-[180px] -translate-x-[150px] overflow-visible"
-                  >
-                    <InkLine points={detour(index * 37 + 11)} seed={index * 0.9} />
-                  </svg>
+                  <>
+                    {/* Phones: always into the label column. Wider: away from this row's text. */}
+                    <svg
+                      viewBox="0 0 180 100"
+                      preserveAspectRatio="none"
+                      className="absolute top-[1.6rem] left-1/2 h-[calc(100%-1.85rem)] w-[180px] -translate-x-[150px] overflow-visible md:hidden"
+                    >
+                      <InkLine points={detour(index * 37 + 11)} seed={index * 0.9} />
+                    </svg>
+                    <svg
+                      viewBox="0 0 180 100"
+                      preserveAspectRatio="none"
+                      className="absolute top-[1.6rem] left-1/2 hidden h-[calc(100%-1.85rem)] w-[180px] -translate-x-[150px] overflow-visible md:block"
+                    >
+                      <InkLine points={detour(index * 37 + 11, left ? 1 : -1)} seed={index * 0.9} />
+                    </svg>
+                  </>
                 ) : (
                   <Stroke seed={index * 29 + 3} className="absolute top-[1.6rem] left-1/2 h-[calc(100%-1.85rem)] w-5 -translate-x-1/2 overflow-visible" />
                 ))}
             </div>
 
-            <div className={`min-w-0 max-w-[28rem] ${last ? "" : stop.lost ? "min-h-64 pb-16" : "pb-14"}`}>
+            <div
+              className={`min-w-0 max-w-[28rem] md:row-start-1 ${left ? "md:col-start-1 md:ml-auto md:text-right" : "md:col-start-3"} ${
+                last ? "" : stop.lost ? "min-h-64 pb-16" : "pb-14"
+              }`}
+            >
               <p className="font-medium text-ink">{stop.title}</p>
               {stop.body && <p className="mt-1 text-muted">{stop.body}</p>}
               {stop.screenshots ? (
-                <ShotStrip shots={stop.screenshots} />
+                <ShotStrip shots={stop.screenshots} className={left ? "md:justify-end" : ""} />
               ) : (
                 isDev &&
                 index > 0 &&

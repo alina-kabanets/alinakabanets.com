@@ -102,7 +102,16 @@ body::after {
 }
 
 /* /paper: masking tape. Translucent, slightly yellowed, with soft ends. */
+/* The strip is drawn on a layer behind the text: Safari can drop text inside an
+   element that has both a mask and a backdrop filter. */
 .paper-tape {
+  isolation: isolate;
+}
+.paper-tape::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: rgb(236 230 208 / 0.72);
   box-shadow: 0 1px 1px rgb(17 17 17 / 0.06);
   mask-image: linear-gradient(90deg, transparent 0, #000 6px, #000 calc(100% - 6px), transparent 100%);

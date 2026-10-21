@@ -5,14 +5,14 @@ export const paperPage = {
   disclaimer: "independent concept · not affiliated with Paper",
   title: "I fell for Paper in a day. The next designer should take five minutes.",
   summary:
-    "What I love about Paper, where my first hour went sideways, and what I’d build as a design engineer: a Start page that turns the Welcome file into the front door, and lessons you do on the canvas instead of reading about them.",
+    "What I love about Paper, where my first hour went sideways, and what I’d build as a design engineer: a front door that teaches by doing, a canvas where you work with agents by pointing instead of describing, and a loop that keeps design and code in step.",
   byline: "Alina Kabanets · October 2026",
-  checked: "Roadmap and build log checked 17 October 2026.",
+  checked: "Roadmap and build log checked 21 October 2026.",
 };
 
 export const loves = [
   {
-    title: "Paper Texture",
+    title: "Paper texture",
     body: "I use it everywhere, including on my own portfolio. This card is the real shader, from Paper’s open-source library.",
   },
   {
@@ -20,17 +20,11 @@ export const loves = [
     body: "It teaches by being the thing you learn in. It should be the front door, not a file you stumble on.",
   },
   {
-    title: "Quiet menus",
-    body: "Clean, short, with the shortcuts you actually use.",
+    title: "A promise",
+    body: "Paper connects your teams, agents, code, and data on a single design space. Finally, a continuous loop from Paper to code and back.",
   },
 ] as const;
 
-export const menu = [
-  { label: "Pen tool", keys: "P" },
-  { label: "Copy as React", keys: "⌥R" },
-  { label: "Copy as Tailwind", keys: "⌥T" },
-  { label: "Comment", keys: "C" },
-] as const;
 
 export const friction = [
   {
@@ -133,6 +127,114 @@ export const canvasNotes = [
   { key: "F", title: "It ticks itself", body: "Each step checks the real canvas state. Try it above." },
   { key: "G", title: "Hints point at the real UI", body: "Not at a screenshot of it." },
   { key: "H", title: "Finishing saves the file", body: "The practice file lands in All files and the next lesson is queued." },
+] as const;
+
+export const agentNotes = [
+  {
+    key: "I",
+    title: "Select, then ask",
+    body: "The agent already knows the canvas. Make the selection the whole brief: highlight any part, say what should change, and only that part changes, in place.",
+  },
+  {
+    key: "J",
+    title: "Remix, taken further",
+    body: "Not variations of one element, but whole directions on your own tokens: add references and a one-line brief, get six side by side, then combine and push the one that’s right.",
+  },
+  {
+    key: "K",
+    title: "Talk in the sidebar, see it on the canvas",
+    body: "Every prompt lands as a visible change in the file, so you stay the designer and the agent does the legwork.",
+  },
+  {
+    key: "L",
+    title: "On your system, not a generic one",
+    body: "Variants use your tokens and components, so the one you pick is already close to shippable.",
+  },
+] as const;
+
+// Ideas for closing the loop between Paper and code, one notepad sheet per
+// theme. "buildsOn" names the shipped, in-progress or planned Paper feature
+// each idea extends, from paper.design/build-log and /roadmap. "starred"
+// marks the three I would start with.
+export const ideaSheets = [
+  {
+    title: "From a rough idea to a first screen",
+    ideas: [
+      {
+        title: "Sketch it, and let agents take it from there",
+        body: "A loose sketching mode on the canvas: boxes, arrows, scribbled notes. Agents read the sketch as the brief and turn it into real layout, so you can think with a pen before you think in components.",
+        buildsOn: "Pen tool and vector editing · in progress",
+      },
+      {
+        title: "From paper to Paper",
+        starred: true,
+        body: "Photograph a pencil sketch from your notebook, and it lands on the canvas as an editable wireframe, ready for an agent to build on.",
+        buildsOn: "Paper Snapshot · done",
+      },
+      {
+        title: "Think the flow through first",
+        body: "An agent skill that asks the questions a good product designer would: which steps, which screens, which edge cases. It starts from a library of common flows (sign-up, checkout, onboarding) and lays the screens out on the canvas.",
+      },
+    ],
+  },
+  {
+    title: "Working with agents in Paper",
+    ideas: [
+      {
+        title: "A design-native terminal",
+        body: "The agent’s terminal, docked in Paper instead of in another window. It speaks design: what it read shows as a thumbnail, components as pills you can click to find on the canvas, questions come with buttons, and your selection is attached to the next prompt.",
+        buildsOn: "In-app agent setup · Sep 2026",
+      },
+      {
+        title: "Agents work on a draft page",
+        body: "Agent changes land on a draft copy, and you merge what you like into the real artboards, a bit like a branch in code. The main file stays safe.",
+      },
+      {
+        title: "Paper as a tool factory",
+        starred: true,
+        body: "Lessons and hints on building your own tools with agents: a texture generator, a pattern maker, a custom effect, whatever the design needs. Build it once in Paper, and the whole team and its agents can use it.",
+        buildsOn: "Script and prompt engine · planned",
+      },
+    ],
+  },
+  {
+    title: "One system, for people and agents",
+    ideas: [
+      {
+        title: "Codebase components as the source of truth",
+        starred: true,
+        body: "A live place in Paper for every component in the codebase. Designers browse it to pick what fits, and change a component when they need something new, so the change goes back to code. Agents building in code are pointed at it, so they reuse what exists instead of inventing new styles.",
+        buildsOn: "Use your code components · in progress",
+      },
+      {
+        title: "A library of perfected designs",
+        body: "A shelf of the screens and patterns the team is proudest of. Agents use it as their reference for taste and say which one they followed, like “based on: Checkout v3”, so new work looks like your best work, not the average of the internet.",
+      },
+      {
+        title: "Rules agents follow",
+        body: "Short notes on why things are the way they are, like “we never use pure black” or “one primary button per screen”, plus a good and a bad example pinned to each component. Agents read them before they build, and say which rule they applied.",
+      },
+      {
+        title: "Design review against the library",
+        body: "Before anything gets built, the agent flags any colour, spacing or component in a design that isn’t in your system.",
+        buildsOn: "Tokens · June 2026",
+      },
+    ],
+  },
+  {
+    title: "Design and code in step",
+    ideas: [
+      {
+        title: "A sync label on each artboard",
+        body: "“In sync”, “design is ahead” or “code is ahead”, linked to the code file. When a developer changes the component, the artboard says so and offers to update.",
+      },
+      {
+        title: "Move in from Figma, properly",
+        body: "Pasting objects already works. Next: whole files with their pages and names, Figma variables as Paper tokens, and components that arrive as your real code components, using the links Figma’s Code Connect already keeps. Plus a short report of anything that didn’t carry over.",
+        buildsOn: "Figma copy and paste · May 2026",
+      },
+    ],
+  },
 ] as const;
 
 export const mobileMenuFix = `.mobile-menu {

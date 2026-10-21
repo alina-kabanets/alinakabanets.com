@@ -11,7 +11,7 @@ const tapeTilt = [-3, 4, -2];
 
 // Taped phone screenshots. They lift on hover; a click (or tap) opens one
 // full size in a dialog, and the arrow keys step through the set.
-export function ShotStrip({ shots }: { shots: Shot[] }) {
+export function ShotStrip({ shots, className = "" }: { shots: Shot[]; className?: string }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(0);
   const shot = shots[open];
@@ -25,7 +25,7 @@ export function ShotStrip({ shots }: { shots: Shot[] }) {
   return (
     <>
       {/* On phones the column is too narrow for three, so they scroll sideways. */}
-      <div className="-mr-5 mt-2 flex snap-x gap-3 overflow-x-auto pt-3 pr-5 pb-3 md:mr-0 md:flex-wrap md:overflow-visible md:pr-0">
+      <div className={`-mr-5 mt-2 flex snap-x gap-3 overflow-x-auto pt-3 pr-5 pb-3 md:mr-0 md:flex-wrap md:overflow-visible md:pr-0 ${className}`}>
         {shots.map((item, i) => (
           <figure
             key={item.src}

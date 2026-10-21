@@ -12,7 +12,7 @@ export function Tape({
 }) {
   return (
     <span
-      className={`paper-tape inline-block px-5 py-1.5 font-paper-mono text-[13px] tracking-[0.02em] text-ink/80 ${className}`}
+      className={`paper-tape inline-block px-5 ${className.includes("absolute") ? "" : "relative"} py-1.5 font-paper-mono text-[13px] tracking-[0.02em] text-ink/80 ${className}`}
       style={{ transform: `rotate(${rotate}deg)` }}
     >
       {children}

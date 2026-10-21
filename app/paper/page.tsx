@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { CaseSection, CodeBlock, Prose, Subheading } from "@/components/case-study";
 import { AdviceNote } from "@/components/paper/advice-note";
+import { AgentCanvasMock } from "@/components/paper/agent-canvas-mock";
+import { ComponentSyncMock } from "@/components/paper/component-sync-mock";
 import { Container } from "@/components/container";
 import { FlexLesson } from "@/components/paper/flex-lesson";
+import { IdeaSheets } from "@/components/paper/ideas-sheet";
 import { LostTimeline } from "@/components/paper/lost-timeline";
 import { PortraitPaywall } from "@/components/paper/portrait-paywall";
 import { ZoomImage } from "@/components/paper/shot-strip";
@@ -11,10 +14,10 @@ import { Tape } from "@/components/paper/tape";
 import { TearOffFlyer } from "@/components/paper/tear-off-flyer";
 import { TextureCard } from "@/components/paper/texture-card";
 import {
+  agentNotes,
   canvasNotes,
   lessons,
   loves,
-  menu,
   mobileMenuFix,
   paperPage,
   startNotes,
@@ -178,16 +181,15 @@ export default function PaperPage() {
               <p className="mt-1 text-sm leading-relaxed text-muted">{loves[1].body}</p>
             </li>
             <li>
-              <div className="flex aspect-[4/3] items-center justify-center rounded-md bg-[#8e8e8e] p-5">
-                <ul aria-label="Paper context menu" className="w-full max-w-60 rounded-lg bg-white p-1.5 text-[13px] shadow-md">
-                  {menu.map((item) => (
-                    <li key={item.label} className="flex justify-between rounded px-2.5 py-1.5 hover:bg-[#e3e3e3]">
-                      <span>{item.label}</span>
-                      <kbd className="font-paper-mono text-[#6b6b6b]">{item.keys}</kbd>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ZoomImage
+                shot={{
+                  src: "/images/paper/agent-loop-v2.jpg",
+                  alt: "Paper with a terminal beside it: a coding agent creates three mobile artboards in the file through Paper’s MCP server, then is asked to build them into the codebase",
+                  width: 1324,
+                  height: 721,
+                }}
+                className="aspect-[4/3] rounded-md bg-[#8e8e8e] [&>img]:p-4 [&>img]:drop-shadow-[0_8px_16px_rgba(0,0,0,0.25)]"
+              />
               <p className="mt-4 text-base font-medium">{loves[2].title}</p>
               <p className="mt-1 text-sm leading-relaxed text-muted">{loves[2].body}</p>
             </li>
@@ -205,14 +207,43 @@ export default function PaperPage() {
         </CaseSection>
 
         <CaseSection label="03 · What I’d build" title="A front door, then lessons you do on the canvas.">
+          <Prose>
+            <p>
+              The lessons should be a short, deliberate list: the most important features, and the ones that set Paper
+              apart, chosen as what we want every new designer to notice first. Each lesson is one of those, learned
+              by doing it.
+            </p>
+            <p>
+              At some point Paper showed me a short overview of everything it can do. I closed it, have never found it
+              again, and still regret it. That list should live somewhere you can always come back to.
+            </p>
+          </Prose>
           <StartPageMock />
           <Notes items={startNotes} />
           <Subheading>Then: try it on canvas</Subheading>
           <FlexLesson />
           <Notes items={canvasNotes} />
+          <Subheading>And: a bridge from a raw idea to agents</Subheading>
+          <Prose>
+            <p>
+              Designers think in pictures. Agents take words. Every prompt is a lossy translation between the two.
+            </p>
+            <p>
+              Paper’s canvas is already real CSS, so it can speak both. <strong>Point, don’t describe</strong>: select
+              the part, say what’s wrong. <strong>Explore, then commit</strong>: references in, six directions out.
+              The agent answers in layers, not words, and the designer steers with their eye.
+            </p>
+          </Prose>
+          <AgentCanvasMock />
+          <Notes items={agentNotes} />
         </CaseSection>
 
-        <CaseSection label="04 · Quick wins" title="Two fixes that don’t need a roadmap slot.">
+        <CaseSection label="04 · Product ideas" title="My product ideas for Paper, from a rough idea to code and back.">
+          <IdeaSheets />
+          <ComponentSyncMock />
+        </CaseSection>
+
+        <CaseSection label="05 · Quick wins" title="Two fixes that don’t need a roadmap slot.">
           <Prose>
             <p>
               <strong>Desktop handoff.</strong> Download → an “Open Paper Desktop” deep link → the first launch opens
@@ -225,7 +256,7 @@ export default function PaperPage() {
           <CodeBlock code={mobileMenuFix} />
         </CaseSection>
 
-        <CaseSection label="05 · The ask" title="I’d like to build this with you.">
+        <CaseSection label="06 · The ask" title="I’d like to build this with you.">
           <Prose>
             <p>
               I’m a product and design engineer in London. I design in code, ship React and TypeScript, and measure
@@ -234,28 +265,23 @@ export default function PaperPage() {
           </Prose>
           <div className="col-span-12 grid grid-cols-12 gap-x-5 gap-y-12 pt-6">
             <PortraitPaywall />
-            <div className="col-span-12 md:col-span-5 md:col-start-8">
-              <p className="text-2xl leading-[1.15] tracking-[-0.02em] text-balance md:text-[2.25rem]">
-                The rest is a Pro feature. Hire me to unlock.
+            {/* Centred in the right half, to balance the photo in the left half. */}
+            <div className="col-span-12 md:col-span-6 md:flex md:flex-col md:items-center">
+              <p className="w-full max-w-[30rem] text-2xl leading-[1.15] tracking-[-0.02em] text-balance md:text-center md:text-[2.25rem]">
+                The rest is easier over a call.
               </p>
-              <div className="mt-12">
+              <div className="mt-12 w-full max-w-[30rem]">
                 <TearOffFlyer />
               </div>
             </div>
           </div>
         </CaseSection>
 
-        <CaseSection label="06 · Too early?" title="Tell me what “ready” looks like.">
-          <Prose>
-            <p>
-              I saw the design engineer role is principal-level, and I know I’m not there yet. But Paper is exactly
-              the kind of team I want to work with. If the team grows in a way that fits someone earlier in their
-              career, I’d love to be considered. If not yet, tell me what you’d look for, and I’ll come back in a few
-              years ready.
-            </p>
-          </Prose>
+        {/* A note to post: the form and the pillar box, with a label but no heading. */}
+        <section className="mt-28 grid grid-cols-12 gap-x-5 gap-y-10 border-t border-line pt-5 md:mt-40">
+          <p className="col-span-12 text-sm">07 · Leave a note</p>
           <AdviceNote />
-        </CaseSection>
+        </section>
 
         {/* Sits just above the site footer: the negative margin eats most of the footer's top gap. */}
         <p className="mt-28 -mb-20 text-center text-sm text-muted md:mt-44 md:-mb-36">

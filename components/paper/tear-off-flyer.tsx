@@ -32,7 +32,7 @@ const tabs: Tab[] = [
     href: profile.links.linkedin,
     event: "linkedin-click",
   },
-  { id: "analytics", label: "Analytics", event: "paper-tab", trait: true },
+  { id: "analytics", label: "Analytical mind", event: "paper-tab", trait: true },
   { id: "eye-for-detail", label: "Eye for detail", event: "paper-tab", trait: true },
   { id: "portfolio", label: "Portfolio", href: "/", event: "portfolio-click" },
   { id: "product-thinking", label: "Product thinking", event: "paper-tab", trait: true },
@@ -52,13 +52,44 @@ const cut = [
   { h: 9.1, r: 0.9 },
 ];
 
+// Handled paper on each tab: a faint fibre grain plus one or two creases,
+// at a different angle per tab, as if people have fingered them.
+const grain =
+  "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.07 0 0 0 0 0.07 0 0 0 0 0.07 0 0 0 0.09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
+
+function handled(index: number) {
+  const a = [62, 118, 75, 104, 58, 128, 84, 110, 66, 96][index % 10];
+  const at = [34, 58, 46, 70, 40, 62, 52, 30, 66, 44][index % 10];
+  return [
+    grain,
+    `linear-gradient(${a}deg, transparent ${at - 1}%, rgba(17,17,17,0.07) ${at}%, rgba(255,255,255,0.9) ${at + 0.6}%, transparent ${at + 2}%)`,
+    index % 3 === 0
+      ? `linear-gradient(${180 - a}deg, transparent 77%, rgba(17,17,17,0.05) 78%, rgba(255,255,255,0.8) 78.6%, transparent 80%)`
+      : "linear-gradient(transparent, transparent)",
+    "linear-gradient(180deg, rgba(17,17,17,0.05), transparent 16%, transparent 84%, rgba(17,17,17,0.03))",
+  ].join(", ");
+}
+
+// How each letter of "Take one" sits on the crumpled sheet: a small rise or
+// dip, tilt and squash, following one gentle wave rather than random jitter.
+const bend = [
+  { y: 1.5, r: -2, s: 1.02 },
+  { y: 0.5, r: -1, s: 1 },
+  { y: -0.5, r: 0.5, s: 0.98 },
+  { y: -1.5, r: 1.5, s: 0.97 },
+  { y: 0, r: 0, s: 1 },
+  { y: -1, r: -1.5, s: 1.01 },
+  { y: 0.5, r: 1, s: 1.02 },
+  { y: 2, r: 2.5, s: 0.99 },
+];
+
 const alreadyTaken = ["innovation", "eye-for-detail"];
 
 // The stub left on the sheet once a tab is torn: a ragged bottom edge.
 const stub =
   "polygon(0 0, 100% 0, 100% 62%, 86% 78%, 72% 58%, 57% 84%, 41% 63%, 27% 88%, 13% 66%, 0 80%)";
 
-// "Take what you need": a flyer with tear-off tabs. Drag a tab down (or just
+// "Take one": a flyer with tear-off tabs. Drag a tab down (or just
 // click it) to tear it off. The contact tabs do their job as they go.
 export function TearOffFlyer() {
   // Two tabs are already gone when the page loads: someone got here first.
@@ -73,7 +104,7 @@ export function TearOffFlyer() {
       current.includes(tab.id) ? current : [...current, tab.id],
     );
     if (tab.trait) {
-      setNote(`${tab.label}: it’s yours. The rest comes with me.`);
+      setNote(`${tab.label}: taken. There’s more where that came from.`);
     } else if (tab.copy) {
       try {
         await navigator.clipboard.writeText(tab.copy);
@@ -92,28 +123,52 @@ export function TearOffFlyer() {
     <div className="relative max-w-[30rem] rotate-[0.6deg]">
       {/* The sheet: Paper's own paper-texture shader, so it reads as real paper. */}
       <div className="relative overflow-hidden shadow-[0_1px_1px_rgba(17,17,17,0.05),0_18px_36px_-24px_rgba(17,17,17,0.3)]">
+        {/* Its own sheet: crumpled once, laid-paper rows and a few specks, like a
+            flyer that has been up on a noticeboard for a while. */}
         <PaperTexture
           className="absolute inset-0 h-full w-full"
           colorBack="#ffffff"
           colorPaper="#ffffff"
-          colorShadow="#efede8"
+          colorShadow="#c9c4b6"
           speed={0}
           fit="cover"
           scale={1}
-          folds={0.12}
-          wrinkles={0.25}
-          crumples={0}
-          fiber={0.4}
-          roughness={0.2}
-          drops={0}
-          seed={11}
+          angle={35}
+          folds={0}
+          wrinkles={0.45}
+          wrinkleSize={0.6}
+          crumples={0.9}
+          crumpleCount={8}
+          fiber={0.35}
+          fiberSize={0.4}
+          roughness={0.06}
+          roughnessRows={0.4}
+          drops={0.08}
+          seed={47}
         />
+        {/* The shader's relief shading greys the whole sheet; lift it back to the tabs' white. */}
+        <div aria-hidden className="absolute inset-0 bg-white/40" />
         <div className="relative px-7 pt-9 pb-8 text-center">
-          <p className="text-[clamp(1.6rem,3.6vw,2.1rem)] leading-tight tracking-[-0.01em]">
-            Take what you
-          </p>
-          <p className="text-[clamp(3.4rem,8vw,4.75rem)] leading-[0.95] font-medium tracking-[-0.04em]">
-            need
+          {/* Printed on crumpled paper: each letter sits a little off, as if the
+              sheet bent under it. Plain transforms, so the text stays crisp. */}
+          <p
+            aria-label="Take one"
+            className="rotate-[-1deg] skew-x-[-2deg] text-[clamp(2.6rem,6vw,3.5rem)] leading-tight tracking-[-0.03em] text-ink/90 mix-blend-multiply"
+          >
+            {Array.from("Take one").map((letter, i) => (
+              <span
+                key={i}
+                aria-hidden
+                className="inline-block whitespace-pre"
+                style={{
+                  transform: `translateY(${bend[i].y}px) rotate(${bend[i].r}deg) scaleY(${bend[i].s})`,
+                  // Separate letters lose the font's kerning; tuck the "a" back under the T.
+                  marginLeft: i === 1 ? "-0.07em" : undefined,
+                }}
+              >
+                {letter}
+              </span>
+            ))}
           </p>
         </div>
       </div>
@@ -166,10 +221,11 @@ export function TearOffFlyer() {
                       ? `Copy email address (${tab.copy})`
                       : `Open ${tab.label}`
                 }
-                className={`flex w-full origin-top items-center justify-center bg-[#fefefc] bg-[linear-gradient(180deg,rgba(17,17,17,0.05),transparent_16%,transparent_84%,rgba(17,17,17,0.025))] shadow-[0_1px_0_rgba(17,17,17,0.06),0_6px_10px_-6px_rgba(17,17,17,0.3)] transition-[transform,opacity] duration-700 ease-in motion-reduce:transition-none ${
+                className={`flex w-full origin-top items-center justify-center bg-[#fdfcf8] shadow-[0_1px_0_rgba(17,17,17,0.06),0_6px_10px_-6px_rgba(17,17,17,0.3)] transition-[transform,opacity] duration-700 ease-in motion-reduce:transition-none ${
                   isTorn ? "opacity-0" : ""
                 } ${"font-paper-mono text-[13px] text-ink"}`}
                 style={{
+                  backgroundImage: handled(index),
                   height: `${shape.h}rem`,
                   transform: isTorn
                     ? `translateY(10rem) rotate(${shape.r * 14}deg)`
