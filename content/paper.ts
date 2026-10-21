@@ -30,17 +30,17 @@ export const friction = [
   {
     tag: "bug",
     title: "Mobile web, Chrome on iOS",
-    body: "Scroll to the footer and open the menu: the footer covers it.",
+    body: "Scroll down a long page and open the menu: its lower half disappears.",
     screenshots: [
       {
         src: "/images/paper/mobile-menu-1.jpg",
-        alt: "paper.design in Chrome on iPhone with the menu open: the footer already covers the bottom of the menu, cutting off “changelog”",
+        alt: "paper.design in Chrome on iPhone with the menu open: the bottom of the menu has disappeared and the footer shows through, cutting off “changelog”",
         width: 721,
         height: 1567,
       },
       {
         src: "/images/paper/mobile-menu-2.jpg",
-        alt: "The same menu a little further down the page: the footer now covers everything below “roadmap”",
+        alt: "The same menu a little further down the page: everything below “roadmap” has disappeared, showing the footer",
         width: 721,
         height: 1567,
       },
@@ -236,15 +236,6 @@ export const ideaSheets = [
     ],
   },
 ] as const;
-
-export const mobileMenuFix = `.mobile-menu {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  height: 100dvh;
-  overflow-y: auto;
-}
-/* plus: lock body scroll while open; test on iOS Chrome */`;
 
 export const roadmap = [
   ["Mobile menu", "Not listed", "A bug. Not in the roadmap or the build log."],

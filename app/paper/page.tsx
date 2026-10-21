@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { CaseSection, CodeBlock, Prose, Subheading } from "@/components/case-study";
+import { CaseSection, Prose, Subheading } from "@/components/case-study";
 import { AdviceNote } from "@/components/paper/advice-note";
 import { AgentCanvasMock } from "@/components/paper/agent-canvas-mock";
 import { ComponentSyncMock } from "@/components/paper/component-sync-mock";
@@ -18,7 +18,6 @@ import {
   canvasNotes,
   lessons,
   loves,
-  mobileMenuFix,
   paperPage,
   startNotes,
 } from "@/content/paper";
@@ -250,10 +249,13 @@ export default function PaperPage() {
               the Welcome file with the agent panel showing. No grey dashboard.
             </p>
             <p>
-              <strong>The mobile menu.</strong> Pin it above the footer and let it scroll on its own:
+              <strong>The mobile menu.</strong> In Safari and Chrome on iOS, open the menu far down a long page
+              (pricing, changelog) and its lower part disappears, showing the page behind. Layout and taps are
+              correct, so it’s a WebKit painting bug, most likely the menu’s own scroll area being clipped at large
+              scroll offsets. Locking the page scroll while the menu is open, so it never opens at a huge offset,
+              should sidestep it.
             </p>
           </Prose>
-          <CodeBlock code={mobileMenuFix} />
         </CaseSection>
 
         <CaseSection label="06 · The ask" title="I’d like to build this with you.">

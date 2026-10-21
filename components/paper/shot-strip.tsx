@@ -24,15 +24,16 @@ export function ShotStrip({ shots, className = "" }: { shots: Shot[]; className?
 
   return (
     <>
-      {/* On phones the column is too narrow for three, so they scroll sideways. */}
-      <div className={`-mr-5 mt-2 flex snap-x gap-3 overflow-x-auto pt-3 pr-5 pb-3 md:mr-0 md:flex-wrap md:overflow-visible md:pr-0 ${className}`}>
+      {/* On phones the column is too narrow for three side by side, so they fan
+          out, overlapping like photos dropped on a desk. Tap opens the viewer. */}
+      <div className={`mt-2 flex pt-3 pb-3 md:flex-wrap md:gap-3 ${className}`}>
         {shots.map((item, i) => (
           <figure
             key={item.src}
             // Phone shots are narrow; desktop shots get more room so they stay legible.
-            className={`group relative shrink-0 snap-start ${
-              item.width > item.height ? "w-[11rem] md:w-[13rem]" : "w-[6.5rem] md:w-[7.5rem]"
-            }`}
+            className={`group relative shrink-0 md:ml-0 ${
+              item.width > item.height ? "w-[7.5rem] md:w-[13rem]" : "w-[5.5rem] md:w-[7.5rem]"
+            } ${i === 0 ? "" : item.width > item.height ? "-ml-[5rem]" : "-ml-[2.5rem]"}`}
             style={{ rotate: `${tilt[i % 3]}deg` }}
           >
             <Tape className="absolute -top-2.5 left-1/2 z-10 h-4 w-12 -translate-x-1/2" rotate={tapeTilt[i % 3]} />
