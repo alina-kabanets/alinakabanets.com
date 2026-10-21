@@ -67,7 +67,7 @@ export function ShotStrip({ shots, className = "" }: { shots: Shot[]; className?
           if (event.key === "ArrowRight") step(1);
           if (event.key === "ArrowLeft") step(-1);
         }}
-        className="m-auto max-h-none max-w-none bg-transparent p-0 font-sans backdrop:bg-[rgba(17,17,17,0.82)] backdrop:backdrop-blur-sm"
+        className="m-auto max-h-none max-w-none overflow-visible bg-transparent p-2 font-sans backdrop:bg-[rgba(17,17,17,0.82)] backdrop:backdrop-blur-sm"
       >
         <figure className="flex flex-col items-center gap-3">
           <Image
@@ -80,7 +80,7 @@ export function ShotStrip({ shots, className = "" }: { shots: Shot[]; className?
           />
           <figcaption className="flex items-center gap-2 text-sm text-paper">
             {shots.length > 1 && (
-              <button type="button" onClick={() => step(-1)} aria-label="Previous screenshot" className="size-11 rounded-full hover:bg-paper/15">
+              <button type="button" onClick={() => step(-1)} aria-label="Previous screenshot" className="size-11 rounded-full hover:bg-paper/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper">
                 ←
               </button>
             )}
@@ -88,14 +88,15 @@ export function ShotStrip({ shots, className = "" }: { shots: Shot[]; className?
               {open + 1} / {shots.length}
             </span>
             {shots.length > 1 && (
-              <button type="button" onClick={() => step(1)} aria-label="Next screenshot" className="size-11 rounded-full hover:bg-paper/15">
+              <button type="button" onClick={() => step(1)} aria-label="Next screenshot" className="size-11 rounded-full hover:bg-paper/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper">
                 →
               </button>
             )}
             <button
               type="button"
+              autoFocus
               onClick={() => dialog.current?.close()}
-              className="ml-2 h-11 rounded-full border border-paper/40 px-4 hover:bg-paper/15"
+              className="ml-2 h-11 rounded-full border border-paper/40 px-4 hover:bg-paper/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper"
             >
               Close
             </button>
@@ -131,7 +132,7 @@ export function ZoomImage({ shot, className = "" }: { shot: Shot; className?: st
         onClick={(event) => {
           if (event.target === event.currentTarget) dialog.current?.close();
         }}
-        className="m-auto max-h-none max-w-none bg-transparent p-0 font-sans backdrop:bg-[rgba(17,17,17,0.82)] backdrop:backdrop-blur-sm"
+        className="m-auto max-h-none max-w-none overflow-visible bg-transparent p-2 font-sans backdrop:bg-[rgba(17,17,17,0.82)] backdrop:backdrop-blur-sm"
       >
         <figure className="flex flex-col items-center gap-3">
           <Image
@@ -144,8 +145,9 @@ export function ZoomImage({ shot, className = "" }: { shot: Shot; className?: st
           />
           <button
             type="button"
+            autoFocus
             onClick={() => dialog.current?.close()}
-            className="h-11 rounded-full border border-paper/40 px-4 text-sm text-paper hover:bg-paper/15"
+            className="h-11 rounded-full border border-paper/40 px-4 text-sm text-paper hover:bg-paper/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper"
           >
             Close
           </button>
