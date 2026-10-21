@@ -144,8 +144,10 @@ function StartPageMock() {
 }
 
 export default function PaperPage() {
+  // Tilted sheets, pads and tape reach a few pixels past the edges; the
+  // article clips them so phones don't scroll sideways.
   return (
-    <article className={paperMono.variable}>
+    <article className={`${paperMono.variable} overflow-x-clip`}>
       <Container className="pt-10 md:pt-16">
         <Tape rotate={-1.5}>{paperPage.disclaimer}</Tape>
 
