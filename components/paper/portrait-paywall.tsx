@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
-import portrait from "@/public/images/paper/portrait.jpg";
+import portrait from "@/public/images/portrait-square.jpg";
 import { Tape } from "./tape";
 
 const FROST_TOP = 46; // % of the height where the "Pro" frost begins

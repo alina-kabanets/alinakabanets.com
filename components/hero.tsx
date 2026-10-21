@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { profile } from "@/content/profile";
-import portrait from "@/public/images/portrait.jpg";
+import portrait from "@/public/images/portrait-square.jpg";
 import { Container } from "./container";
 import { CopyEmail } from "./copy-email";
 
@@ -20,10 +20,10 @@ export function Hero() {
         {profile.name}
       </h1>
 
-      <div className="mt-10 grid grid-cols-12 gap-x-5 md:mt-8">
+      <div className="mt-20 grid grid-cols-12 gap-x-5 md:mt-32">
         <Image
           src={portrait}
-          alt={`${profile.name}, a black-and-white self-portrait with motion blur`}
+          alt={`${profile.name}, smiling, in round glasses and a camel coat on a London street`}
           placeholder="blur"
           priority
           sizes="(min-width: 768px) 200px, 45vw"
