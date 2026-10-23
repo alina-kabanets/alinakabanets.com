@@ -74,9 +74,9 @@ export const projects: Project[] = [
         caption: "A 20-screen feature tour. Every feature got a section, so none of them stood out.",
       },
       after: {
-        // A full-page screenshot of the redesign's preview build; the hero's
-        // animated demo is replaced with one clean frame from the recording.
-        src: "/images/work/deaku/after-page-full.jpg",
+        // Full-page screenshots of the redesign's preview build, joined at the
+        // strategy section; captured sticky-header and toolbar bits removed.
+        src: "/images/work/deaku/after-page-v3.jpg",
         width: 1271,
         height: 13864,
         alt: "The redesigned Deaku landing page: the hero, the problem, the seven-stage workflow, social proof, pricing, questions and one closing call to action",
