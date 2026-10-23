@@ -7,13 +7,10 @@ export type DemoScene = {
   admin: Screen;
 };
 
-type Video = { mp4: string; webm: string; poster: string; width: number; height: number };
+type Page = { src: string; alt: string; width: number; height: number; caption: string };
 
-export type Showcase = {
-  before: { src: string; alt: string; width: number; height: number; caption: string };
-  // `small` is a lighter 30fps encode for phones, which stutter on the 60fps one.
-  after: { desktop: Video; small: { mp4: string; webm: string }; alt: string; caption: string };
-};
+// Both versions are full-page screenshots shown in a scrollable browser frame.
+export type Showcase = { before: Page; after: Page };
 
 export type Project = {
   slug: string;
@@ -47,6 +44,47 @@ export type Project = {
 
 // Order matters: the first project is the strongest and shows first.
 export const projects: Project[] = [
+  {
+    slug: "deaku-landing-page",
+    title: "From measuring the funnel to rebuilding the page",
+    company: "Deaku",
+    context: "AI-native creator workspace",
+    role: "Research, design, build + instrumentation",
+    year: "2026",
+    headline: "Found where visitors were leaving, then rebuilt the landing page around one job",
+    tags: ["Funnel analysis", "UX strategy", "Copy", "Next.js", "Instrumentation"],
+    summary: {
+      role: "Product engineer: research, structure, copy, visual design, build, instrumentation",
+      team: "Two founders, founding technical lead, me",
+      timeline: "September 2026 · designed and built in two days",
+      // The "\n" starts a new line in the summary box.
+      tools: ["Next.js", "TypeScript", "Tailwind", "Web analytics", "\nClaude Code"],
+      results: [
+        "Found the leak: 96 in 100 visitors never started sign-up, while the form itself converted 70%",
+        "A 20-screen feature tour became one focused page; its structure, pricing logic and tracking are live",
+        "Every section and CTA instrumented, so the next change is argued from evidence",
+      ],
+    },
+    showcase: {
+      before: {
+        src: "/images/work/deaku/before-feature-tour-v2.jpg",
+        width: 1200,
+        height: 11527,
+        alt: "The previous Deaku landing page: a long feature tour with around twenty product sections",
+        caption: "A 20-screen feature tour. Every feature got a section, so none of them stood out.",
+      },
+      after: {
+        // A full-page screenshot of the redesign's preview build; the hero's
+        // animated demo is replaced with one clean frame from the recording.
+        src: "/images/work/deaku/after-page-full.jpg",
+        width: 1271,
+        height: 13864,
+        alt: "The redesigned Deaku landing page: the hero, the problem, the seven-stage workflow, social proof, pricing, questions and one closing call to action",
+        caption: "My version: the problem, the workflow in seven stages, then one call to action.",
+      },
+    },
+    draft: false,
+  },
   {
     slug: "vigorant-healthcare-mvps",
     title: "Two healthcare MVPs, designed from scratch",
@@ -156,53 +194,6 @@ export const projects: Project[] = [
       ],
     },
     link: { href: "https://borna.ai/", label: "borna.ai" },
-    draft: false,
-  },
-  {
-    slug: "deaku-landing-page",
-    title: "From measuring the funnel to rebuilding the page",
-    company: "Deaku",
-    context: "AI-native creator workspace",
-    role: "Research, design, build + instrumentation",
-    year: "2026",
-    headline: "Found where visitors were leaving, then rebuilt the landing page around one job",
-    tags: ["Funnel analysis", "UX strategy", "Copy", "Next.js", "Instrumentation"],
-    summary: {
-      role: "Product engineer: research, structure, copy, visual design, build, instrumentation",
-      team: "Two founders, founding technical lead, me",
-      timeline: "September 2026 · designed and built in two days",
-      // The "\n" starts a new line in the summary box.
-      tools: ["Next.js", "TypeScript", "Tailwind", "Web analytics", "\nClaude Code"],
-      results: [
-        "Found the leak: 96 in 100 visitors never started sign-up, while the form itself converted 70%",
-        "A 20-screen feature tour became one focused page; its structure, pricing logic and tracking are live",
-        "Every section and CTA instrumented, so the next change is argued from evidence",
-      ],
-    },
-    showcase: {
-      before: {
-        src: "/images/work/deaku/before-feature-tour-v2.jpg",
-        width: 1200,
-        height: 11527,
-        alt: "The previous Deaku landing page: a long feature tour with around twenty product sections",
-        caption: "A 20-screen feature tour. Every feature got a section, so none of them stood out.",
-      },
-      after: {
-        desktop: {
-          mp4: "/images/work/deaku/after-desktop.mp4",
-          webm: "/images/work/deaku/after-desktop.webm",
-          poster: "/images/work/deaku/after-desktop-poster.webp",
-          width: 1440,
-          height: 900,
-        },
-        small: {
-          mp4: "/images/work/deaku/after-small.mp4",
-          webm: "/images/work/deaku/after-small.webm",
-        },
-        alt: "Screen recording scrolling through the redesigned Deaku landing page",
-        caption: "My version: the problem, the workflow in seven stages, then one call to action.",
-      },
-    },
     draft: false,
   },
   {

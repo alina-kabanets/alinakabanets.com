@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { profile } from "@/content/profile";
 import { Container } from "./container";
@@ -12,11 +11,6 @@ const navItems = [
   { href: profile.cv, label: "CV", external: true },
   { href: "/#contact", label: "Contact" },
 ];
-
-const initials = profile.name
-  .split(" ")
-  .map((word) => word[0])
-  .join("");
 
 function NavLink({
   item,
@@ -51,22 +45,6 @@ function NavLink({
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  // On the homepage the hero already shows the full name in large type, so
-  // the header shows initials until that name scrolls out of view.
-  const [heroNameVisible, setHeroNameVisible] = useState(true);
-  const isHome = usePathname() === "/";
-  const short = isHome && heroNameVisible;
-
-  useEffect(() => {
-    const heroName = document.getElementById("hero-name");
-    if (!isHome || !heroName) return;
-    const observer = new IntersectionObserver(([entry]) => setHeroNameVisible(entry.isIntersecting), {
-      rootMargin: "-56px 0px 0px 0px",
-    });
-    observer.observe(heroName);
-    return () => observer.disconnect();
-  }, [isHome]);
-
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
@@ -79,20 +57,8 @@ export function SiteHeader() {
   return (
     <header className="header-fade pointer-events-none sticky top-0 z-40 -mb-6 bg-paper/90 pb-6 backdrop-blur-sm *:pointer-events-auto">
       <Container className="flex h-14 items-center justify-between text-sm">
-        <Link href="/" aria-label={short ? `${initials}, ${profile.name}` : profile.name} className="grid font-medium">
-          {/* Both labels share one cell and crossfade, so nothing shifts. */}
-          <span
-            aria-hidden
-            className={`col-start-1 row-start-1 transition-opacity duration-300 ${short ? "opacity-100" : "opacity-0"}`}
-          >
-            {initials}
-          </span>
-          <span
-            aria-hidden
-            className={`col-start-1 row-start-1 transition-opacity duration-300 ${short ? "opacity-0" : "opacity-100"}`}
-          >
-            {profile.name}
-          </span>
+        <Link href="/" className="font-medium">
+          {profile.name}
         </Link>
 
         <nav aria-label="Main" className="hidden md:block">

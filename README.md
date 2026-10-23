@@ -1,6 +1,6 @@
 # alinakabanets.com
 
-My portfolio as a product and design engineer: two case studies, a live product demo and a before/after of a landing page I rebuilt.
+My portfolio as a design engineer: two case studies, a live product demo and a before/after of a landing page I rebuilt.
 
 **Live site: [alinakabanets.com](https://alinakabanets.com)**
 

@@ -3,14 +3,20 @@
 
 export const profile = {
   name: "Alina Kabanets",
-  role: "Product & Design Engineer",
+  role: "Design Engineer",
+  // The hero's headline: what I do, not who I am (the name is everywhere else).
+  hook: "From the first sketch to the first metric.",
+  // Under the hook: who I am, in a line, and where I've shipped.
+  intro:
+    "Ex-psychologist and photographer. I design products, build them, and then watch what people actually do.",
+  shipped: "Shipped in healthcare, creator tools and AI",
   stack: "Product design · React / TypeScript · Funnels & metrics",
   tagline:
     "I design and build products end to end, from user research to shipped code to the numbers that follow.",
   email: "aokabanets@gmail.com",
   location: "London",
   workMode: "hybrid or remote",
-  openTo: "Open to product and design engineer roles",
+  openTo: "Open to design engineer roles",
   availability:
     "Available now for 3 days a week, or full-time with 1 month’s notice",
   rightToWork: "Fully authorised to work in the UK",
@@ -41,7 +47,7 @@ export const principles = [
 ] as const;
 
 export const about = [
-  "I’m a product and design engineer in London. I take a feature from the user problem and the business goal, through design, to shipped React and TypeScript, and then check whether it worked.",
+  "I’m a design engineer in London. I take a feature from the user problem and the business goal, through design, to shipped React and TypeScript, and then check whether it worked.",
   "At Deaku, a five-person AI-native startup, I design and build across the web and mobile apps: the main dashboard redesign, the task-management system, the workspace invitation flow and the landing page. I also reviewed how the AI assistant, agent and MCP features behave (76 recommendations, about 90% adopted) and set up the company’s first funnel and KPI tree. The part I find most interesting is how people come to trust an agent: what it shows, what it asks, and when it stops.",
   "Before that I designed two healthcare products and their design system from scratch. I studied psychology and spent eight years as a photographer, and both still show up in my work: an interest in why people act the way they do, and an eye for detail.",
 ] as const;

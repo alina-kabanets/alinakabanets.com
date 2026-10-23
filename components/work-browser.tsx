@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { Project } from "@/content/projects";
 import { Container } from "./container";
@@ -8,6 +9,9 @@ import { Container } from "./container";
 type View = "grid" | "index";
 
 const number = (index: number) => String(index + 1).padStart(2, "0");
+
+// Umami's tracker, when it has loaded (it only runs in production).
+type Umami = { track: (event: string, data?: Record<string, string>) => void };
 
 // Covers are rendered on the server and passed in as elements.
 export function WorkBrowser({
@@ -18,9 +22,18 @@ export function WorkBrowser({
   covers: React.ReactNode[];
 }) {
   const [view, setView] = useState<View>("grid");
+  const router = useRouter();
+
+  // A click anywhere on a preview opens its case study, except on the
+  // preview's own controls (version toggle, scene dots, play and pause).
+  const openFromPreview = (event: React.MouseEvent, slug: string) => {
+    if ((event.target as HTMLElement).closest("button, a, input, select, label, [role=group]")) return;
+    (window as Window & { umami?: Umami }).umami?.track("case-study-open", { project: slug, view: "preview" });
+    router.push(`/work/${slug}`);
+  };
 
   return (
-    <section id="work" aria-labelledby="work-heading" className="mt-28 md:mt-44">
+    <section id="work" aria-labelledby="work-heading" className="mt-8 md:mt-12">
       <Container>
         <div className="flex items-baseline justify-between border-t border-line pt-4 md:pt-5">
           <h2 id="work-heading" className="text-sm">
@@ -76,7 +89,13 @@ export function WorkBrowser({
                     Read case study <span aria-hidden>→</span>
                   </p>
                 </div>
-                <div className="col-span-12 md:col-span-8 lg:col-start-5">{covers[index]}</div>
+                {/* Keyboard users open the case study from the title link above. */}
+                <div
+                  onClick={(event) => openFromPreview(event, project.slug)}
+                  className="relative col-span-12 cursor-pointer md:col-span-8 lg:col-start-5"
+                >
+                  {covers[index]}
+                </div>
               </li>
             ))}
           </ul>

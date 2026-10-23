@@ -263,7 +263,7 @@ export default function PaperPage() {
         <CaseSection label="06 · The ask" title="I’d like to build this with you.">
           <Prose>
             <p>
-              I’m a product and design engineer in London. I design in code, ship React and TypeScript, and measure
+              I’m a design engineer in London. I design in code, ship React and TypeScript, and measure
               what changed. I used Paper and its agent connection to make the first version of this page.
             </p>
           </Prose>
