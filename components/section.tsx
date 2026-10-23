@@ -23,8 +23,10 @@ export function Section({
             <h2 id={headingId} className="text-sm">
               {label}
             </h2>
-            {/* On wider screens the aside sinks to the bottom, level with the content's end. */}
-            {aside && <div className="mt-8 md:mt-auto md:mr-[8%] md:pt-12">{aside}</div>}
+            {/* On wider screens the aside rests level with the content's end, and
+                while the content is longer than the screen it stays pinned to the
+                bottom of the view, beside whatever is being read. */}
+            {aside && <div className="mt-8 md:sticky md:bottom-8 md:mt-auto md:mr-[8%] md:pt-12">{aside}</div>}
           </div>
           <div className="col-span-12 md:col-span-6">{children}</div>
         </div>

@@ -60,11 +60,3 @@ export const testimonial = {
   role: "CEO & Co-Founder, Deaku",
 } as const;
 
-// Self-portrait series shown in About, in display order.
-export const photographs: { src: string; alt: string }[] = [
-  { src: "/images/photography/8T2A4489.jpg", alt: "Black-and-white self-portrait, eyes lowered behind glasses" },
-  { src: "/images/photography/8T2A4232.jpg", alt: "Self-portrait in a cream cardigan, head turning in motion blur" },
-  { src: "/images/photography/8T2A4574.jpg", alt: "Self-portrait in glasses, smiling over the shoulder in motion blur" },
-  { src: "/images/photography/8T2A4416.jpg", alt: "Self-portrait with a hand raised to the face, blurred in motion" },
-  { src: "/images/photography/8T2A4263.jpg", alt: "Self-portrait in glasses and a knit cardigan, face dissolving in motion" },
-];
