@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { CopyEmail } from "@/components/copy-email";
 import { Hero } from "@/components/hero";
 import { ProjectCover } from "@/components/project-cover";
 import { Section } from "@/components/section";
+import { TextPortrait } from "@/components/text-portrait";
 import { WorkBrowser } from "@/components/work-browser";
-import { about, photographs, principles, profile, testimonial } from "@/content/profile";
+import { about, principles, profile, testimonial } from "@/content/profile";
 import { projects } from "@/content/projects";
 import { siteUrl } from "@/lib/site";
 
@@ -60,18 +60,13 @@ export default function Home() {
         </ol>
       </Section>
 
-      <Section id="about" label="About">
-        <figure>
-          <ul className="grid grid-cols-5 gap-2">
-            {photographs.map((photo) => (
-              <li key={photo.src} className="relative aspect-square bg-tint">
-                <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 768px) 10vw, 20vw" className="object-cover" />
-              </li>
-            ))}
-          </ul>
-          <figcaption className="mt-3 text-sm text-muted">Self-portraits, 2025</figcaption>
-        </figure>
-
+      <Section
+        id="about"
+        label="About"
+        aside={
+          <TextPortrait label={`${profile.name}, a portrait made of her own words: ${profile.hook}`} />
+        }
+      >
         <div className="mt-12 max-w-[38rem] space-y-5 text-base leading-relaxed md:text-lg">
           {about.map((paragraph) => (
             <p key={paragraph.slice(0, 24)}>{paragraph}</p>
