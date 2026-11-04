@@ -1,4 +1,4 @@
-import { ideaSheets } from "@/content/paper";
+import { ideaSheets as paperSheets } from "@/content/paper";
 import { Tape } from "./tape";
 
 // Lined notepad pages of ideas, one per theme, taped to the page and each a
@@ -45,7 +45,11 @@ function MarkerStar({ className = "" }: { className?: string }) {
   );
 }
 
-export function IdeaSheets() {
+type Idea = { title: string; body: string; buildsOn?: string; starred?: boolean };
+export type IdeaSheet = { title: string; ideas: readonly Idea[] };
+
+export function IdeaSheets({ sheets = paperSheets }: { sheets?: readonly IdeaSheet[] }) {
+  const ideaSheets = sheets;
   const starts = ideaSheets.map((_, i) =>
     ideaSheets.slice(0, i).reduce((n, sheet) => n + sheet.ideas.length, 0),
   );

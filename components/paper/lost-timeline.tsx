@@ -1,4 +1,4 @@
-import { friction } from "@/content/paper";
+import { friction as paperFriction } from "@/content/paper";
 import { ShotStrip, type Shot } from "./shot-strip";
 
 // "Where I got lost" as a typewritten timeline. The line runs straight until
@@ -14,18 +14,35 @@ type Stop = {
   screenshots?: Shot[];
 };
 
-const stops: Stop[] = [
-  { label: "start", title: "Opened paper.design on my phone" },
-  ...friction.map((item, index) => ({
-    label: `${String(index + 1).padStart(2, "0")} · ${item.tag}`,
-    title: item.title,
-    body: item.body,
-    lost: index < friction.length - 1,
-    highlight: "highlight" in item && item.highlight,
-    screenshots: "screenshots" in item ? (item.screenshots as readonly Shot[]).slice() : undefined,
-  })),
-  { label: "then", title: "Found the Welcome file", body: "And fell for Paper. Everything below is about getting people there faster." },
-];
+export type Friction = {
+  tag: string;
+  title: string;
+  body: string;
+  highlight?: boolean;
+  screenshots?: readonly Shot[];
+};
+
+type Ends = { start: { title: string; body?: string }; end: { title: string; body?: string } };
+
+const paperEnds: Ends = {
+  start: { title: "Opened paper.design on my phone" },
+  end: { title: "Found the Welcome file", body: "And fell for Paper. Everything below is about getting people there faster." },
+};
+
+function buildStops(friction: readonly Friction[], ends: Ends): Stop[] {
+  return [
+    { label: "start", ...ends.start },
+    ...friction.map((item, index) => ({
+      label: `${String(index + 1).padStart(2, "0")} · ${item.tag}`,
+      title: item.title,
+      body: item.body,
+      lost: index < friction.length - 1,
+      highlight: item.highlight,
+      screenshots: item.screenshots?.slice(),
+    })),
+    { label: "then", ...ends.end },
+  ];
+}
 
 // A hand-drawn detour: a deterministic wandering path from top centre to
 // bottom centre, swinging out to one side (into the empty half of the row).
@@ -104,7 +121,11 @@ function Stroke({ seed, className }: { seed: number; className: string }) {
 
 const isDev = process.env.NODE_ENV === "development";
 
-export function LostTimeline() {
+export function LostTimeline({
+  friction = paperFriction,
+  ends = paperEnds,
+}: { friction?: readonly Friction[]; ends?: Ends } = {}) {
+  const stops = buildStops(friction, ends);
   return (
     <ol className="col-span-12 font-paper-mono text-[13px] leading-relaxed md:text-[14px]">
       {stops.map((stop, index) => {

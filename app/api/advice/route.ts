@@ -1,6 +1,6 @@
 import { profile } from "@/content/profile";
 
-// Receives a note from the /paper notepad and emails it to Alina via Resend.
+// Receives a note from the /paper or /tldraw notepad and emails it to Alina via Resend.
 // Nothing is stored. Needs RESEND_API_KEY; without it, answers 503.
 
 const MAX_MESSAGE = 3000;
@@ -34,6 +34,8 @@ export async function POST(request: Request) {
   const message = clean(body.message, MAX_MESSAGE);
   const name = clean(body.name, 80);
   const email = clean(body.email, 120);
+  const page = body.page === "tldraw" ? "tldraw" : "paper";
+  const product = page === "tldraw" ? "tldraw" : "Paper";
 
   if (message.length < 2) return Response.json({ error: "The note is empty" }, { status: 400 });
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -51,11 +53,11 @@ export async function POST(request: Request) {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      from: "Notes on Paper <onboarding@resend.dev>",
+      from: `Notes on ${product} <onboarding@resend.dev>`,
       to: [profile.email],
       ...(email ? { reply_to: email } : {}),
-      subject: `A note from /paper${name ? `, from ${name}` : ""}`,
-      text: `${message}\n\n— ${from}${email ? ` (${email})` : ""}\n\nSent from alinakabanets.com/paper`,
+      subject: `A note from /${page}${name ? `, from ${name}` : ""}`,
+      text: `${message}\n\n— ${from}${email ? ` (${email})` : ""}\n\nSent from alinakabanets.com/${page}`,
     }),
   });
 

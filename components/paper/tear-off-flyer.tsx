@@ -91,7 +91,7 @@ const stub =
 
 // "Take one": a flyer with tear-off tabs. Drag a tab down (or just
 // click it) to tear it off. The contact tabs do their job as they go.
-export function TearOffFlyer() {
+export function TearOffFlyer({ location = "paper-flyer" }: { location?: string }) {
   // Two tabs are already gone when the page loads: someone got here first.
   const [torn, setTorn] = useState<string[]>(alreadyTaken);
   const [drag, setDrag] = useState<{ id: string; dy: number } | null>(null);
@@ -213,7 +213,7 @@ export function TearOffFlyer() {
                 onClick={() => tear(tab)}
                 data-umami-event={tab.event}
                 data-umami-event-tab={tab.id}
-                data-umami-event-location="paper-flyer"
+                data-umami-event-location={location}
                 aria-label={
                   tab.trait
                     ? `Take ${tab.label.toLowerCase()}`

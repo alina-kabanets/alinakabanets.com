@@ -144,7 +144,7 @@ function NotePaper() {
   );
 }
 
-export function AdviceNote() {
+export function AdviceNote({ page = "paper" }: { page?: "paper" | "tldraw" }) {
   const [stage, setStage] = useState<Stage>("write");
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
@@ -174,7 +174,7 @@ export function AdviceNote() {
       const response = await fetch("/api/advice", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message, name, email, website }),
+        body: JSON.stringify({ message, name, email, website, page }),
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(result.error || "Couldn’t send");

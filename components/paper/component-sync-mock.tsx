@@ -58,7 +58,7 @@ function Legend({ status, label }: { status: Status; label: string }) {
   );
 }
 
-export function ComponentSyncMock() {
+export function ComponentSyncMock({ product = "Paper" }: { product?: "Paper" | "tldraw" }) {
   const [focus, setFocus] = useState<Focus>(null);
   const [selected, setSelected] = useState<Plan>("Pro");
   const [synced, setSynced] = useState(false);
@@ -106,7 +106,7 @@ export function ComponentSyncMock() {
       () =>
         say({
           from: "agent",
-          text: `In Paper, this would change only the ${selected} card. (This is a mock: try the pills and buttons.)`,
+          text: `In ${product}, this would change only the ${selected} card. (This is a mock: try the pills and buttons.)`,
         }),
       600,
     );
@@ -369,8 +369,8 @@ export function ComponentSyncMock() {
       </div>
       <figcaption className="mt-3 max-w-[38rem] text-sm leading-relaxed text-muted">
         Try it: click the pills to find components, the thumbnail to select the artboard, and “Update artboard” to pull
-        in the code change. Every component in the codebase lives in Paper with its sync status, so agents build from
-        it instead of inventing new styles, and the agent’s terminal is docked inside Paper and speaks design.
+        in the code change. Every component in the codebase lives in {product} with its sync status, so agents build from
+        it instead of inventing new styles, and the agent’s terminal is docked inside {product} and speaks design.
       </figcaption>
     </figure>
   );
