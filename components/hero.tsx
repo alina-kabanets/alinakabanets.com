@@ -76,11 +76,11 @@ export function Hero() {
           <p className="max-w-[36rem] text-lg leading-[1.25] tracking-[-0.01em] text-balance md:mt-12 md:text-xl">
             {profile.intro}
           </p>
-          <p className="mt-5 flex items-center gap-2.5 text-sm">
+          <p className="mt-7 flex items-center gap-2.5 text-sm md:mt-5">
             <span aria-hidden className="size-2 shrink-0 rounded-full bg-ink" />
             {profile.openTo} · {profile.location}, {profile.workMode}
           </p>
-          <div className="mt-5 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap gap-3 md:mt-5">
             <a href="#work" className={buttonPrimary}>
               See work
             </a>
@@ -109,7 +109,7 @@ export function Hero() {
 
   // Fills the first screen (less the header); the work starts below the fold.
   return (
-    <Container className="@container py-8 md:h-[calc(100svh-3.5rem)] md:py-0">
+    <Container className="@container pt-10 pb-14 md:h-[calc(100svh-3.5rem)] md:py-0">
       <HeroCanvas blocks={blocks} saved={layout} editable={false} />
     </Container>
   );

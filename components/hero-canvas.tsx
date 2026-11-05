@@ -97,7 +97,7 @@ export function HeroCanvas({ blocks, saved, editable }: { blocks: Block[]; saved
         onPointerUp={end}
         onPointerCancel={end}
         style={{ "--h": layout.height } as React.CSSProperties}
-        className="flex w-full flex-row flex-wrap gap-x-4 gap-y-6 md:relative md:block md:h-[calc(var(--h)*1cqw)]"
+        className="flex w-full flex-row flex-wrap gap-x-4 gap-y-9 md:relative md:block md:h-[calc(var(--h)*1cqw)]"
       >
         {blocks.map(({ id, label, node, phone = "max-md:w-full" }) => {
           const b = layout.blocks[id];
