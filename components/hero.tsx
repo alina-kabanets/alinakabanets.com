@@ -37,22 +37,27 @@ export function Hero() {
     {
       id: "portrait",
       label: "Portrait",
-      phone: "max-md:w-20 max-md:shrink-0",
+      phone: "max-md:w-full",
       node: (
-        <Image
-          src={portrait}
-          alt={`${profile.name}, smiling, in round glasses and a camel coat on a London street`}
-          placeholder="blur"
-          priority
-          sizes="256px"
-          className="w-20 md:w-full"
-        />
+        <div className="flex items-center gap-5">
+          <Image
+            src={portrait}
+            alt={`${profile.name}, smiling, in round glasses and a camel coat on a London street`}
+            placeholder="blur"
+            priority
+            sizes="256px"
+            className="w-28 shrink-0 rounded-lg md:w-full"
+          />
+          {/* On phones the stack sits beside the portrait. */}
+          <StackTags items={profile.stack.split(" · ")} className="flex-col items-start text-sm md:hidden" pill="border-ink px-3" />
+        </div>
       ),
     },
     {
       id: "proof",
       label: "Proof",
-      phone: "max-md:flex-1 max-md:self-end",
+      // Left out on phones, where the portrait stands on its own.
+      phone: "max-md:hidden",
       node: (
         <p className="max-w-[16rem] text-sm leading-snug md:max-w-none md:text-right">
           <span className="font-medium">{profile.proof.claim}</span>
@@ -67,8 +72,8 @@ export function Hero() {
       label: "Details",
       node: (
         <div>
-          <StackTags items={profile.stack.split(" · ")} className="text-sm md:text-base" pill="border-ink px-3 md:px-3.5" />
-          <p className="mt-6 max-w-[36rem] text-lg leading-[1.25] tracking-[-0.01em] text-balance md:mt-12 md:text-xl">
+          <StackTags items={profile.stack.split(" · ")} className="text-sm max-md:hidden md:text-base" pill="border-ink px-3 md:px-3.5" />
+          <p className="max-w-[36rem] text-lg leading-[1.25] tracking-[-0.01em] text-balance md:mt-12 md:text-xl">
             {profile.intro}
           </p>
           <p className="mt-5 flex items-center gap-2.5 text-sm">
