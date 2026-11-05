@@ -43,3 +43,6 @@ next-env.d.ts
 # Source files for case studies (originals); web copies live next to them
 /public/images/work/borna/case/
 /public/images/work/deaku/case/
+
+# Notes left on blog drafts on the dev server
+content/blog/*.comments.json

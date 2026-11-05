@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #f1f0ec;
+  --color-paper: #ffffff;
   --color-ink: #111111;
   --color-muted: #6b6a66;
   --color-line: #1111112e;
-  --color-tint: #e4e2dc;
+  --color-tint: #f1f1ef;
 }
 
 @theme inline {
@@ -90,16 +90,6 @@ button:not(:disabled),
   outline-offset: 3px;
 }
 
-/* Film grain over the whole page: one small tiled SVG, no interaction. */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  pointer-events: none;
-  opacity: 0.09;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
 
 /* /paper: masking tape. Translucent, slightly yellowed, with soft ends. */
 /* The strip is drawn on a layer behind the text: Safari can drop text inside an
@@ -144,4 +134,225 @@ body::after {
     opacity: 1;
     transition: none;
   }
+}
+
+/* Blog posts: Markdown rendered into the reading column. */
+.post-body {
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+.post-body > * + * {
+  margin-top: 1.25em;
+}
+.post-body h2 {
+  margin-top: 2.6em;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.post-body h2 + * {
+  margin-top: 0.8em;
+}
+.post-body strong {
+  font-weight: 600;
+}
+.post-body a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+.post-body ul {
+  padding-left: 1.2em;
+  list-style: disc;
+}
+.post-body li + li {
+  margin-top: 0.6em;
+}
+.post-body blockquote {
+  margin-block: 2em;
+  border-left: 2px solid var(--color-ink);
+  padding-left: 1.25rem;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.post-body em {
+  color: var(--color-muted);
+}
+
+/* Dev-only draft comments: commented passages, marked like a highlighter. */
+::highlight(draft-comment) {
+  background-color: rgb(242 191 42 / 0.45);
+}
+
+/* Images in posts: wide shots fill the column (and a little more on large
+   screens); phone screenshots stay narrow, and two side by side share a row. */
+.post-body .post-images {
+  margin-block: 2.25em;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.post-body .post-images img {
+  border: 1px solid rgb(17 17 17 / 0.12);
+  border-radius: 0.5rem;
+  background: #fff;
+  cursor: zoom-in;
+  height: auto;
+}
+.post-body .post-images img.is-wide {
+  width: 100%;
+}
+.post-body .post-images img.is-phone {
+  width: min(100%, 15rem);
+  border-radius: 1.25rem;
+}
+.post-body .post-images[data-count="2"] img.is-phone {
+  width: calc(50% - 0.5rem);
+  max-width: 15rem;
+}
+@media (min-width: 1024px) {
+  .post-body .post-images:has(img.is-wide) {
+    margin-inline: -8%;
+  }
+}
+.post-body .post-images + p > em:only-child {
+  display: block;
+  margin-top: -1.25em;
+  text-align: center;
+  font-size: 0.875rem;
+}
+.post-body .post-images img.is-square {
+  width: min(100%, 30rem);
+}
+
+/* Video in posts: the laptop recording on wider screens, the phone one on
+   phones; the hidden one never loads (preload="none"). Controls are ours. */
+.post-body .post-video {
+  margin-block: 2.25em 1.25em;
+}
+.post-body .post-video-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(17 17 17 / 0.12);
+  border-radius: 0.5rem;
+  background: #fff;
+}
+.post-body .post-video-frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+.post-body .post-video-frame.is-phone {
+  display: none;
+  width: min(100%, 20rem);
+  margin-inline: auto;
+  border-radius: 1.25rem;
+}
+@media (max-width: 767px) {
+  .post-body .post-video-frame.is-laptop {
+    display: none;
+  }
+  .post-body .post-video-frame.is-phone {
+    display: block;
+  }
+}
+@media (min-width: 1024px) {
+  .post-body .post-video {
+    margin-inline: -8%;
+  }
+}
+.post-video-controls {
+  margin-top: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+}
+.post-video-controls[data-for="phone"] {
+  display: none;
+  width: min(100%, 20rem);
+  margin-inline: auto;
+}
+@media (max-width: 767px) {
+  .post-video-controls[data-for="laptop"] {
+    display: none;
+  }
+  .post-video-controls[data-for="phone"] {
+    display: flex;
+  }
+}
+.post-video-time {
+  min-width: 5.5em;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.post-video-button {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid rgb(17 17 17 / 0.2);
+  color: var(--color-ink);
+}
+.post-video-button svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.post-video-button:hover {
+  background: rgb(17 17 17 / 0.06);
+}
+.post-video-button:focus-visible,
+.post-video-seek:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+.post-video-seek {
+  flex: 1;
+  min-width: 0;
+  height: 1.25rem;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.post-video-seek::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--color-ink) var(--progress, 0%), rgb(17 17 17 / 0.15) var(--progress, 0%));
+}
+.post-video-seek::-moz-range-track {
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--color-ink) var(--progress, 0%), rgb(17 17 17 / 0.15) var(--progress, 0%));
+}
+.post-video-seek::-webkit-slider-thumb {
+  appearance: none;
+  margin-top: -4.5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--color-ink);
+}
+.post-video-seek::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-ink);
+}
+.post-body .post-video + p > em:only-child {
+  display: block;
+  text-align: center;
+  font-size: 0.875rem;
 }

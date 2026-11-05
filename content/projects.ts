@@ -20,6 +20,13 @@ export type Project = {
   role: string;
   year: string;
   headline: string;
+  // The tools it was built with, shown first wherever the project appears.
+  stack: string[];
+  // One result, short enough for the hero's project teasers.
+  teaser: string;
+  // A small picture for the teaser.
+  // `contain` shows the whole picture (on white) instead of cropping it.
+  thumb: { src: string; alt: string; contain?: boolean };
   tags: string[];
   summary: {
     role: string;
@@ -52,6 +59,9 @@ export const projects: Project[] = [
     role: "Research, design, build + instrumentation",
     year: "2026",
     headline: "Found where visitors were leaving, then rebuilt the landing page around one job",
+    stack: ["Next.js", "TypeScript", "Tailwind", "Analytics"],
+    teaser: "Found a 96% drop-off, then rebuilt the page around one job",
+    thumb: { src: "/images/work/deaku/study/hero-after.jpg", alt: "The redesigned Deaku landing page: “Build the system your channel runs on”" },
     tags: ["Funnel analysis", "UX strategy", "Copy", "Next.js", "Instrumentation"],
     summary: {
       role: "Product engineer: research, structure, copy, visual design, build, instrumentation",
@@ -93,6 +103,9 @@ export const projects: Project[] = [
     role: "Lead product designer + front-end",
     year: "2025–26",
     headline: "Standalone Forms product won Borna’s first paying client",
+    stack: ["Figma", "React", "TypeScript", "Design system"],
+    teaser: "The Forms product won Borna’s first paying client",
+    thumb: { src: "/images/work/vigorant-patient-dashboard.png", alt: "The Borna patient dashboard", contain: true },
     tags: ["Research", "Information architecture", "Design system", "RBAC", "Figma", "React"],
     summary: {
       role: "Lead product designer (UX/UI), front-end contributor",
@@ -204,6 +217,9 @@ export const projects: Project[] = [
     role: "Metric design, analysis + hypotheses",
     year: "2026",
     headline: "Nobody had defined what to measure between sign-up and payment. I built that layer",
+    stack: ["Event tracking", "Analytics", "Claude Code agents"],
+    teaser: "The company’s first metrics layer, from revenue to design",
+    thumb: { src: "/images/work/deaku/kpi/kpi-tree.jpg", alt: "The KPI tree: from the revenue target, through three revenue lines, to one north-star metric" },
     tags: ["KPI tree", "North-star metric", "Funnel analysis", "Hypotheses", "AI agents"],
     summary: {
       role: "Product engineer: metric design, data analysis, hypotheses, presentation",

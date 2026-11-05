@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@paper-design/shaders-react": "^0.0.81",
+    "marked": "^18.1.3",
     "next": "16.3.7",
     "react": "19.2.8",
     "react-dom": "19.2.8"

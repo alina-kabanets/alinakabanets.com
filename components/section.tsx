@@ -26,7 +26,7 @@ export function Section({
             {/* On wider screens the aside rests level with the content's end, and
                 while the content is longer than the screen it stays pinned to the
                 bottom of the view, beside whatever is being read. */}
-            {aside && <div className="mt-8 md:sticky md:bottom-8 md:mt-auto md:mr-[8%] md:pt-12">{aside}</div>}
+            {aside && <div className="mt-8 md:sticky md:bottom-8 md:mt-auto md:mr-[18%] md:pt-12">{aside}</div>}
           </div>
           <div className="col-span-12 md:col-span-6">{children}</div>
         </div>

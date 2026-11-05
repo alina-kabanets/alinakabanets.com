@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { Project } from "@/content/projects";
 import { Container } from "./container";
+import { LiveLink } from "./live-link";
+import { StackTags } from "./stack-tags";
 
 type View = "grid" | "index";
 
@@ -69,6 +71,7 @@ export function WorkBrowser({
                   </p>
                   <p className="mt-1 text-sm text-muted">{project.year}</p>
                   <p className="text-sm text-muted">{project.context}</p>
+                  <StackTags items={project.stack} className="relative z-10 mt-5" />
                   <h3 className="mt-6 text-2xl leading-tight tracking-[-0.02em] text-balance md:text-3xl">
                     {/* Stretched link: the whole row is clickable, while the
                         demo's controls stay separate buttons above it. */}
@@ -85,9 +88,12 @@ export function WorkBrowser({
                   <p className="mt-4 text-base">{project.headline}</p>
                   <p className="mt-4 text-sm text-muted">{project.role}</p>
                   <p className="mt-1 text-sm text-muted">{project.tags.join(" · ")}</p>
-                  <p className="mt-6 text-sm">
-                    Read case study <span aria-hidden>→</span>
-                  </p>
+                  <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+                    <p className="text-sm">
+                      Read case study <span aria-hidden>→</span>
+                    </p>
+                    <LiveLink project={project} className="relative z-10" />
+                  </div>
                 </div>
                 {/* Keyboard users open the case study from the title link above. */}
                 <div

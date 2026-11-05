@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/container";
+import { LiveLink } from "@/components/live-link";
+import { StackTags } from "@/components/stack-tags";
 import { ProjectCover } from "@/components/project-cover";
 import { caseStudies } from "@/content/case-studies";
 import { profile } from "@/content/profile";
@@ -52,15 +54,23 @@ export default async function CaseStudy({ params }: PageProps<"/work/[slug]">) {
           ← All work
         </Link>
 
-        <p className="mt-12 text-sm md:mt-20">
-          Case study {String(index + 1).padStart(2, "0")} · {project.company}, {project.context}
-        </p>
-        <h1 className="mt-4 max-w-[16ch] text-[clamp(2.5rem,7vw,6.5rem)] leading-[0.95] font-medium tracking-[-0.045em] text-balance">
-          {project.title}
-        </h1>
-
-        <div className={`mt-12 md:mt-20 ${project.demo || project.showcase || project.diagram ? "mx-auto max-w-[1100px]" : ""}`}>
-          <ProjectCover project={project} priority />
+        {/* A shop window for whoever lands here from a link: the outcome and the
+            stack on the left, the product itself on the right. */}
+        <div className="mt-8 grid grid-cols-12 gap-x-5 gap-y-10 md:mt-10">
+          <header className="col-span-12 lg:sticky lg:top-24 lg:col-span-4 lg:self-start">
+            <p className="text-sm">
+              Case study {String(index + 1).padStart(2, "0")} · {project.company}, {project.context}
+            </p>
+            <h1 className="mt-4 text-[clamp(2rem,3.4vw,3.25rem)] leading-[1.02] font-medium tracking-[-0.035em] text-balance">
+              {project.title}
+            </h1>
+            <p className="mt-5 max-w-[30rem] text-lg leading-snug text-balance md:text-xl">{project.headline}</p>
+            <StackTags items={project.stack} className="mt-6" />
+            <LiveLink project={project} className="mt-6" />
+          </header>
+          <div className="col-span-12 lg:col-span-8">
+            <ProjectCover project={project} priority />
+          </div>
         </div>
 
         {/* Summary box: someone who reads only this should still get it. */}

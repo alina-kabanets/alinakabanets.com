@@ -13,7 +13,7 @@ const inter = Inter({
   axes: ["opsz"],
 });
 
-const description = `${profile.role} in ${profile.location}. ${profile.hook} ${profile.intro}`;
+const description = `${profile.hook} ${profile.intro} Based in ${profile.location}.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -8,6 +8,7 @@ import { Container } from "./container";
 const navItems = [
   { href: "/#work", label: "Work" },
   { href: "/#about", label: "About" },
+  { href: "/blog", label: "Blog" },
   { href: profile.cv, label: "CV", external: true },
   { href: "/#contact", label: "Contact" },
 ];

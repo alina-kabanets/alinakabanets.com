@@ -5,11 +5,19 @@ export const profile = {
   name: "Alina Kabanets",
   role: "Design Engineer",
   // The hero's headline: what I do, not who I am (the name is everywhere else).
-  hook: "From the first sketch to the first metric.",
-  // Under the hook: who I am, in a line, and where I've shipped.
+  hook: "Design engineer who brings psychology into AI products.",
+  // The same line split for the hero: the role large, the rest smaller.
+  hookLead: "Design engineer",
+  hookRest: "who brings psychology into AI products.",
+  // Under the hook: how I work, then one true, slightly playful line.
   intro:
-    "Ex-psychologist and photographer. I design products, build them, and then watch what people actually do.",
+    "I design and build the interface side of AI products. Former psychologist, so yes, I’m curious why you clicked that.",
   shipped: "Shipped in healthcare, creator tools and AI",
+  // The proof beside the portrait: the psychology, applied to an AI product.
+  proof: {
+    claim: "76 recommendations on how our AI agents behave, about 90% adopted",
+    source: "Deaku, 2026",
+  },
   stack: "Product design · React / TypeScript · Funnels & metrics",
   tagline:
     "I design and build products end to end, from user research to shipped code to the numbers that follow.",

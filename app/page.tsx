@@ -64,7 +64,7 @@ export default function Home() {
         id="about"
         label="About"
         aside={
-          <TextPortrait label={`${profile.name}, a portrait made of her own words: ${profile.hook}`} />
+          <TextPortrait label={`${profile.name}, a portrait made of her own words`} />
         }
       >
         <div className="mt-12 max-w-[38rem] space-y-5 text-base leading-relaxed md:text-lg">
