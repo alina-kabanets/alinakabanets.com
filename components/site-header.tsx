@@ -56,7 +56,9 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="header-fade pointer-events-none sticky top-0 z-40 -mb-6 bg-paper/90 pb-6 backdrop-blur-sm *:pointer-events-auto">
+    <header
+      className={`${open ? "" : "header-fade"} pointer-events-none sticky top-0 z-40 -mb-6 bg-paper/90 pb-6 backdrop-blur-sm *:pointer-events-auto`}
+    >
       <Container className="flex h-14 items-center justify-between text-sm">
         <Link href="/" className="font-medium">
           {profile.name}
@@ -84,9 +86,15 @@ export function SiteHeader() {
       </Container>
 
       {open && (
-        <nav id="mobile-nav" aria-label="Main" className="border-b border-line md:hidden">
+        // Opens over the page (it doesn't push it down), right-aligned under
+        // the Close button.
+        <nav
+          id="mobile-nav"
+          aria-label="Main"
+          className="absolute inset-x-0 top-14 border-b border-line bg-paper shadow-[0_18px_30px_-24px_rgba(17,17,17,0.35)] md:hidden"
+        >
           <Container>
-            <ul className="flex flex-col pb-6 pt-2">
+            <ul className="flex flex-col items-end pb-6 pt-2 text-right">
               {navItems.map((item) => (
                 <li key={item.label}>
                   <NavLink

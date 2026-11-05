@@ -25,10 +25,10 @@ export function Hero() {
       label: "Headline",
       node: (
         <h1 className="font-display font-medium">
-          <span className="block text-[clamp(2.4rem,4.7vw,5.75rem)] leading-[0.95] tracking-[-0.045em]">
+          <span className="block text-[clamp(2.4rem,13.2vw,3.4rem)] leading-[0.95] tracking-[-0.045em] md:text-[clamp(2.4rem,4.7vw,5.75rem)]">
             {profile.hookLead}
           </span>
-          <span className="mt-2 block text-[clamp(1.5rem,2.5vw,2.75rem)] leading-[1.05] tracking-[-0.03em] text-balance md:mt-3">
+          <span className="mt-2 block text-[clamp(1.5rem,7.6vw,2rem)] leading-[1.05] tracking-[-0.03em] text-balance md:mt-3 md:text-[clamp(1.5rem,2.5vw,2.75rem)]">
             {profile.hookRest}
           </span>
         </h1>
@@ -56,10 +56,11 @@ export function Hero() {
     {
       id: "proof",
       label: "Proof",
+      // Sized with the hero's width, like the photo, so it wraps the same on every screen.
       // Left out on phones, where the portrait stands on its own.
       phone: "max-md:hidden",
       node: (
-        <p className="max-w-[16rem] text-sm leading-snug md:max-w-none md:text-right">
+        <p className="max-w-[16rem] text-sm leading-snug md:max-w-none md:text-right md:text-[1cqw]">
           <span className="font-medium">{profile.proof.claim}</span>
           <span className="mt-1 block text-ink/70">{profile.proof.source}</span>
         </p>
