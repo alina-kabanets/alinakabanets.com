@@ -45,7 +45,7 @@ export function Hero() {
             alt={`${profile.name}, smiling, in round glasses and a camel coat on a London street`}
             placeholder="blur"
             priority
-            sizes="256px"
+            sizes="(min-width: 768px) 20vw, 112px"
             className="w-28 shrink-0 rounded-lg md:w-full"
           />
           {/* On phones the stack sits beside the portrait. */}
