@@ -3,8 +3,9 @@ import { profile } from "@/content/profile";
 
 export const ogSize = { width: 1200, height: 630 };
 
-// Shared link-preview card in the site's style: warm paper background, one
-// typeface, a thin rule and a small label row.
+// Shared link-preview card in the site's style: white background, one
+// typeface, a thin rule and a small label row. The bottom of the card stays
+// empty because X lays its own title label over the bottom-left corner.
 export function renderOgImage({ eyebrow, title }: { eyebrow: string; title: string }) {
   return new ImageResponse(
     (
@@ -15,7 +16,7 @@ export function renderOgImage({ eyebrow, title }: { eyebrow: string; title: stri
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: 64,
+          padding: "64px 64px 190px",
           background: "#ffffff",
           color: "#111111",
         }}
