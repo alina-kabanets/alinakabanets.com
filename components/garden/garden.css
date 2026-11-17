@@ -1,0 +1,372 @@
+/* The garden strip: full width, a fixed height the camera fits to. */
+.garden {
+  position: relative;
+  margin-top: 1rem;
+}
+
+.garden-canvas {
+  position: relative;
+  height: 500px;
+  touch-action: none;
+}
+@media (max-width: 767px) {
+  .garden-canvas {
+    height: 360px;
+  }
+  .garden-tray {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-left: 1rem;
+  }
+  .garden-form input {
+    width: 8.5rem;
+  }
+  .garden-crayons {
+    gap: 0.3rem;
+  }
+  .garden-crayon {
+    width: 11px;
+  }
+}
+
+/* The sky behind the garden follows the visitor's clock (see sky.tsx). The
+   band fades out at its top and bottom edges into the page. */
+.garden-canvas {
+  --garden-soil: #7a5a3f;
+}
+.garden-canvas[data-sky="dawn"] {
+  background: linear-gradient(#fbf3f2 0%, #fde9e2 60%, #fff1e8 100%);
+}
+.garden-canvas[data-sky="dusk"] {
+  background: linear-gradient(#fdf4ea 0%, #fde3cc 60%, #fbe9dc 100%);
+}
+.garden-canvas[data-sky="night"] {
+  --garden-soil: #b39272;
+  background: linear-gradient(#1b2136 0%, #252c48 70%, #2c3352 100%);
+}
+/* By day the garden sits straight on the page. When the sky has a colour,
+   it becomes a rounded window into the garden, lined up with the page's
+   margins so it has room to breathe. */
+.garden-canvas[data-sky="dawn"],
+.garden-canvas[data-sky="dusk"],
+.garden-canvas[data-sky="night"] {
+  --garden-inset: 1.25rem;
+  width: calc(100% - 2 * var(--garden-inset));
+  max-width: calc(1680px - 2 * var(--garden-inset));
+  margin: 1.5rem auto 0;
+  /* Small enough that tldraw's watermark, 8px in from the corner, is never clipped. */
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .garden-canvas[data-sky] {
+    --garden-inset: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .garden-canvas[data-sky] {
+    --garden-inset: 2.5rem;
+  }
+}
+.garden-canvas[data-sky="night"] .garden-plot-hint {
+  fill: #c9cbe0;
+}
+.garden-canvas[data-sky="night"] rect[stroke-dasharray] {
+  stroke: #ffffff40;
+}
+
+.garden-sky-art {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  width: min(44rem, 70%);
+  height: auto;
+  pointer-events: none;
+}
+.garden-canvas .tl-container {
+  position: relative;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .garden-star {
+    animation: garden-twinkle 3.6s ease-in-out infinite;
+  }
+}
+@keyframes garden-twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* tldraw's canvas sits on the page's own white, with no frame of its own. */
+.garden .tl-container {
+  --tl-color-background: transparent;
+  background: transparent;
+}
+.garden .tl-container:focus-within {
+  outline: none;
+}
+
+/* Thirsty plants lean and fade; watering perks them back up. */
+.garden-wilt {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition:
+    transform 1.4s cubic-bezier(0.3, 1.4, 0.5, 1),
+    opacity 1s ease,
+    filter 1s ease;
+}
+
+/* Water drops fall and fade. Without motion, they don't show at all. */
+.garden-drops path {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .garden-drops path {
+    animation: garden-drop 0.9s ease-in forwards;
+  }
+}
+@keyframes garden-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(46px);
+  }
+}
+
+/* While watering, the cursor is the watering can, its spout over the plant. */
+.garden-canvas[data-mode="water"] .tl-container,
+.garden-canvas[data-mode="water"] .tl-canvas {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='30' viewBox='0 0 30 25' fill='%23fdfaf3' stroke='%23111' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M14.2 10.4 C14.1 9.3 14.8 8.7 15.9 8.8 L25.4 8.6 C26.5 8.6 27.1 9.3 27 10.4 L26.1 22.3 C26 23.3 25.3 23.9 24.3 23.8 L16.4 23.9 C15.4 23.9 14.8 23.3 14.7 22.3 Z'/><path fill='none' d='M14.6 13.2 C18 13.6 22.5 13 26.7 13.4 M17.6 8.7 C17.2 3.6 24.6 3.1 24.8 8.6 M14.5 18.6 C11.5 16.4 9.2 13.9 6.8 11.1'/><path d='M3.6 9.6 C4.9 7.9 6.4 6.9 8.3 6.5 L9 10.3 C7.2 10.8 5.7 11.6 4.6 12.6 Z'/><path fill='none' stroke='%235b8fd6' d='M2.4 15.2 l-0.5 1.6 M5.2 15.9 l-0.5 1.6 M3.4 19 l-0.5 1.6'/></svg>") 4 12, pointer !important;
+}
+
+/* A watered plant's thank-you bubble pops up, waits, then fades. */
+.garden-bubble-text {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  fill: var(--color-ink);
+}
+.garden-bubble {
+  animation: garden-bubble 2.6s ease forwards;
+}
+@keyframes garden-bubble {
+  0% {
+    opacity: 0;
+  }
+  10%,
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .garden-bubble {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation-name: garden-bubble-pop;
+  }
+}
+@keyframes garden-bubble-pop {
+  0% {
+    opacity: 0;
+    scale: 0.6;
+  }
+  12% {
+    opacity: 1;
+    scale: 1.05;
+  }
+  18%,
+  75% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 1;
+  }
+}
+
+/* Plants sway gently from their base. */
+.garden-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .garden-sway {
+    animation: garden-sway 6s ease-in-out infinite;
+  }
+}
+@keyframes garden-sway {
+  0%,
+  100% {
+    transform: rotate(-1.2deg);
+  }
+  50% {
+    transform: rotate(1.4deg);
+  }
+}
+
+.garden-tag-name,
+.garden-tag-note,
+.garden-plot-hint {
+  font-family: var(--font-sans);
+}
+.garden-tag-name {
+  font-size: 11px;
+  fill: var(--color-ink);
+}
+.garden-tag-note {
+  font-size: 10px;
+  fill: var(--color-muted);
+}
+.garden-plot-hint {
+  font-size: 12px;
+  fill: var(--color-muted);
+}
+
+.garden-note {
+  margin: 1.125rem auto 0;
+  padding: 0 1.25rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+/* The tray: crayons and the main action, floating under the garden. */
+.garden-bar {
+  display: flex;
+  justify-content: center;
+  padding: 1.125rem 1.25rem 0;
+}
+.garden-tray {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: 2rem;
+  padding: 0.625rem 0.625rem 0.625rem 1.375rem;
+  box-shadow: 0 8px 30px -12px #0000002a;
+}
+/* Just buttons, no crayons: even padding all round. */
+.garden-tray[data-compact] {
+  padding: 0.625rem;
+}
+.garden-crayons {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  height: 2.25rem;
+}
+/* Each crayon: waxy body with a highlight down one side, a paper wrapper
+   with two printed lines, a sharpened tip, and a little grain on top. */
+.garden-crayon {
+  --crayon: #4f9a4a;
+  position: relative;
+  width: 13px;
+  border-radius: 2px 2px 3px 3px;
+  background:
+    linear-gradient(90deg, #ffffff59 0 2px, transparent 3px 65%, #00000026 100%),
+    var(--crayon);
+  transition: transform 0.15s ease;
+}
+/* The tip */
+.garden-crayon::before {
+  content: "";
+  position: absolute;
+  left: 1.5px;
+  right: 1.5px;
+  top: -8px;
+  height: 9px;
+  background:
+    linear-gradient(90deg, #ffffff4d 0 1.5px, transparent 2.5px 60%, #00000033 100%),
+    var(--crayon);
+  filter: brightness(0.92);
+  clip-path: polygon(40% 0, 60% 0, 100% 100%, 0 100%);
+}
+/* The paper wrapper, with grain over the whole crayon */
+.garden-crayon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(
+        transparent 22%,
+        #00000038 22% 25%,
+        transparent 25% 75%,
+        #00000038 75% 78%,
+        transparent 78%
+      )
+      0 0 / 100% 100% no-repeat,
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.6 1.05'/></filter><rect width='26' height='26' filter='url(%23g)'/></svg>");
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.garden-crayon:hover,
+.garden-crayon[aria-pressed="true"] {
+  transform: translateY(-5px);
+}
+.garden-crayon:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+.garden-primary,
+.garden-quiet {
+  border-radius: 999px;
+  padding: 0.7rem 1.2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.garden-primary {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.garden-quiet {
+  color: var(--color-ink);
+}
+.garden-quiet:hover:not(:disabled) {
+  background: var(--color-tint);
+}
+.garden-can {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.garden-primary:disabled,
+.garden-quiet:disabled {
+  opacity: 0.35;
+}
+
+.garden-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.6875rem;
+  color: var(--color-muted);
+}
+.garden-form input {
+  width: 10rem;
+  border-bottom: 1px solid var(--color-line);
+  padding: 0.25rem 0;
+  font-size: 0.9375rem;
+  color: var(--color-ink);
+  background: transparent;
+}
+.garden-form input:focus {
+  outline: none;
+  border-bottom-color: var(--color-ink);
+}

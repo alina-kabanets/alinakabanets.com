@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CopyEmail } from "@/components/copy-email";
+import { GardenStrip } from "@/components/garden/garden-strip";
 import { Hero } from "@/components/hero";
 import { ProjectCover } from "@/components/project-cover";
 import { Section } from "@/components/section";
 import { TextPortrait } from "@/components/text-portrait";
 import { WorkBrowser } from "@/components/work-browser";
+import { gardenTeaser } from "@/content/garden";
 import { about, principles, profile, testimonial } from "@/content/profile";
 import { projects } from "@/content/projects";
 import { siteUrl } from "@/lib/site";
@@ -82,6 +85,17 @@ export default function Home() {
             <span className="block text-muted">{testimonial.role}</span>
           </figcaption>
         </figure>
+      </Section>
+
+      <Section id="garden" label={gardenTeaser.label}>
+        <Link href="/garden" className="group block" data-umami-event="garden-open">
+          <p className="text-2xl leading-[1.15] tracking-[-0.02em] text-balance md:text-[2.5rem]">
+            {gardenTeaser.title}
+          </p>
+          <p className="mt-4 max-w-[34rem] text-base leading-relaxed text-muted">{gardenTeaser.body}</p>
+          <GardenStrip className="mt-8 w-full" />
+          <span className="link mt-6 inline-block text-lg group-hover:decoration-2">{gardenTeaser.link} →</span>
+        </Link>
       </Section>
 
       <Section id="contact" label="Contact">

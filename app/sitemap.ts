@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: "monthly" as const,
         priority: 0.8,
       })),
+    { url: `${siteUrl}/garden`, changeFrequency: "daily", priority: 0.5 },
     { url: `${siteUrl}/blog`, changeFrequency: "weekly", priority: 0.7 },
     ...getPosts()
       .filter((post) => !post.draft)
