@@ -45,15 +45,12 @@
 }
 .garden-canvas[data-sky="night"] {
   --garden-soil: #b39272;
+  /* The night sky softens into the page at its top and bottom. The fades
+     follow a smooth curve through pale blues (not grey), so no bands show. */
   background: linear-gradient(
-    #fff 0%,
-    #9ba0b0 5%,
-    #3a405a 10%,
-    #1b2136 16%,
-    #252c48 72%,
-    #2c3352 82%,
-    #6a7088 92%,
-    #fff 100%
+    oklch(1.000 0.000 270) 0.0%, oklch(0.998 0.003 270) 1.7%, oklch(0.982 0.007 270) 3.4%, oklch(0.948 0.012 270) 5.1%, oklch(0.891 0.017 270) 6.9%, oklch(0.814 0.022 270) 8.6%, oklch(0.722 0.028 270) 10.3%, oklch(0.623 0.034 270) 12.0%, oklch(0.523 0.039 270) 13.7%, oklch(0.431 0.043 270) 15.4%, oklch(0.354 0.045 270) 17.1%, oklch(0.297 0.046 270) 18.9%, oklch(0.263 0.045 270) 20.6%, oklch(0.247 0.043 270) 22.3%, oklch(0.245 0.040 270) 24.0%,
+    oklch(0.285 0.045 271) 50%,
+    oklch(0.320 0.050 272) 76.0%, oklch(0.322 0.053 272) 77.7%, oklch(0.336 0.055 272) 79.4%, oklch(0.367 0.055 272) 81.1%, oklch(0.418 0.054 272) 82.9%, oklch(0.488 0.050 272) 84.6%, oklch(0.570 0.045 272) 86.3%, oklch(0.660 0.039 272) 88.0%, oklch(0.750 0.032 272) 89.7%, oklch(0.832 0.025 272) 91.4%, oklch(0.902 0.018 272) 93.1%, oklch(0.953 0.012 272) 94.9%, oklch(0.984 0.007 272) 96.6%, oklch(0.998 0.003 272) 98.3%, oklch(1.000 0.000 272) 100.0%
   );
 }
 .garden-canvas[data-sky="dawn"],
