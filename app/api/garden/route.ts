@@ -1,3 +1,5 @@
+import { after } from "next/server";
+import { profile } from "@/content/profile";
 import { parseSubmission } from "@/lib/garden";
 import { addPlant, approvedPlants, overRateLimit, statuses, storeAvailable, wateredTimes } from "@/lib/garden-store";
 
@@ -53,5 +55,27 @@ export async function POST(request: Request) {
   if (!parsed.ok) return Response.json({ error: parsed.error }, { status: 400 });
 
   const plant = await addPlant({ name: parsed.name, note: parsed.note, strokes: parsed.strokes });
+
+  // Let Alina know there's a plant to review, once the visitor has their answer.
+  const origin = new URL(request.url).origin;
+  after(() => notify(plant.name, plant.note, `${origin}/garden/review`));
+
   return Response.json({ id: plant.id, createdAt: plant.createdAt }, { status: 201 });
+}
+
+// An email through Resend, the same way the /paper notepad sends notes.
+// Without RESEND_API_KEY (or if it fails), the plant still waits in the queue.
+async function notify(name: string, note: string, reviewUrl: string) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return;
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: "Garden <onboarding@resend.dev>",
+      to: [profile.email],
+      subject: `🌱 ${name} planted something in your garden`,
+      text: `${name} planted something${note ? `, with a note: “${note}”` : "."}\n\nIt’s waiting for you here:\n${reviewUrl}`,
+    }),
+  }).catch(() => {});
 }

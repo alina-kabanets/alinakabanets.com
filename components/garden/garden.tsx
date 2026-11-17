@@ -586,7 +586,7 @@ export default function Garden() {
       </div>
 
       <p className="garden-note" aria-live="polite">
-        {message ?? `${gardenPage.hint} · ${gardenPage.madeWith}`}
+        {message ?? gardenPage.hint}
         {shareId && message === gardenPage.sprouted && (
           <>
             {" "}

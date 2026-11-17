@@ -8,7 +8,6 @@ export const gardenPage = {
   intro:
     "Pick up a crayon and draw a plant. It grows here, next to everyone else’s, and gets a little marker with your name.",
   hint: "Hover or tap a plant to watch it grow · drag to wander",
-  madeWith: "made with tldraw",
   seedPlanted: "Your seed is planted. It sprouts for everyone once I’ve had a look, usually within a day.",
   sprouting: "sprouting soon",
   sprouted: "Your plant has sprouted. It’s in the garden for everyone now.",
