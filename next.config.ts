@@ -3,15 +3,17 @@ import type { NextConfig } from "next";
 const isDev = process.env.NODE_ENV === "development";
 
 // No nonces: every page is static, so the policy is set here instead of in a proxy.
-// Umami Cloud is the only third-party origin: the script loads from
-// cloud.umami.is and sends events to gateway.umami.is.
+// Third-party origins: Umami Cloud (the script loads from cloud.umami.is and
+// sends events to gateway.umami.is) and tldraw, whose licensed watermark on
+// /garden pings cdn.tldraw.com once per page load (page URL, licence ID,
+// version) as its licence asks.
 const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline' https://cloud.umami.is${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' blob: data:",
   "font-src 'self'",
-  "connect-src 'self' https://cloud.umami.is https://gateway.umami.is",
+  "connect-src 'self' https://cloud.umami.is https://gateway.umami.is https://cdn.tldraw.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

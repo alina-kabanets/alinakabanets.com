@@ -11,7 +11,7 @@ Personal portfolio of Alina Kabanets (Product Engineer). Next.js 16 App Router, 
 - **Motion must never gate content** and must respect `prefers-reduced-motion`.
 - **Analytics**: Umami via `data-umami-event` attributes (`case-study-open`, `cv-click`, `email-click`, `email-copy`, `linkedin-click`, `github-click`, `garden-open`, `garden-share`). Loads only when `UMAMI_WEBSITE_ID` is set and `VERCEL_ENV=production`.
 - **Security headers / CSP** live in `next.config.ts`. Any new third-party origin must be added to the CSP.
-- **tldraw** powers `/garden` (custom shapes and tools on `TldrawEditor`, no CDN assets). It needs `NEXT_PUBLIC_TLDRAW_LICENSE_KEY` (hobby licence, keep the "made with tldraw" watermark) to run in production.
+- **tldraw** powers `/garden` (custom shapes and tools on `TldrawEditor`, no CDN assets). It needs `NEXT_PUBLIC_TLDRAW_LICENSE_KEY` (hobby licence, keep the "made with tldraw" watermark) to run in production. The watermark pings `cdn.tldraw.com`, which is allowed in the CSP's `connect-src`.
 - **Case studies**: `draft: true` in `projects.ts` keeps a page noindexed and out of the sitemap. Template order: summary → problem → what I did → key moments → results → reflection → next project.
 
 ## Checks before pushing
