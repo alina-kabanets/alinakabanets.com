@@ -22,6 +22,7 @@ export const gardenTeaser = {
   title: "Leave something growing.",
   body: "Pick up a crayon, draw a plant and leave it here. It’ll grow next to everyone else’s, with your name on a little wooden marker. Water someone’s while you’re there.",
   link: "Plant something",
+  footerLink: "Garden 🌱",
 };
 
 // A single plant's page and preview card (/garden/p/<id>).
