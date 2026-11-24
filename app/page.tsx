@@ -142,9 +142,7 @@ export default function Home() {
         <p className="mt-10 text-sm leading-relaxed">
           {profile.openTo} · {profile.location}, {profile.workMode}
           <br />
-          <span className="text-muted">
-            {profile.availability}. {profile.rightToWork}.
-          </span>
+          <span className="text-muted">{profile.rightToWork}.</span>
         </p>
       </Section>
     </>
