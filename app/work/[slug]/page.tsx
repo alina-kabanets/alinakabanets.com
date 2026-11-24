@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/container";
-import { LiveLink } from "@/components/live-link";
+import { HeroLinks } from "@/components/hero-links";
 import { StackTags } from "@/components/stack-tags";
 import { ProjectCover } from "@/components/project-cover";
 import { caseStudies } from "@/content/case-studies";
@@ -66,7 +66,19 @@ export default async function CaseStudy({ params }: PageProps<"/work/[slug]">) {
             </h1>
             <p className="mt-5 max-w-[30rem] text-lg leading-snug text-balance md:text-xl">{project.headline}</p>
             <StackTags items={project.stack} className="mt-6" />
-            <LiveLink project={project} className="mt-6" />
+            {project.link && (
+              <HeroLinks
+                className="mt-6"
+                links={[
+                  {
+                    href: project.link.href,
+                    label: `Check it live · ${project.link.label}`,
+                    event: "live-site-click",
+                    data: { project: project.slug },
+                  },
+                ]}
+              />
+            )}
           </header>
           <div className="col-span-12 lg:col-span-8">
             <ProjectCover project={project} priority />
