@@ -23,6 +23,8 @@ const contentSecurityPolicy = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // 90 is for dense UI screenshots, where 75 smudges small text.
+  images: { qualities: [75, 90] },
   async headers() {
     return [
       {

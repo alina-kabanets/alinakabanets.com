@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { concepts } from "@/content/concepts";
 import { projects } from "@/content/projects";
 import { getPosts } from "@/lib/blog";
 import { siteUrl } from "@/lib/site";
@@ -12,6 +13,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${siteUrl}/work/${project.slug}`,
         changeFrequency: "monthly" as const,
         priority: 0.8,
+      })),
+    { url: `${siteUrl}/concepts`, changeFrequency: "monthly", priority: 0.7 },
+    ...concepts
+      .filter((concept) => !concept.draft)
+      .map((concept) => ({
+        url: `${siteUrl}/concepts/${concept.slug}`,
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
       })),
     { url: `${siteUrl}/garden`, changeFrequency: "daily", priority: 0.5 },
     { url: `${siteUrl}/blog`, changeFrequency: "weekly", priority: 0.7 },
