@@ -10,7 +10,7 @@ export type Concept = {
   stack: string[];
   tags: string[];
   thumb: { src: string; alt: string };
-  links: { demo?: string; repo?: string };
+  links: { demo?: string; repo?: string; deck?: string };
   // Unpublished concepts are reachable but hidden from search engines and the sitemap.
   draft: boolean;
 };
@@ -28,6 +28,7 @@ export const concepts: Concept[] = [
     links: {
       demo: "https://ledgerline-tawny-nu.vercel.app",
       repo: "https://github.com/alina-kabanets/ledgerline",
+      deck: "https://ledgerline-tawny-nu.vercel.app/design-process.html",
     },
     draft: false,
   },

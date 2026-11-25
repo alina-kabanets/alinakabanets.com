@@ -226,6 +226,7 @@ export default function LedgerlineConcept() {
               links={[
                 ...(links.demo ? [{ href: links.demo, label: "Try the live demo", event: "concept-demo-click", data: { concept: "ledgerline" } }] : []),
                 ...(links.repo ? [{ href: links.repo, label: "Code on GitHub", event: "concept-repo-click", data: { concept: "ledgerline" } }] : []),
+                ...(links.deck ? [{ href: links.deck, label: "Design process deck", event: "concept-deck-click", data: { concept: "ledgerline" } }] : []),
               ]}
             />
           </header>
@@ -415,8 +416,14 @@ export default function LedgerlineConcept() {
               )}
               {links.repo && (
                 <li>
-                  <OutLink href={links.repo} event="concept-repo-click">Code on GitHub</OutLink>: the build history, a code
-                  walkthrough and the full design-process deck.
+                  <OutLink href={links.repo} event="concept-repo-click">Code on GitHub</OutLink>: the build history and a
+                  code walkthrough.
+                </li>
+              )}
+              {links.deck && (
+                <li>
+                  <OutLink href={links.deck} event="concept-deck-click">Design process deck</OutLink>: all 22 slides, from
+                  sources to metrics.
                 </li>
               )}
             </ul>
