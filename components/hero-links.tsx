@@ -1,3 +1,5 @@
+import type { Project } from "@/content/projects";
+
 // Outbound links in a case study or concept hero: plain underlined text with
 // an arrow, the same everywhere. Each click is tracked as its own event.
 export type HeroLink = { href: string; label: string; event: string; data?: Record<string, string> };
@@ -21,4 +23,17 @@ export function HeroLinks({ links, className = "" }: { links: HeroLink[]; classN
       ))}
     </p>
   );
+}
+
+// A project's live site and code, where it has them, in the HeroLinks shape.
+export function projectLinks(project: Project): HeroLink[] {
+  const data = { project: project.slug };
+  return [
+    ...(project.link
+      ? [{ href: project.link.href, label: `Check it live · ${project.link.label}`, event: "live-site-click", data }]
+      : []),
+    ...(project.code
+      ? [{ href: project.code.href, label: `View the code · ${project.code.label}`, event: "code-click", data }]
+      : []),
+  ];
 }
