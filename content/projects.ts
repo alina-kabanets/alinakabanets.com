@@ -37,6 +37,8 @@ export type Project = {
   };
   // Landscape UI screenshot, cropped to the UI (no baked-in frame or corners).
   cover?: { src: string; alt: string; width: number; height: number };
+  /** A different picture for the home page card, when the hero isn't the best fit there. */
+  cardCover?: { src: string; alt: string; width: number; height: number };
   // Scene-by-scene product demo; replaces the static cover when present.
   // Phone screens should be full-length exports: the player scrolls them.
   demo?: { title: string; scenes: DemoScene[] };
@@ -83,6 +85,12 @@ export const projects: Project[] = [
       alt: "The Growth Analytics dashboard: four outcome tiles for revenue, sign-ups, paying customers and collaborating workspaces, each with a target and a status. A rebuild on invented data.",
       width: 4032,
       height: 1839,
+    },
+    cardCover: {
+      src: "/images/work/deaku/kpi/growth-analytics-card.png",
+      alt: "The Growth Analytics dashboard: tabs, the weekly update and four outcome tiles for revenue, sign-ups, paying customers and collaborating workspaces, each with a target and a status. A rebuild on invented data.",
+      width: 4032,
+      height: 2286,
     },
     // Publish only with the founders' permission: the demo must be on Vercel
     // and the repository made public before this branch is merged.

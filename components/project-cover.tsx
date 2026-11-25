@@ -6,7 +6,16 @@ import { LandingShowcase } from "./landing-showcase";
 
 // A live demo or before/after when the project has one, otherwise the
 // screenshot at full width with the same rounded corners and outline as the demo screens.
-export function ProjectCover({ project, priority = false }: { project: Project; priority?: boolean }) {
+export function ProjectCover({
+  project,
+  priority = false,
+  card = false,
+}: {
+  project: Project;
+  priority?: boolean;
+  /** On the home page card, prefer the card picture when the project has one. */
+  card?: boolean;
+}) {
   if (project.demo) {
     return <DemoPlayer title={project.demo.title} scenes={project.demo.scenes} />;
   }
@@ -19,13 +28,14 @@ export function ProjectCover({ project, priority = false }: { project: Project; 
     return <KpiTree />;
   }
 
-  if (project.cover) {
+  const cover = (card && project.cardCover) || project.cover;
+  if (cover) {
     return (
       <Image
-        src={project.cover.src}
-        alt={project.cover.alt}
-        width={project.cover.width}
-        height={project.cover.height}
+        src={cover.src}
+        alt={cover.alt}
+        width={cover.width}
+        height={cover.height}
         // The case study hero spans 8 of 12 columns; UI text needs the full-size
         // image and a higher quality to stay sharp.
         sizes="(min-width: 1024px) 66vw, 100vw"

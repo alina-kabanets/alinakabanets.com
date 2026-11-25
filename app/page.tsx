@@ -47,7 +47,7 @@ export default function Home() {
       <WorkBrowser
         projects={projects}
         covers={projects.map((project, index) => (
-          <ProjectCover key={project.slug} project={project} priority={index === 0} />
+          <ProjectCover key={project.slug} project={project} priority={index === 0} card />
         ))}
       />
 
