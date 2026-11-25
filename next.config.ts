@@ -25,6 +25,16 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   // 90 is for dense UI screenshots, where 75 smudges small text.
   images: { qualities: [75, 90] },
+  // Pages from my old portfolio (/portfolio/<project>, /react-carousel) are still linked and
+  // indexed. Send them to the current work instead of a 404; the permanent
+  // redirect also tells search engines to drop the old addresses.
+  async redirects() {
+    return [
+      { source: "/portfolio", destination: "/#work", permanent: true },
+      { source: "/portfolio/:path*", destination: "/#work", permanent: true },
+      { source: "/react-carousel", destination: "/#work", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {
