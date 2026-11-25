@@ -79,10 +79,10 @@ export const projects: Project[] = [
       ],
     },
     cover: {
-      src: "/images/work/deaku/kpi/growth-analytics-hero-v8.png",
+      src: "/images/work/deaku/kpi/growth-analytics-cover.png",
       alt: "The Growth Analytics dashboard: four outcome tiles for revenue, sign-ups, paying customers and collaborating workspaces, each with a target and a status. A rebuild on invented data.",
       width: 4032,
-      height: 2286,
+      height: 1839,
     },
     // Publish only with the founders' permission: the demo must be on Vercel
     // and the repository made public before this branch is merged.
