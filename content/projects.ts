@@ -44,13 +44,56 @@ export type Project = {
   diagram?: "kpi-tree";
   // Before/after of a page: a long static export vs screen recordings.
   showcase?: Showcase;
+  // A live demo app embedded in the case study (rebuilt on invented data).
+  liveDemo?: { href: string };
   link?: { href: string; label: string };
+  // The public repository, shown as "View the code".
+  code?: { href: string; label: string };
   // Drafts are reachable but hidden from search engines and the sitemap.
   draft: boolean;
 };
 
 // Order matters: the first project is the strongest and shows first.
 export const projects: Project[] = [
+  {
+    slug: "deaku-kpi-tree",
+    title: "The first metrics layer, from a revenue goal to design metrics",
+    company: "Deaku",
+    context: "AI-native creator workspace",
+    role: "Metric design, analysis + hypotheses",
+    year: "2026",
+    headline: "Nobody had defined what to measure between sign-up and payment. I built that layer",
+    stack: ["Next.js", "TypeScript", "Event tracking", "Claude Code agents"],
+    teaser: "The company’s first metrics layer, from revenue to design",
+    thumb: { src: "/images/work/deaku/kpi/kpi-tree.jpg", alt: "The KPI tree: from the revenue target, through three revenue lines, to one north-star metric" },
+    tags: ["KPI tree", "North-star metric", "Funnel analysis", "Hypotheses", "AI agents"],
+    summary: {
+      role: "Product engineer: metric design, data analysis, hypotheses, dashboard design and build",
+      team: "Two founders, founding technical lead, me",
+      timeline: "September 2026: the metrics · October–November: the dashboard, shipped in stages",
+      tools: ["Product event tracking", "Web analytics", "Claude Code research agent", "\nNext.js", "TypeScript"],
+      results: [
+        "A KPI tree from the revenue target down to design metrics, with one north-star metric",
+        "The first baseline of the funnel, showing where visitors and new users drop off",
+        "A dashboard the weekly review now runs from, instead of hand-pulled numbers",
+      ],
+    },
+    cover: {
+      src: "/images/work/deaku/kpi/growth-analytics-hero-v8.png",
+      alt: "The Growth Analytics dashboard: four outcome tiles for revenue, sign-ups, paying customers and collaborating workspaces, each with a target and a status. A rebuild on invented data.",
+      width: 4032,
+      height: 2286,
+    },
+    // Publish only with the founders' permission: the demo must be on Vercel
+    // and the repository made public before this branch is merged.
+    link: { href: "https://growth-dashboard-demo-two.vercel.app", label: "demo" },
+    code: { href: "https://github.com/alina-kabanets/growth-dashboard-demo", label: "GitHub" },
+    // In development the case study embeds the demo running locally on port 4311.
+    liveDemo: {
+      href: process.env.NODE_ENV === "development" ? "http://localhost:4311" : "https://growth-dashboard-demo-two.vercel.app",
+    },
+    draft: false,
+  },
   {
     slug: "deaku-landing-page",
     title: "From measuring the funnel to rebuilding the page",
@@ -207,32 +250,6 @@ export const projects: Project[] = [
       ],
     },
     link: { href: "https://borna.ai/", label: "borna.ai" },
-    draft: false,
-  },
-  {
-    slug: "deaku-kpi-tree",
-    title: "The first metrics layer, from a revenue goal to design metrics",
-    company: "Deaku",
-    context: "AI-native creator workspace",
-    role: "Metric design, analysis + hypotheses",
-    year: "2026",
-    headline: "Nobody had defined what to measure between sign-up and payment. I built that layer",
-    stack: ["Event tracking", "Analytics", "Claude Code agents"],
-    teaser: "The company’s first metrics layer, from revenue to design",
-    thumb: { src: "/images/work/deaku/kpi/kpi-tree.jpg", alt: "The KPI tree: from the revenue target, through three revenue lines, to one north-star metric" },
-    tags: ["KPI tree", "North-star metric", "Funnel analysis", "Hypotheses", "AI agents"],
-    summary: {
-      role: "Product engineer: metric design, data analysis, hypotheses, presentation",
-      team: "Two founders, founding technical lead, me",
-      timeline: "September 2026 · about three working days, spread over a month",
-      tools: ["Product event tracking", "Web analytics", "Claude Code research agent"],
-      results: [
-        "A KPI tree from the revenue target down to design metrics, with one north-star metric",
-        "The first baseline of the funnel, showing where visitors and new users drop off",
-        "Plan accepted: I now own the metrics, the tracking and the dashboard",
-      ],
-    },
-    diagram: "kpi-tree",
     draft: false,
   },
 ];

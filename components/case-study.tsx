@@ -34,9 +34,14 @@ export function Prose({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function Subheading({ children }: { children: React.ReactNode }) {
+// `centered` sits over a full-width figure instead of the text column.
+export function Subheading({ children, centered = false }: { children: React.ReactNode; centered?: boolean }) {
   return (
-    <h3 className="col-span-12 mt-6 -mb-6 text-lg font-medium tracking-[-0.01em] md:col-span-8 md:col-start-5 md:text-xl">
+    <h3
+      className={`col-span-12 mt-6 -mb-6 text-lg font-medium tracking-[-0.01em] md:text-xl ${
+        centered ? "text-center" : "md:col-span-8 md:col-start-5"
+      }`}
+    >
       {children}
     </h3>
   );
@@ -252,22 +257,22 @@ export function RuleCard({
   footer: string;
 }) {
   return (
-    <aside className="col-span-12 rounded-xl bg-ink p-6 text-paper md:p-10">
-      <p className="text-[11px] font-medium tracking-[0.12em] text-paper/75 uppercase">{title}</p>
+    <aside className="col-span-12 rounded-xl border border-ink/20 p-6 md:p-10">
+      <p className="text-[11px] font-medium tracking-[0.12em] text-muted uppercase">{title}</p>
       <p className="mt-4 max-w-[46rem] text-2xl leading-[1.2] tracking-[-0.02em] text-balance md:text-[2.25rem]">
         {statement}
       </p>
-      <p className="mt-10 text-[11px] font-medium tracking-[0.12em] text-paper/75 uppercase">{itemsTitle}</p>
+      <p className="mt-10 text-[11px] font-medium tracking-[0.12em] text-muted uppercase">{itemsTitle}</p>
       <ol className="mt-3 grid gap-3 md:grid-cols-3">
         {items.map((item, index) => (
-          <li key={item.name} className="rounded-lg border border-paper/30 bg-paper/[0.08] p-4">
-            <p className="text-3xl tracking-[-0.03em] text-paper/60">{index + 1}</p>
-            <p className="mt-3 text-base font-medium">{item.name}</p>
-            <p className="mt-1 text-sm leading-relaxed text-paper/80">{item.body}</p>
+          <li key={item.name} className="rounded-lg bg-tint p-4">
+            <p className="text-3xl tracking-[-0.03em] text-ink/40">{index + 1}</p>
+            <p className="mt-3 text-[15px] leading-snug font-medium">{item.name}</p>
+            <p className="mt-1 text-sm leading-relaxed text-muted">{item.body}</p>
           </li>
         ))}
       </ol>
-      <p className="mt-6 max-w-[46rem] border-t border-paper/25 pt-4 text-sm leading-relaxed text-paper/80">{footer}</p>
+      <p className="mt-6 max-w-[46rem] border-t border-ink/15 pt-4 text-sm leading-relaxed text-muted">{footer}</p>
     </aside>
   );
 }

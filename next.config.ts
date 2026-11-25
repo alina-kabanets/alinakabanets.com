@@ -6,7 +6,8 @@ const isDev = process.env.NODE_ENV === "development";
 // Third-party origins: Umami Cloud (the script loads from cloud.umami.is and
 // sends events to gateway.umami.is) and tldraw, whose licensed watermark on
 // /garden pings cdn.tldraw.com once per page load (page URL, licence ID,
-// version) as its licence asks.
+// version) as its licence asks. The KPI tree case study embeds the dashboard
+// demo, a separate app, in a frame.
 const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline' https://cloud.umami.is${isDev ? " 'unsafe-eval'" : ""}`,
@@ -14,6 +15,7 @@ const contentSecurityPolicy = [
   "img-src 'self' blob: data:",
   "font-src 'self'",
   "connect-src 'self' https://cloud.umami.is https://gateway.umami.is https://cdn.tldraw.com",
+  `frame-src https://growth-dashboard-demo-two.vercel.app${isDev ? " http://localhost:4311" : ""}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

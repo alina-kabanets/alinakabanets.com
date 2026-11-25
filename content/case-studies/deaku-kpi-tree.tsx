@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { CaseSection, DataTable, FigureGrid, Prose, Quote, RuleCard, Subheading, TeamMap } from "@/components/case-study";
 import metricsList from "@/public/images/work/deaku/kpi/metrics-list.jpg";
+import { DashboardDemo } from "@/components/dashboard-demo";
+import { DesignDecisions, HowItWorks } from "@/components/dashboard-diagrams";
+import { KpiTree } from "@/components/kpi-tree";
+import { HeroLinks, projectLinks } from "@/components/hero-links";
+import { getProject } from "@/content/projects";
 
 // Deaku's commercial figures are confidential. This write-up shows method and
 // ratios only: no revenue, runway, account counts, traffic volumes or vendors,
@@ -57,14 +62,14 @@ function Arrow({ className = "" }: { className?: string }) {
 function MetricFilter() {
   return (
     <figure className="col-span-12 md:col-span-8 md:col-start-5">
-      <p className="rounded-lg border border-ink px-4 py-3 text-center text-base md:text-lg">
+      <p className="rounded-xl bg-tint px-4 py-3 text-center text-base md:text-lg">
         <span className="text-muted">The test:</span> if this number moved, would we do anything differently?
       </p>
       <div aria-hidden className="mx-auto h-5 w-px bg-ink/40" />
 
       <ul className="grid gap-2 sm:grid-cols-3">
         {verdicts.map((group) => (
-          <li key={group.verdict} className="flex flex-col rounded-lg border border-ink/20 p-4">
+          <li key={group.verdict} className="flex flex-col rounded-xl border border-ink/20 p-4">
             <p className="text-[11px] font-medium tracking-[0.12em] text-muted uppercase">{group.verdict}</p>
             <ul className="mt-3 flex flex-wrap gap-1.5">
               {group.chips.map((chip) => (
@@ -73,7 +78,7 @@ function MetricFilter() {
                   className={`rounded-full px-2.5 py-1 text-sm ${
                     group.style === "dashed"
                       ? "border border-dashed border-ink/40"
-                      : "bg-tint text-ink/70 line-through decoration-ink/50"
+                      : "border border-ink/20 text-ink/60 line-through decoration-ink/50"
                   }`}
                 >
                   {chip}
@@ -86,16 +91,16 @@ function MetricFilter() {
       </ul>
 
       <div aria-hidden className="mx-auto h-5 w-px bg-ink/40" />
-      <div className="rounded-xl bg-ink p-5 text-paper md:p-7">
-        <p className="text-[11px] font-medium tracking-[0.12em] text-paper/75 uppercase">Kept</p>
+      <div className="rounded-xl border border-ink/20 p-5 md:p-7">
+        <p className="text-[11px] font-medium tracking-[0.12em] text-muted uppercase">Kept</p>
         <p className="mt-2 text-2xl leading-[1.15] tracking-[-0.02em] md:text-[2rem]">A six-step funnel</p>
         <ol className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6 xl:gap-x-6">
           {kept.map((step, index) => (
-            <li key={step} className="relative rounded-lg bg-paper px-3 py-3 text-ink">
+            <li key={step} className="relative rounded-lg bg-tint px-3 py-3">
               {index > 0 && (
-                <Arrow className="absolute top-1/2 -left-[1.15rem] hidden -translate-y-1/2 text-paper/70 xl:block" />
+                <Arrow className="absolute top-1/2 -left-[1.15rem] hidden -translate-y-1/2 text-ink/50 xl:block" />
               )}
-              <p className="text-2xl tracking-[-0.03em] text-ink/50">{index + 1}</p>
+              <p className="text-2xl tracking-[-0.03em] text-ink/40">{index + 1}</p>
               <p className="mt-2 text-[15px] leading-snug font-medium">{step}</p>
             </li>
           ))}
@@ -137,9 +142,9 @@ function DriverBreakdown() {
   return (
     <figure className="col-span-12 md:col-span-8 md:col-start-5">
       <p className={`${label} mb-2`}>Driver 2</p>
-      <p className="rounded-lg bg-ink px-4 py-3 text-center text-paper">
+      <p className="rounded-xl bg-tint px-4 py-3 text-center">
         <span className="text-base font-medium md:text-lg">Sign-up start</span>
-        <span className="block text-sm text-paper/80">4 in 100 visitors start sign-up</span>
+        <span className="block text-sm text-muted">4 in 100 visitors start sign-up</span>
       </p>
 
       {join("Design metrics", true)}
@@ -151,8 +156,8 @@ function DriverBreakdown() {
         />
         <ul className="grid gap-2 sm:grid-cols-3">
           {designMetrics.map((metric) => (
-            <li key={metric.name} className="relative flex flex-col rounded-lg border border-ink/20 p-4">
-              <p className="text-base font-medium">{metric.name}</p>
+            <li key={metric.name} className="relative flex flex-col rounded-xl border border-ink/20 p-4">
+              <p className="text-[15px] leading-snug font-medium">{metric.name}</p>
               <p className="mt-1 text-sm leading-snug text-muted">{metric.definition}</p>
               <p
                 className={`mt-4 self-start rounded-full px-2.5 py-1 text-[11px] font-medium ${
@@ -167,7 +172,7 @@ function DriverBreakdown() {
       </div>
 
       {join("What design can change")}
-      <ul className="flex flex-wrap justify-center gap-2 rounded-lg border border-ink/20 p-3">
+      <ul className="flex flex-wrap justify-center gap-2 rounded-xl border border-ink/20 p-3">
         {levers.map((lever) => (
           <li key={lever} className="rounded-full bg-tint px-3 py-1.5 text-sm">
             {lever}
@@ -257,7 +262,7 @@ export default function DeakuKpiTreeCaseStudy() {
         </Prose>
         <FigureGrid
           wide={false}
-          columns={2}
+          columns={3}
           images={[
             {
               src: metricsList,
@@ -316,6 +321,9 @@ export default function DeakuKpiTreeCaseStudy() {
             that week.
           </p>
         </Prose>
+        <div className="col-span-12 md:col-span-8 md:col-start-5">
+          <KpiTree />
+        </div>
       </CaseSection>
 
       <CaseSection label="03 · Measure" title="Getting the first numbers.">
@@ -392,24 +400,53 @@ export default function DeakuKpiTreeCaseStudy() {
         />
       </CaseSection>
 
-      <CaseSection label="Outcome" title="The plan was accepted, and the area became mine.">
+      <CaseSection label="07 · Track" title="Six numbers, one screen, every Monday.">
+        <Prose>
+          <p>
+            Once the tree was agreed, the numbers still lived in documents and spreadsheets. Each one was pulled by
+            hand from a different source, and two queries for the same metric could disagree depending on who ran
+            them. When the landing page or sign-up changed, nobody could say whether it had worked. A spike from a
+            webinar looked like a product win.
+          </p>
+          <p>
+            <strong>The goal was a Monday read:</strong> one screen the founders and the team open each week to see
+            where they stand against the plan, which driver to work on first, and whether last week’s changes moved
+            anything. I designed it and built it into the internal admin, shipping it in stages through October and
+            November.
+          </p>
+        </Prose>
+        <DashboardDemo href={getProject("deaku-kpi-tree")!.liveDemo!.href} />
+        <Subheading centered>Design decisions</Subheading>
+        <DesignDecisions />
+        <Subheading centered>How it works</Subheading>
+        <HowItWorks />
+      </CaseSection>
+
+      <CaseSection label="Outcome" title="The plan was accepted, and I built the screen it runs on.">
         <Prose>
           <ul>
             <li>
-              <strong>I own the metrics.</strong> I track the six numbers, add the missing tracking and am building
-              the dashboard for them.
+              <strong>I own the metrics.</strong> The founders accepted the plan, and the metrics, the tracking and
+              the dashboard became mine.
             </li>
             <li>
               <strong>The first fixes shipped.</strong> The landing page was rebuilt and instrumented, and the
               sign-up flow was rebuilt on my recommendations.
             </li>
             <li>
-              <strong>I track the six numbers weekly,</strong> against the company’s monthly targets. In the spring
-              we review the set itself and may choose different things to measure.
+              <strong>I designed and built the dashboard,</strong> shipped in four stages through October and
+              November, each through code review. The weekly review now runs from one screen instead of hand-pulled
+              numbers.
+            </li>
+            <li>
+              <strong>Changes are judged, not guessed.</strong> Landing page and sign-up changes are checked against
+              an agreed baseline, and outside events are marked on every chart, so a webinar spike no longer reads
+              as a product win.
             </li>
           </ul>
           <p>
-            I delivered it as a written document, a slide deck and a live walkthrough with the team.
+            I delivered the plan as a written document, a slide deck and a live walkthrough with the team, then
+            built the dashboard myself.
           </p>
         </Prose>
         <Quote name="Dr Oscar Ferguson" role="CEO & Co-Founder, Deaku">
@@ -427,11 +464,24 @@ export default function DeakuKpiTreeCaseStudy() {
               picture. I now ask for all of them at the start.
             </li>
             <li>
-              <strong>Next:</strong> finish the missing tracking, build the dashboard, and track the six numbers
-              every week against the monthly targets.
+              <strong>Write the rules down in code.</strong> A review found one revenue path counting services sold
+              with a deal as recurring revenue. Because the rule was code with tests, the mistake was visible and
+              the fix was one change: recurring revenue now counts software only.
+            </li>
+            <li>
+              <strong>Design with demo data first.</strong> Building every tab to run on example data meant the
+              design was reviewed before the live data was wired up. I’d start there again.
+            </li>
+            <li>
+              <strong>Next:</strong> in the spring we review the set itself, and may choose different things to
+              measure.
             </li>
           </ul>
         </Prose>
+        <HeroLinks
+          className="col-span-12 md:col-span-8 md:col-start-5"
+          links={projectLinks(getProject("deaku-kpi-tree")!)}
+        />
       </CaseSection>
     </>
   );

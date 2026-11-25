@@ -26,7 +26,10 @@ export function ProjectCover({ project, priority = false }: { project: Project; 
         alt={project.cover.alt}
         width={project.cover.width}
         height={project.cover.height}
-        sizes="(min-width: 768px) 50vw, 100vw"
+        // The case study hero spans 8 of 12 columns; UI text needs the full-size
+        // image and a higher quality to stay sharp.
+        sizes="(min-width: 1024px) 66vw, 100vw"
+        quality={90}
         className="h-auto w-full rounded-lg border border-ink/15"
         priority={priority}
       />

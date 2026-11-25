@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/container";
-import { HeroLinks } from "@/components/hero-links";
+import { HeroLinks, projectLinks } from "@/components/hero-links";
 import { StackTags } from "@/components/stack-tags";
 import { ProjectCover } from "@/components/project-cover";
 import { caseStudies } from "@/content/case-studies";
@@ -56,7 +56,7 @@ export default async function CaseStudy({ params }: PageProps<"/work/[slug]">) {
 
         {/* A shop window for whoever lands here from a link: the outcome and the
             stack on the left, the product itself on the right. */}
-        <div className="mt-8 grid grid-cols-12 gap-x-5 gap-y-10 md:mt-10">
+        <div className="mt-8 grid grid-cols-12 gap-x-5 gap-y-10 md:mt-10 lg:gap-x-16">
           <header className="col-span-12 lg:sticky lg:top-24 lg:col-span-4 lg:self-start">
             <p className="text-sm">
               Case study {String(index + 1).padStart(2, "0")} · {project.company}, {project.context}
@@ -66,19 +66,7 @@ export default async function CaseStudy({ params }: PageProps<"/work/[slug]">) {
             </h1>
             <p className="mt-5 max-w-[30rem] text-lg leading-snug text-balance md:text-xl">{project.headline}</p>
             <StackTags items={project.stack} className="mt-6" />
-            {project.link && (
-              <HeroLinks
-                className="mt-6"
-                links={[
-                  {
-                    href: project.link.href,
-                    label: `Check it live · ${project.link.label}`,
-                    event: "live-site-click",
-                    data: { project: project.slug },
-                  },
-                ]}
-              />
-            )}
+            <HeroLinks className="mt-6" links={projectLinks(project)} />
           </header>
           <div className="col-span-12 lg:col-span-8">
             <ProjectCover project={project} priority />
